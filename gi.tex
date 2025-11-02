@@ -37,6 +37,8 @@
 
 \def\X{\mathcal{X}}
 
+\DeclareMathOperator{\Sym}{Sym}
+
 % expected value
 \def\ExpVal{\E}
 
@@ -192,7 +194,7 @@
 	\textbf{Warning}: this diagram assumes $ \PH $ does not collapse (long-standing open question) and $ \GI \notin \P $ (open).
 \end{frame}
 
-\begin{frame}{Why is $ \GI $ $ \NP $-intermediate?}
+\begin{frame}{Why is $ \GI $ (very likely) $ \NP $-intermediate?}
 	Intuitively: \begin{itemize}
 		\item $ \NP $-complete problems have purely ``search'' flavor;
 		\item $ \GI $ is a problem of ``comparison'' flavor;
@@ -210,6 +212,36 @@
 	\begin{proof}
 		$ \NP $-hardness of $ \GI $ implies $ \coNP \subseteq \AM $ by above theorem. Since $ \AM \subseteq \Pi_2 \P $ we have $ \Sigma_2 \P = \Pi_2 \P $ and thus $ \PH = \Sigma_2 \P $.
 	\end{proof}
+\end{frame}
+
+\begin{frame}{High-level overview}
+	content...
+\end{frame}
+
+\begin{frame}{Strings}
+	% Fix some finite set $ \Omega $ and a finite alphabet $ \Sigma $.
+	
+	A string is a mapping $ u : \Omega \rightarrow \Sigma $ where $ \Omega, \Sigma $ are fixed finite sets.
+	
+	\textbf{Intuition}: Elements of $ \Omega $ are markers of positions, and values of $ u $ are characters at the corresponding positions.
+	
+	\begin{definition}[Permutation applied to a string]
+		For $ \sigma \in \Sym(\Omega) $, define string $ u^\sigma $ to be \begin{align*}
+			u^\sigma : \Omega &\rightarrow \Sigma \\
+			\omega &\mapsto u (\omega^{\sigma^{-1}})
+		\end{align*}
+	\end{definition}
+
+	\begin{example}
+		Let $ \Omega := \Sym(\{1, 2, 3\}) =: S_3 $ and $ \Sigma := \{a, b, c\} $. Then \[
+			abc^{()} = abc \qquad abc^{(1, 2, 3)} = cab \qquad abc^{(1, 3, 2)} = bca
+		\] where $ xyz \in \Sigma^3 $ denotes mapping $ 1 \mapsto x $, $ 2 \mapsto y $, $ 3 \mapsto z $.
+	\end{example}
+
+\end{frame}
+
+\begin{frame}{String Isomorphism Problem}
+	Fix a 
 \end{frame}
 	
 \end{document}
