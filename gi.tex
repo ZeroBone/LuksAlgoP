@@ -170,7 +170,7 @@
 			\draw[dashed, thick] (CL) -- (CR);
 			
 			% Region labels
-			\node[font=\bfseries, green!80!black, anchor=east] at (\npSubclassLabelOffset,\pYCoord) {P};
+			\node[font=\bfseries, OliveGreen!80!black, anchor=east] at (\npSubclassLabelOffset,\pYCoord) {P};
 			\node[font=\bfseries, anchor=east] at (\npSubclassLabelOffset,\npiYCoord) {NP-intermediate};
 			\node[font=\bfseries, red!80!black, anchor=east] at (\npSubclassLabelOffset,\npcYCoord) {NP-complete};
 			
@@ -192,13 +192,13 @@
 	\textbf{Warning}: this diagram assumes $ \PH $ does not collapse (long-standing open question) and $ \GI \notin \P $ (open).
 \end{frame}
 
-\begin{frame}{Why is $ \GI $ $ \NP $-indermediate?}
+\begin{frame}{Why is $ \GI $ $ \NP $-intermediate?}
 	Intuitively: \begin{itemize}
 		\item $ \NP $-complete problems have purely ``search'' flavor;
 		\item $ \GI $ is a problem of ``comparison'' flavor;
 	\end{itemize}
 
-	This can be rigorously captured as follows:
+	The ``comparison'' flavor of $ \GI $ can be rigorously captured as follows:
 	
 	\begin{theorem}
 		$ \overline{\GI} \in \AM $
