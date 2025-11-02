@@ -8,6 +8,7 @@
 \usepackage{mathrsfs}
 
 \usepackage{oubraces}
+\usepackage{array}
 
 \usepackage{tikz}
 \usetikzlibrary{calc, intersections, positioning}
@@ -55,12 +56,80 @@
 	
 \frame{\titlepage}
 
-\begin{frame}{Big picture: $ \P $, $ \NP $, and $ \NP $-intermediate problems}
+\begin{frame}{Graph Isomorphism}
+	
+	\textbf{Intuition}: Two graphs are called isomorphic whenever they are equal up to renaming of vertices.
+	
+	\begin{definition}
+		Undirected graphs \( G_1 = (V_1, E_1) \) and \( G_2 = (V_2, E_2) \) are called \textbf{isomorphic} (denoted $ G_1 \cong G_2 $) if there exists a bijection $ f : V_1 \to V_2 $ such that \[
+		\{u,v\} \in E_1 \iff \{f(u), f(v)\} \in E_2.
+		\]
+	\end{definition}
+
+\newcommand{\graphA}{%
+	\raisebox{-.5\height}{%
+		\begin{tikzpicture}[every node/.style={circle, draw, fill=gray!10, inner sep=1pt, minimum size=18pt}, scale=0.8]
+			\node (a1) at (0,0) {1};
+			\node (a2) at (1.2,0) {2};
+			\node (a3) at (1.2,1.2) {3};
+			\node (a4) at (0,1.2) {4};
+			\draw (a1)--(a2)--(a3)--(a4)--(a1);
+		\end{tikzpicture}%
+	}%
+}
+
+\newcommand{\graphB}{%
+	\raisebox{-.5\height}{%
+		\begin{tikzpicture}[every node/.style={circle, draw, fill=gray!10, inner sep=1pt, minimum size=18pt}, scale=0.8]
+			\node (b1) at (0,0) {a};
+			\node (b2) at (1.2,0) {b};
+			\node (b3) at (1.2,1.2) {c};
+			\node (b4) at (0,1.2) {d};
+			\draw (b1)--(b3);
+			\draw (b3)--(b4);
+			\draw (b4)--(b2);
+			\draw (b2)--(b1);
+		\end{tikzpicture}%
+	}%
+}
+
+\newcommand{\graphC}{%
+	\raisebox{-.5\height}{%
+		\begin{tikzpicture}[every node/.style={circle, draw, fill=gray!10, inner sep=1pt, minimum size=18pt}, scale=0.8]
+			\node (c1) at (0,0) {$ \alpha $};
+			\node (c2) at (1.2,0) {$ \beta $};
+			\node (c3) at (2.4,0) {$ \gamma $};
+			\node (c4) at (1.2,1.2) {$ \delta $};
+			\draw (c1)--(c2)--(c3);
+			\draw (c2)--(c4);
+		\end{tikzpicture}%
+	}%
+}
+
+\begin{example}
+	\begin{center}
+		\renewcommand{\arraystretch}{1.5} % row height
+		\begin{tabular}{c c c c c}
+			\graphA & $\vphantom{\graphA}\cong$ & \graphB & $\vphantom{\graphA}\not\cong$ & \graphC
+		\end{tabular}
+	\end{center}
+\end{example}
+\end{frame}
+
+\begin{frame}{The Graph Isomorphism Problem}
+	$ \GI $ is the following decision problem:
+	
+	\textbf{Given}: Undirected graphs $ G_1 $, $ G_2 $
+	
+	\textbf{Question}: $ G_1 \cong G_2 $?
+\end{frame}
+
+\begin{frame}{$ \GI $ has a very special status (for all we know)}
 	\begin{center}
 		\begin{tikzpicture}[scale=1.0, every node/.style={font=\large}]
 			% Parameters
-			\def\semiMajorAxis{5.5} % semi-major axis
-			\def\semiMinorAxis{3.5} % semi-minor axis
+			\def\semiMajorAxis{5.5}
+			\def\semiMinorAxis{3.5}
 			\def\npSubclassLabelOffset{-1.5}
 			\def\npSubclassExampleOffset{-1}
 			\def\pYCoord{-2.0}
@@ -110,7 +179,7 @@
 			
 		\end{tikzpicture}
 	\end{center}
-	\textbf{Warning}: this diagram assumes $ \PH $ does not collapse and $ \GI \notin \P $.
+	\textbf{Warning}: this diagram assumes $ \PH $ does not collapse (long-standing open question) and $ \GI \notin \P $ (open).
 \end{frame}
 	
 \end{document}
