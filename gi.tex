@@ -40,6 +40,7 @@
 
 \DeclareMathOperator{\Sym}{Sym}
 \DeclareMathOperator{\Iso}{Iso}
+\DeclareMathOperator{\ImageOf}{Im}
 
 % expected value
 \def\ExpVal{\E}
@@ -203,9 +204,9 @@
 	\end{proof}
 \end{frame}
 
-\begin{frame}{High-level overview}
-	content...
-\end{frame}
+%\begin{frame}{High-level overview}
+%	content...
+%\end{frame}
 
 \begin{frame}{Strings and permutations}
 	% Fix some finite set $ \Omega $ and a finite alphabet $ \Sigma $.
@@ -253,15 +254,17 @@
 
 \begin{frame}{$ \GI $ reduces to $ \SI $ efficiently}
 	\begin{theorem}
-		$ \GI \le_m^p \SI $ 
+		$ \GI \le_m^p \SI $
 	\end{theorem}
-	\textbf{Proof idea}: encode each graph into a string such that relabeling vertices corresponds to permuting characters of the string.
+	%\textbf{Proof idea}: encode each graph into a string such that relabeling vertices corresponds to permuting characters of the string.
 	\begin{proof}
-		W.l.o.g. assume that $ V_0 = V_1 = \{1, \dots, n\} $.
-		
-		Set $ \Omega := \{\{i, j\} \mid 1 \le i < j \le n\} $ and $ \Sigma := \{0, 1\} $.
-		
-		For $ b \in \{0, 1\} $ let $ u_b $ be a string defined by $ u_b(\{i, j\}) = 1 :\Leftrightarrow \{i, j\} \in E_b $.
+		W.l.o.g. assume $ V_0 = V_1 = \{1, \dots, n\} $. Set $ \Sigma := \{0, 1\} $ and $ \Omega := \{\{i, j\} \mid 1 \le i < j \le n\} $. For $ b \in \{0, 1\} $ let $ u_b $ be a string defined by \[
+			u_b(\{i, j\}) = 1 \iff \{i, j\} \in E_b
+		\] Then \[
+			G_0 \cong G_1 \iff u_0 \cong_{\ImageOf(\psi)} u_1
+		\] where $ \psi : S_n \rightarrow \Sym(\Omega) $ is the embedding homomorphism \[
+			\psi(\sigma) := \Big(\{i, j\} \mapsto \{\sigma(i), \sigma(j)\}\Big)
+		\] Therefore, $ \ImageOf(\psi) = \gen{\psi((1, 2)), \psi((1, \dots, n))} $ and the result follows.
 	\end{proof}
 \end{frame}
 
