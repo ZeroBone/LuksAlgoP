@@ -1,5 +1,5 @@
-% \documentclass[handout]{beamer}
-\documentclass{beamer}
+\documentclass[handout]{beamer}
+% \documentclass{beamer}
 \usepackage{lmodern}
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
@@ -119,9 +119,9 @@
 \end{example}
 
 \begin{definition}[Graph Isomorphism Problem ($ \GI $)]
-	\textbf{Given}: Undirected graphs $ G_1 $, $ G_2 $
+	\textbf{Given}: Undirected graphs $ G_0 $, $ G_1 $
 	
-	\textbf{Decide}: Is $ G_1 \cong G_2 $?
+	\textbf{Decide}: Is $ G_0 \cong G_1 $?
 \end{definition}
 \end{frame}
 
@@ -192,7 +192,7 @@
 	The ``comparison'' flavor of $ \GI $ can be rigorously captured as follows:
 	
 	\begin{theorem}
-		$ \overline{\GI} \in \AM $
+		$ \GI \in \coAM $
 	\end{theorem}
 
 	\begin{corollary}
@@ -245,10 +245,24 @@
 	\end{definition}
 
 	\begin{example}
-		Consider $ \Gamma := \gen{(1,\dots,n)} = A_n \trianglelefteq S_n = \Sym(\Omega) $ for $ \Omega := \{1, \dots, n\} $.
+		Consider $ \Gamma := \gen{(1,\dots,n)} \le S_n = \Sym(\Omega) $ for $ \Omega := \{1, \dots, n\} $.
 		
 		Then $ u \cong_\Gamma v $ if and only if $ u $ and $ v $ are conjugate words.
 	\end{example}
 \end{frame}
-	
+
+\begin{frame}{$ \GI $ reduces to $ \SI $ efficiently}
+	\begin{theorem}
+		$ \GI \le_m^p \SI $ 
+	\end{theorem}
+	\textbf{Proof idea}: encode each graph into a string such that relabeling vertices corresponds to permuting characters of the string.
+	\begin{proof}
+		W.l.o.g. assume that $ G_0 $ and $ G_1 $ have vertex sets $ \{1, \dots, n\} $.
+		
+		Set $ \Omega := \{\{i, j\} \mid 1 \le i < j \le n\} $ and $ \Sigma := \{0, 1\} $.
+		
+		For $ b \in \{0, 1\} $ let $ u_b $ be a string defined by $ u_b(\{i, j\}) $.
+	\end{proof}
+\end{frame}
+
 \end{document}
