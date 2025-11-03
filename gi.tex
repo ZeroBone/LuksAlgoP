@@ -64,8 +64,8 @@
 	% \textbf{Intuition}: Two graphs are called isomorphic whenever they are equal up to renaming of vertices.
 	
 	\begin{definition}[Graph isomorphism]
-		Undirected graphs \( G_1 = (V_1, E_1) \) and \( G_2 = (V_2, E_2) \) are called \textbf{isomorphic} (denoted $ G_1 \cong G_2 $) if there exists a bijection $ f : V_1 \to V_2 $ such that \[
-		\{u,v\} \in E_1 \iff \{f(u), f(v)\} \in E_2.
+		Undirected graphs \( G_0 = (V_0, E_0) \) and \( G_1 = (V_1, E_1) \) are called \textbf{isomorphic} (denoted $ G_0 \cong G_1 $) if there exists a bijection $ \sigma : V_0 \to V_1 $ such that \[
+		\{u,v\} \in E_0 \iff \{\sigma(u), \sigma(v)\} \in E_1
 		\]
 	\end{definition}
 
@@ -119,7 +119,7 @@
 \end{example}
 
 \begin{definition}[Graph Isomorphism Problem ($ \GI $)]
-	\textbf{Given}: Undirected graphs $ G_0 $, $ G_1 $
+	\textbf{Given}: Undirected graphs $ G_0 = (V_0, E_0) $, $ G_1 = (V_1, E_1) $
 	
 	\textbf{Decide}: Is $ G_0 \cong G_1 $?
 \end{definition}
@@ -257,11 +257,11 @@
 	\end{theorem}
 	\textbf{Proof idea}: encode each graph into a string such that relabeling vertices corresponds to permuting characters of the string.
 	\begin{proof}
-		W.l.o.g. assume that $ G_0 $ and $ G_1 $ have vertex sets $ \{1, \dots, n\} $.
+		W.l.o.g. assume that $ V_0 = V_1 = \{1, \dots, n\} $.
 		
 		Set $ \Omega := \{\{i, j\} \mid 1 \le i < j \le n\} $ and $ \Sigma := \{0, 1\} $.
 		
-		For $ b \in \{0, 1\} $ let $ u_b $ be a string defined by $ u_b(\{i, j\}) $.
+		For $ b \in \{0, 1\} $ let $ u_b $ be a string defined by $ u_b(\{i, j\}) = 1 :\Leftrightarrow \{i, j\} \in E_b $.
 	\end{proof}
 \end{frame}
 
