@@ -1,5 +1,5 @@
-% \documentclass[handout]{beamer}
-\documentclass{beamer}
+\documentclass[handout]{beamer}
+%\documentclass{beamer}
 \usepackage{lmodern}
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
@@ -136,7 +136,7 @@
 			% Region labels
 			\node[font=\bfseries, OliveGreenZB!80!black, anchor=east] at (\npSubclassLabelOffset,\pYCoord) {P};
 			\node[font=\bfseries, anchor=east] at (\npSubclassLabelOffset,\npiYCoord) {NP-intermediate};
-			\node[font=\bfseries, red!80!black, anchor=east] at (\npSubclassLabelOffset,\npcYCoord) {NP-complete};
+			\node[font=\bfseries, DarkRedZB, anchor=east] at (\npSubclassLabelOffset,\npcYCoord) {NP-complete};
 			
 			% Example problems (directly inside regions)
 			% NPC
@@ -346,13 +346,64 @@
 			
 		\end{tikzpicture}
 	\end{center}}
-	\only<3|handout:3>{\begin{center}
+	\only<3|handout:3>{This solution shows the existence of the isomorphism\begin{center}
 			\renewcommand{\arraystretch}{1.5} % row height
 			\begin{tabular}{c c c}
-				$ G_0 $ && $ G_1 $\\
-				\giToSiReductionGraphZero & $\overset{?}{\cong}$ & \giToSiReductionGraphOne
+				\giToSiReductionGraphZero & \begin{tikzpicture}[thick]
+					\draw[->] (0,0) --node[midway, above]{$ \sigma := \textcolor{LightBlueZB}{(2, 4)}\textcolor{OliveGreenZB}{(1, 3)} $} (4,0);
+				\end{tikzpicture} & \giToSiReductionGraphOne
 			\end{tabular}
 	\end{center}}
+\end{frame}
+
+\begin{frame}{Without constraints on $ \SI $ we don't have soundness}
+	\textbf{\textcolor{DarkRedZB}{Problem}}: this $ \SI $ instance also has the following solution:\begin{center}
+		\begin{tikzpicture}[thick]
+			
+			% labels
+			\node (l12) {$\{1,2\}$};
+			\node[right=.5em of l12] (l13) {$\{1,3\}$};
+			\node[right=.5em of l13] (l14) {$\{1,4\}$};
+			\node[right=.5em of l14] (l23) {$\{2,3\}$};
+			\node[right=.5em of l23] (l24) {$\{2,4\}$};
+			\node[right=.5em of l24] (l34) {$\{3,4\}$};
+			
+			% u_0
+			\node[below=.5em of l12] (u0at12) {$ 1 $};
+			\node[below=.5em of l13] (u0at13) {$ 1 $};
+			\node[below=.5em of l14] (u0at14) {$ 0 $};
+			\node[below=.5em of l23] (u0at23) {$ 1 $};
+			\node[below=.5em of l24] (u0at24) {$ 0 $};
+			\node[below=.5em of l34] (u0at34) {$ 1 $};
+			
+			\node[left=2em of u0at12] {$ u_0 $};
+			
+			% u_1
+			\node[below=3em of u0at12] (u1at12) {$ 1 $};
+			\node[below=3em of u0at13] (u1at13) {$ 1 $};
+			\node[below=3em of u0at14] (u1at14) {$ 1 $};
+			\node[below=3em of u0at23] (u1at23) {$ 0 $};
+			\node[below=3em of u0at24] (u1at24) {$ 0 $};
+			\node[below=3em of u0at34] (u1at34) {$ 1 $};
+			
+			\node[left=2em of u1at12] {$ u_1 $};
+			
+			% edges from u_0 to u_1
+			\draw[->, MagentaZB] (u0at12.south) -- (u1at12.north);
+			\draw[->, MagentaZB] (u0at13.south) -- (u1at13.north);
+			\draw[->, MagentaZB] (u0at14.south) -- (u1at23.north);
+			\draw[->, MagentaZB] (u0at23.south) -- (u1at14.north);
+			\draw[->, MagentaZB] (u0at24.south) -- (u1at24.north);
+			\draw[->, MagentaZB] (u0at34.south) -- (u1at34.north);
+			
+		\end{tikzpicture}
+	\end{center}\begin{itemize}
+		\item This solution does not correspond to any graph isomorphism
+		\item $ \rightsquigarrow $ The reduction is complete but not sound!
+	\end{itemize}
+
+	\textbf{\textcolor{OliveGreenZB}{Solution}}: Make the group $ \Gamma $ contain exactly those permutations that encode valid graph isomorphisms.
+
 \end{frame}
 
 %\textbf{Proof idea}: encode each graph into a string such that relabeling vertices corresponds to permuting characters of the string.
