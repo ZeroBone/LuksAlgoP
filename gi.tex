@@ -22,7 +22,7 @@
 \usetheme{Madrid}
 \usecolortheme{default}
 
-\title[On the graph isomorphism problem]{On the graph isomorphism problem}
+\title[On the Graph Isomorphism problem]{On the Graph Isomorphism problem}
 \author{Alexander Mayorov}
 \institute[MPI-INF]{Max-Planck Institute for Informatics}
 
@@ -402,7 +402,7 @@
 		\item $ \rightsquigarrow $ The reduction is complete but not sound!
 	\end{itemize}
 
-	\textbf{\textcolor{OliveGreenZB}{Solution}}: Make the group $ \Gamma $ contain exactly those permutations that encode valid graph isomorphisms.
+	\textbf{\textcolor{OliveGreenZB}{Solution}}: Define $ \Gamma $ to contain exactly those permutations that encode valid graph isomorphisms.
 
 \end{frame}
 
@@ -423,6 +423,33 @@
 % This is a yes-instance to the string isomorphism problem because \[
 %u_1 = u_0^{\psi((1,3)(2,4))}
 %\] Indeed, $ (1,3)(2,4) \in S_4 $ is the relabeling that makes $ G_0 $ equal $ G_1 $.
+\end{frame}
+
+\begin{frame}{Transitive groups}
+	content...
+\end{frame}
+
+\begin{frame}{Groups and their composition factors}
+	\vspace{-5pt}\begin{definition}
+		Let $ \Gamma $ be a finite group. A \textit{subnormal series} of $ \Gamma $ is a sequence \[
+		\{\id\} \trianglelefteq \Gamma_1 \trianglelefteq \Gamma_2 \trianglelefteq \dots \trianglelefteq \Gamma_k = \Gamma
+		\] where $ \Gamma_1, \dots, \Gamma_k $ are groups. A subnormal series is a \textit{composition series} of $ \Gamma $ if it is strictly increasing and every $ \Gamma_i/\Gamma_{i-1} $ is simple (factor groups $ \Gamma_i/\Gamma_{i-1} $ are called \textit{composition factors}).
+	\end{definition}
+	\vspace{-5pt}\begin{proposition}
+		Every finite group can be decomposed uniquely into its composition factors.
+	\end{proposition}
+	\vspace{-5pt}\begin{example}
+		The composition series of $ S_n $ is $ \{\id\} \trianglelefteq A_n \trianglelefteq S_n $. Thus, $ S_n $ can be decomposed as $ S_n \cong (\Z/2\Z) \times A_n $.
+	\end{example}
+\end{frame}
+
+\begin{frame}{$ \widehat{\Gamma}_d $-groups}
+	
+	
+	
+	\begin{definition}[Luks]
+		For $ d \ge 2 $ define $ \widehat{\Gamma}_d $ to be the class of all groups $ \Gamma $ such that every composition factor of $ \Gamma $ is isomorphic to a subgroup of $ S_d $.
+	\end{definition}
 \end{frame}
 
 \end{document}
