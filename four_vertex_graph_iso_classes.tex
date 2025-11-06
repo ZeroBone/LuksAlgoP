@@ -32,12 +32,12 @@
 		\end{scope}
 		
 		% one edge + one diagonal
-		\begin{scope}[shift={(0,-2)}]
+		\begin{scope}[shift={(2,-2)}]
 			\orbitGraphCoords
 			\draw (A)--(C);
 		\end{scope}
 		
-		\begin{scope}[shift={(2,-2)}]
+		\begin{scope}[shift={(4,-2)}]
 			\orbitGraphCoords
 			\draw (B)--(D);
 		\end{scope}
@@ -178,5 +178,190 @@
 		\begin{scope}[shift={(0,0)}]
 			\orbitGraphCoords
 			\draw (A)--(B) (A)--(C) (A)--(D) (B)--(C) (B)--(D) (C)--(D);
+		\end{scope}
+\end{tikzpicture}}
+
+\newcommand{\orbitSix}{\begin{tikzpicture}[scale=0.25, line cap=round, line width=1pt]
+		% adjacent edges
+		\begin{scope}[shift={(0,0)}]
+			\orbitGraphCoords
+			\draw (A)--(D)--(B)--(A);
+		\end{scope}
+		
+		\begin{scope}[shift={(2,0)}]
+			\orbitGraphCoords
+			\draw (A)--(B)--(C)--(A);
+		\end{scope}
+		
+		\begin{scope}[shift={(4,0)}]
+			\orbitGraphCoords
+			\draw (B)--(C)--(D)--(B);
+		\end{scope}
+		
+		\begin{scope}[shift={(6,0)}]
+			\orbitGraphCoords
+			\draw (A)--(C)--(D)--(A);
+		\end{scope}
+\end{tikzpicture}}
+
+\newcommand{\orbitSeven}{\begin{tikzpicture}[scale=0.25, line cap=round, line width=1pt]
+		% adjacent edges
+		\begin{scope}[shift={(0,0)}]
+			\orbitGraphCoords
+			\draw (A)--(B)--(C)--(D)--(A);
+		\end{scope}
+		
+		\begin{scope}[shift={(2,0)}]
+			\orbitGraphCoords
+			\draw (A)--(C)--(D)--(B)--(A);
+		\end{scope}
+		
+		\begin{scope}[shift={(4,0)}]
+			\orbitGraphCoords
+			\draw (A)--(D)--(B)--(C)--(A);
+		\end{scope}
+\end{tikzpicture}}
+
+\newcommand{\orbitEight}{\begin{tikzpicture}[scale=0.25, line cap=round, line width=1pt]
+		% row 1
+		\begin{scope}[shift={(0,0)}]
+			\orbitGraphCoords
+			\draw (A)--(B)--(C)--(A);
+			\draw (A)--(D)--(B);
+		\end{scope}
+		
+		\begin{scope}[shift={(2,0)}]
+			\orbitGraphCoords
+			\draw (D)--(A)--(B)--(D);
+			\draw (D)--(C)--(A);
+		\end{scope}
+		
+		\begin{scope}[shift={(4,0)}]
+			\orbitGraphCoords
+			\draw (D)--(C)--(B)--(D);
+			\draw (D)--(A)--(C);
+		\end{scope}
+		
+		\begin{scope}[shift={(6,0)}]
+			\orbitGraphCoords
+			\draw (D)--(C)--(B)--(D);
+			\draw (C)--(A)--(B);
+		\end{scope}
+		
+		% row 2
+		\begin{scope}[shift={(2,-2)}]
+			\orbitGraphCoords
+			\draw (A)--(B)--(C)--(D)--(A) (D)--(B);
+		\end{scope}
+		
+		\begin{scope}[shift={(4,-2)}]
+			\orbitGraphCoords
+			\draw (A)--(B)--(C)--(D)--(A) (A)--(C);
+		\end{scope}
+\end{tikzpicture}}
+
+\newcommand{\orbitNine}{\begin{tikzpicture}[scale=0.25, line cap=round, line width=1pt]
+		% row 1
+		\begin{scope}[shift={(0,0)}]
+			\orbitGraphCoords
+			\draw (B)--(A)--(D)--(C)--(A);
+		\end{scope}
+		
+		\begin{scope}[shift={(2,0)}]
+			\orbitGraphCoords
+			\draw (C)--(B)--(A)--(D)--(B);
+		\end{scope}
+		
+		\begin{scope}[shift={(4,0)}]
+			\orbitGraphCoords
+			\draw (D)--(C)--(B)--(A)--(C);
+		\end{scope}
+		
+		\begin{scope}[shift={(6,0)}]
+			\orbitGraphCoords
+			\draw (A)--(D)--(C)--(B)--(D);
+		\end{scope}
+		
+		% row 2
+		\begin{scope}[shift={(0,-2)}]
+			\orbitGraphCoords
+			\draw (A)--(B)--(C)--(D)--(B);
+		\end{scope}
+		
+		\begin{scope}[shift={(2,-2)}]
+			\orbitGraphCoords
+			\draw (B)--(C)--(D)--(A)--(C);
+		\end{scope}
+		
+		\begin{scope}[shift={(4,-2)}]
+			\orbitGraphCoords
+			\draw (C)--(D)--(A)--(B)--(D);
+		\end{scope}
+		
+		\begin{scope}[shift={(6,-2)}]
+			\orbitGraphCoords
+			\draw (D)--(A)--(B)--(C)--(A);
+		\end{scope}
+		
+		% row 3
+		\begin{scope}[shift={(0,-4)}]
+			\orbitGraphCoords
+			\draw (A)--(C) (C)--(B)--(D)--(C);
+		\end{scope}
+		
+		\begin{scope}[shift={(2,-4)}]
+			\orbitGraphCoords
+			\draw (B)--(D) (D)--(C)--(A)--(D);
+		\end{scope}
+		
+		\begin{scope}[shift={(4,-4)}]
+			\orbitGraphCoords
+			\draw (C)--(A) (A)--(D)--(B)--(A);
+		\end{scope}
+		
+		\begin{scope}[shift={(6,-4)}]
+			\orbitGraphCoords
+			\draw (D)--(B) (B)--(C)--(A)--(B);
+		\end{scope}
+\end{tikzpicture}}
+
+\newcommand{\orbitTen}{\begin{tikzpicture}[scale=0.25, line cap=round, line width=1pt]
+		% adjacent edges
+		\begin{scope}[shift={(0,0)}]
+			\orbitGraphCoords
+			\draw (A)--(D) (B)--(C);
+		\end{scope}
+		
+		\begin{scope}[shift={(2,0)}]
+			\orbitGraphCoords
+			\draw (D)--(C) (A)--(B);
+		\end{scope}
+		
+		\begin{scope}[shift={(4,0)}]
+			\orbitGraphCoords
+			\draw (A)--(C) (B)--(D);
+		\end{scope}
+\end{tikzpicture}}
+
+\newcommand{\orbitEleven}{\begin{tikzpicture}[scale=0.25, line cap=round, line width=1pt]
+		% adjacent edges
+		\begin{scope}[shift={(0,0)}]
+			\orbitGraphCoords
+			\draw (A)--(B) (A)--(D) (A)--(C);
+		\end{scope}
+		
+		\begin{scope}[shift={(2,0)}]
+			\orbitGraphCoords
+			\draw (B)--(A) (B)--(C) (B)--(D);
+		\end{scope}
+		
+		\begin{scope}[shift={(4,0)}]
+			\orbitGraphCoords
+			\draw (C)--(A) (C)--(B) (C)--(D);
+		\end{scope}
+		
+		\begin{scope}[shift={(6,0)}]
+			\orbitGraphCoords
+			\draw (D)--(A) (D)--(B) (D)--(C);
 		\end{scope}
 \end{tikzpicture}}
