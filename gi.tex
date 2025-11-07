@@ -403,7 +403,7 @@
 		\item $ \rightsquigarrow $ The reduction is complete but not sound!
 	\end{itemize}
 
-	\textbf{\textcolor{OliveGreenZB}{Solution}}: Define $ \Gamma $ to contain exactly those permutations that encode valid graph isomorphisms.
+	\pause\textbf{\textcolor{OliveGreenZB}{Solution}}: Define $ \Gamma $ to contain exactly those permutations that encode valid graph isomorphisms.
 
 \end{frame}
 
@@ -551,7 +551,7 @@
 			\hline\orbitSeven&$ \gen{r,(1\,3)} $&$ \{\id\} \trianglelefteq \gen{r^2} \trianglelefteq \gen{r} \trianglelefteq \gen{r,(1\,3)} $&$ \Z_2, \Z_2, \Z_2 $
 		\end{tabular}
 	\end{center}\begin{itemize}
-		\item Here, $ r := (1\,2\,3\,4) $ is the rotation permutation
+		\item Here, $ r := (1\,2\,3\,4) \in S_4 $ is the rotation permutation
 		\item \textbf{Note}: All composition factors are bounded by $ 2 $
 	\end{itemize}\pause
 	\textcolor{MagentaZB}{\textbf{Key fact}}: This is not a coincidence: \begin{theorem}[Luks]
@@ -570,12 +570,12 @@
 \end{frame}
 
 \begin{frame}{Luks's algorithm -- high level overview}
-	\textbf{General idea}: Recursively split the strings $ u $, $ v $ of the $ \SI $ instance according to the structure of the group action.
+	\textbf{General idea}: Recursively split the strings $ u $, $ v $ of the $ \SI $ instance according to the structure of $ \Aut(G) $.
 	
 	\begin{enumerate}
 		\item Compute the orbits of $ \Gamma $'s action on $ \Omega $
 		\item If the action is trivial, return $ u \cong_\Gamma v $ iff $ u = v $
-		\item If $ u $ and $ v $ disagree on some orbit, then return $ u \not\cong_\Gamma v $
+		% \item If $ u $ and $ v $ disagree on some orbit, then return $ u \not\cong_\Gamma v $
 		\item If the action is not transitive\footnote{Transitivity means that $ \Gamma $'s action is capable of moving any element of $ \Sym(\Omega) $ to any other element (formally: $ \alpha^\Gamma = \Omega\ \forall \alpha \in \Omega $)} on $ \Omega $:\begin{itemize}
 			\item Solve $ \SI $ recursively for all orbits
 			\item Return $ u \cong_\Gamma v $ iff all recursive calls give a solution
@@ -586,7 +586,7 @@
 	\end{enumerate}
 \end{frame}
 
-\begin{frame}
+\begin{frame}{Visualization for the non-transitive case}
 	\begin{center}
 		\begin{tikzpicture}
 			\coordinate (blockwidth) at (9, 0);
@@ -630,12 +630,25 @@
 			\draw [decorate, decoration = {brace, raise=5pt, amplitude=5pt, mirror}] (utl) -- (ubl) node[pos=0.5,left=10pt,black]{$ u $};
 			\draw [decorate, decoration = {brace, raise=5pt, amplitude=5pt, mirror}] (vtl) -- (vbl) node[pos=0.5,left=10pt,black]{$ v $};
 			
-			\draw [decorate, decoration = {brace, raise=5pt, amplitude=5pt}] (utl) -- (uomega1sept) node[pos=0.5,above=10pt,black]{$ \Omega_1 $};
-			\draw [decorate, decoration = {brace, raise=5pt, amplitude=5pt}] (uomega1sept) -- (uomega2sept) node[pos=0.5,above=10pt,black]{$ \Omega_2 $};
-			\draw [decorate, decoration = {brace, raise=5pt, amplitude=5pt}] (uomegam1sept) -- (utr) node[pos=0.5,above=10pt,black]{$ \Omega_s $};
+			\draw [decorate, decoration = {brace, raise=5pt, amplitude=5pt}] (utl) -- (uomega1sept) node[pos=0.5,above=10pt,black]{Orbit 1};
+			\draw [decorate, decoration = {brace, raise=5pt, amplitude=5pt}] (uomega1sept) -- (uomega2sept) node[pos=0.5,above=10pt,black]{Orbit 2};
+			\draw [decorate, decoration = {brace, raise=5pt, amplitude=5pt}] (uomegam1sept) -- (utr) node[pos=0.5,above=10pt,black]{Orbit $ s $};
 			
 			\draw ($ (uomega2sepb)!0.5!(uomegam1sept) $) node {$ \dots $};
 			\draw ($ (vomega2sepb)!0.5!(vomegam1sept) $) node {$ \dots $};
+			
+			\coordinate (redarr1start) at ($ (vbl)!0.5!(vomega1sepb) $);
+			\coordinate (redarr2start) at ($ (vomega1sepb)!0.5!(vomega2sepb) $);
+			\coordinate (redarrm1start) at ($ (vomegam1sepb)!0.5!(vbr) $);
+			
+			\node [below=1 of redarr1start] (rec1) {Recursive call 1};
+			\node [below=1.5 of redarr2start] (rec2) {Recursive call 2};
+			\node [below=1 of redarrm1start] (recm1) {Recursive call $ s $};
+			
+			% reductions
+			\draw[->, thick, LightBlueZB] (redarr1start) -- (rec1);
+			\draw[->, thick, LightBlueZB] (redarr2start) -- (rec2);
+			\draw[->, thick, LightBlueZB] (redarrm1start) -- (recm1);
 		\end{tikzpicture}
 	\end{center}
 \end{frame}
