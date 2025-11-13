@@ -215,8 +215,8 @@
 			\draw[->, LightBlueZB] (gi) --node[midway, right]{reduce} (si);
 			\draw[->, LightBlueZB] (si) --node[midway, right]{solve} (algo);
 			
-			\draw [decorate, decoration = {brace, raise=5pt, amplitude=5pt, mirror}] (gi.west) -- (si.west) node[pos=0.5,left=10pt,black]{\blocktext{Encode graphs into strings, introduce group}};
-			\draw [decorate, decoration = {brace, raise=5pt, amplitude=5pt}] (si.east) -- (algo.east) node[pos=0.5,right=10pt,black]{\blocktext{Use group-theoretic machinery}};
+			\draw [decorate, decoration = {brace, raise=5pt, amplitude=5pt, mirror}] (gi.north west) -- (si.south west) node[pos=0.5,left=10pt,black]{\blocktext{Encode graphs into strings, introduce group}};
+			\draw [decorate, decoration = {brace, raise=5pt, amplitude=5pt}] (si.north east) -- (algo.south east) node[pos=0.5,right=10pt,black]{\blocktext{Use group-theoretic machinery}};
 		\end{tikzpicture}
 	\end{center}
 \end{frame}
@@ -427,6 +427,18 @@
 %\] Indeed, $ (1,3)(2,4) \in S_4 $ is the relabeling that makes $ G_0 $ equal $ G_1 $.
 \end{frame}
 
+\begin{frame}{$ \GI $ for bounded-degree graphs}
+	From this point we: \begin{itemize}
+		\item assume that the input graphs to $ \GI $ have maximum degree $ \le d $
+		\item study the complexity of $ \GI $ in this setting
+	\end{itemize}
+	
+	General idea: \begin{itemize}
+		\item Find some structure in $ \Aut(G) $ for bounded-degree graphs
+		\item Exploit this structure to obtain a fast algorithm
+	\end{itemize}
+\end{frame}
+
 \begin{frame}{Groups and their composition factors}
 	\vspace{-5pt}\begin{definition}
 		Let $ \Gamma $ be a finite group. A \textit{subnormal series} of $ \Gamma $ is a sequence \[
@@ -439,6 +451,35 @@
 	\vspace{-5pt}\begin{example}
 		The composition series of $ S_n $ is $ \{\id\} \trianglelefteq A_n \trianglelefteq S_n $. Thus, $ S_n $ can be decomposed as $ S_n \cong \Z_2 \rtimes A_n $.
 	\end{example}
+\end{frame}
+
+\begin{frame}{$ \Gamma_d $-groups}
+	\begin{definition}[Luks]
+		A finite group $ G $ is a $ \Gamma_d $-group (notation: $ G \in \Gamma_d $) if every composition factor of $ G $ is isomorphic to some subgroup of $ S_d $.
+	\end{definition}
+
+	\begin{lemma}
+		Let $ G $ be finite group and $ N \trianglelefteq G $. Then \[
+			G \in \Gamma_d \iff N \in \Gamma_d \text{ and } G/N \in \Gamma_d
+		\]
+	\end{lemma}
+\end{frame}
+
+\begin{frame}{$ \GI $ for bounded-degree graphs}
+	
+	\begin{itemize}
+		\item It would be nice if $ \Aut(G) \in \Gamma_d $ was true for graphs $ G $ of maximum degree $ \le d $
+		\item Unfortunately, this is not the case:
+	\end{itemize}
+	\begin{theorem}[Frucht]
+		For any finite group $ \Gamma $ there exists a 3-regular graph $ G $ such that $ \Aut(G) \cong \Gamma $
+	\end{theorem}
+	\begin{itemize}
+		\item Fortunately, we can circumvent the problem by fixing a vertex $ v $ and considering $ \Aut(G, v) := \{\sigma \in \Aut(G) \mid \sigma(v) = v\} \le \Aut(G) $.
+	\end{itemize}
+	\begin{theorem}[Luks]
+		Let $ d \ge 2 $. For any graph $ G $ of maximum degree at most $ d $ and $ v \in V(G) $ it holds that $ \Aut(G, v) \in \Gamma_d $.
+	\end{theorem}
 \end{frame}
 
 \begin{frame}{Graphs of bounded degree -- example}
@@ -454,9 +495,7 @@
 		\item Here, $ r := (1\,2\,3\,4) \in S_4 $ is the rotation permutation
 		\item \textbf{Note}: All composition factors are bounded by $ 2 $
 	\end{itemize}\pause
-	\textcolor{MagentaZB}{\textbf{Key fact}}: This is not a coincidence: \begin{theorem}[Luks]
-		Let $ d \ge 2 $. For any finite graph $ G $ of maximum degree at most $ d $ and $ v \in V(G) $, all composition factors of $ \Aut(G, v) $ are subgroups of $ S_d $.
-	\end{theorem}
+	\textcolor{MagentaZB}{\textbf{Key fact}}: This is not a coincidence:
 \end{frame}
 
 \begin{frame}{Solving $ \GI$ for bounded-degree graphs}
