@@ -495,6 +495,8 @@
 			\textbf{edges}:
 			
 			$ \{w_1, w_2\} \in G $ such that $ d_G(v, w_1) \le i - 1 $ and $ d_G(v, w_2) \le i $
+			
+			\vspace{5pt}Note that $ \exists i\ R_i = G $
 		\end{column}
 	\end{columns}
 \end{frame}
@@ -526,7 +528,7 @@
 				\item Let $ W $ be nodes of $ R_i $ that are not in $ R_{i-1} $
 				\item $ W $ is an independent set in $ R_i $
 				% \item $ \rightsquigarrow $ Agreeing on $ N(w) $ is an equivalence relation
-				\item $ \rightsquigarrow $ If $ \sigma(w_1) = w_2 $ for some $ \sigma \in \KernelOf(\varphi_i) $ then $ w_1, w_2 \in W $ and $ N(w_1) = N(w_2) $
+				\item $ \rightsquigarrow $ If $ \sigma(w_1) = w_2 $ for some $ \sigma \in \KernelOf(\varphi_i) $ then $ w_1, w_2 \in W $ and $ N_{R_i}(w_1) = N_{R_i}(w_2) $
 				\pause
 				\item Since every node has degree $ \le d $, every $ w \in W $ can agree with $ \le d $ other $ w' \in W $ on the neighborhood
 				\item $ \rightsquigarrow \KernelOf(\varphi_i) $ is isomorphic to a subgroup of $ S_d^m $
@@ -536,10 +538,21 @@
 	\end{columns}
 \end{frame}
 
-\begin{frame}{Solving $ \GI$ for bounded-degree graphs}
-	By combining this result with the idea of the reduction $ \GI \le_m^p \SI $ that we proved earlier, alongside other insights, one can show: \begin{theorem}[Babai, Luks]
+\begin{frame}{Making Luks's theorem even stronger}
+	
+	Using a similar level-driven approach we can get a better reduction for the bounded-degree case:
+	
+	\begin{theorem}[Babai, Luks]
 		There is a polynomial-time Turing reduction from $ \GI $ for graphs of maximum degree $ d $ to $ \SI $ for a group $ \Gamma \in \Gamma_d $.
 	\end{theorem}
+\end{frame}
+
+\begin{frame}{Proof of Babai-Luks theorem}
+	content...
+\end{frame}
+
+\begin{frame}{Solving $ \GI$ for bounded-degree graphs}
+	By combining this result with the idea of the reduction $ \GI \le_m^p \SI $ that we proved earlier, alongside other insights, one can show: 
 
 	Building upon this result (and numerous other ones), Luks has proved: \begin{theorem}[Luks]
 		$ \GI $ for graphs of maximum degree $ d $ can be solved in time $ n^{O(d)} $.
