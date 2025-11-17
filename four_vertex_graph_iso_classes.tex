@@ -1,8 +1,10 @@
 \def\orbitGraphCoords{\coordinate (A) at (0,0);\coordinate (B) at (1,0);\coordinate (C) at (1,1);\coordinate (D) at (0,1);}
+\def\highlightGraph{\fill[yellow!75, rounded corners=2] ($ (A)-(0.5,0.5) $) rectangle ($ (C)+(0.5,0.5) $);}
 
 \newcommand{\orbitOne}{\begin{tikzpicture}[scale=0.25, line cap=round, line width=1pt]
 		\begin{scope}[shift={(0,0)}]
 			\orbitGraphCoords
+			\highlightGraph
 			\filldraw (A) circle (1pt);
 			\filldraw (B) circle (1pt);
 			\filldraw (C) circle (1pt);
@@ -13,6 +15,7 @@
 \newcommand{\orbitTwo}{\begin{tikzpicture}[scale=0.25, line cap=round, line width=1pt]
 		\begin{scope}[shift={(0,0)}]
 			\orbitGraphCoords
+			\highlightGraph
 			\draw (A)--(B) (A)--(C) (A)--(D) (B)--(C) (B)--(D) (C)--(D);
 		\end{scope}
 \end{tikzpicture}}
@@ -21,6 +24,7 @@
 		% row 1
 		\begin{scope}[shift={(0,0)}]
 			\orbitGraphCoords
+			\highlightGraph
 			\draw (A)--(B)--(C);
 		\end{scope}
 		
@@ -88,6 +92,7 @@
 		% row 1
 		\begin{scope}[shift={(0,0)}]
 			\orbitGraphCoords
+			\highlightGraph
 			\draw (B)--(D) (D)--(C)--(A)--(D);
 		\end{scope}
 	
@@ -154,6 +159,7 @@
 		% adjacent edges
 		\begin{scope}[shift={(0,0)}]
 			\orbitGraphCoords
+			\highlightGraph
 			\draw (A)--(B)--(C)--(D)--(A);
 		\end{scope}
 		
@@ -172,6 +178,7 @@
 		% cross
 		\begin{scope}[shift={(0,0)}]
 			\orbitGraphCoords
+			\highlightGraph
 			\draw (A)--(C) (B)--(D);
 		\end{scope}
 		% adjacent edges
@@ -190,6 +197,7 @@
 		% cups
 		\begin{scope}[shift={(0,0)}]
 			\orbitGraphCoords
+			\highlightGraph
 			\draw (D)--(A)--(B)--(C);
 		\end{scope}
 		
@@ -254,6 +262,7 @@
 \newcommand{\orbitEight}{\begin{tikzpicture}[scale=0.25, line cap=round, line width=1pt, MagentaZB]
 		\begin{scope}[shift={(0,0)}]
 			\orbitGraphCoords
+			\highlightGraph
 			\draw (A)--(C)--(D)--(A);
 		\end{scope}
 	
@@ -276,6 +285,7 @@
 \newcommand{\orbitNine}{\begin{tikzpicture}[scale=0.25, line cap=round, line width=1pt, MagentaZB]
 		\begin{scope}[shift={(0,0)}]
 			\orbitGraphCoords
+			\highlightGraph
 			\draw (B)--(A) (B)--(C) (B)--(D);
 		\end{scope}
 	
@@ -298,6 +308,7 @@
 \newcommand{\orbitTen}{\begin{tikzpicture}[scale=0.25, line cap=round, line width=1pt, DarkRedZB]
 		\begin{scope}[shift={(0,0)}]
 			\orbitGraphCoords
+			\highlightGraph
 			\draw (A)--(D);
 		\end{scope}
 		
@@ -332,6 +343,7 @@
 		% row 1
 		\begin{scope}[shift={(0,0)}]
 			\orbitGraphCoords
+			\highlightGraph
 			\draw (B)--(C)--(D)--(B);
 			\draw (C)--(A)--(B);
 		\end{scope}

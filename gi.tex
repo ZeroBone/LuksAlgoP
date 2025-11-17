@@ -23,7 +23,7 @@
 \usetheme{Madrid}
 \usecolortheme{default}
 
-\title[On the Graph Isomorphism problem]{On the Graph Isomorphism problem}
+\title[Luks's algorithm for Graph Isomorphism]{Luks's algorithm for the Graph Isomorphism problem}
 \author{Alexander Mayorov}
 \institute[MPI-INF]{Max-Planck Institute for Informatics}
 
@@ -170,38 +170,51 @@
 \input{four_vertex_graph_iso_classes}
 
 \begin{frame}{Automorphism groups as stabilizers}
-	\textbf{More generally}: $ \Aut(G) $ is isomorphic to the stabilizer of $ G $ in the vertex renaming operation of $ S_n $ on the set of all graphs with vertices $ \{1, \dots, n\} $.
+	\textbf{Observation}: $ \Aut(G) $ is the stabilizer of $ G $ in the vertex renaming operation of $ \Sym(V(G)) $ on the set of all graphs with vertices $ V(G) $.
 	
-	\textbf{Visualization for $ n = 4 $}:\begin{center}
+	\textbf{Visualization for $ V(G) = \{1,2,3,4\} $}:\begin{center}
 		\setlength{\extrarowheight}{3pt}
 		\begin{columns}
 			\begin{column}{0.4\textwidth}
 				\begin{tabular}{>{\centering\arraybackslash}m{2cm} >{\centering\arraybackslash}m{2.5cm}}
 					Orbit&Stabilizer\\
-					\hline\orbitOne&$ S_4 $\\
-					\hline\orbitTwo&$ S_4 $\\
-					\hline\vspace{5pt}\orbitThree&$ \gen{(1\,3)} $\\
-					\hline\vspace{5pt}\orbitFour&$ \gen{(1\,3)} $\\
-					\hline\orbitFive&$ \gen{(1\,2\,3\,4),(1\,3)} $\\
-					\hline\orbitSix&$ \gen{(1\,2\,3\,4),(1\,3)} $
+					\hline\vspace{1pt}\orbitOne&$ S_4 $\\
+					\hline\vspace{1pt}\orbitTwo&$ S_4 $\\
+					\hline\vspace{1pt}\orbitThree&$ \gen{(1\,3)} $\\
+					\hline\vspace{1pt}\orbitFour&$ \gen{(1\,3)} $\\
+					\hline\vspace{1pt}\orbitFive&$ \gen{(1\,2\,3\,4),(1\,3)} $\\
+					\hline\vspace{1pt}\orbitSix&$ \gen{(1\,2\,3\,4),(1\,3)} $
 				\end{tabular}
 			\end{column}
 			\begin{column}{0.4\textwidth}
 				\begin{tabular}{>{\centering\arraybackslash}m{2cm} >{\centering\arraybackslash}m{2.5cm}}
 					Orbit&Stabilizer\\
-					\hline\vspace{5pt}\orbitSeven&$ \gen{(1\,4)(2\,3)} $\\
-					\hline\orbitEight&$ S_3 $\\
-					\hline\orbitNine&$ S_3 $\\
-					\hline\vspace{5pt}\orbitTen&$ \gen{(1\,2),(3\,4)} $\\
-					\hline\vspace{5pt}\orbitEleven&$ \gen{(1\,2),(3\,4)} $
+					\hline\vspace{1pt}\orbitSeven&$ \gen{(1\,4)(2\,3)} $\\
+					\hline\vspace{1pt}\orbitEight&$ S_3 $\\
+					\hline\vspace{1pt}\orbitNine&$ S_3 $\\
+					\hline\vspace{1pt}\orbitTen&$ \gen{(1\,2),(3\,4)} $\\
+					\hline\vspace{1pt}\orbitEleven&$ \gen{(1\,2),(3\,4)} $
 				\end{tabular}
 			\end{column}
 		\end{columns}
 	\end{center}
 \end{frame}
 
+\begin{frame}{Solutions to $ \GI $ are unions of cosets}
+	\begin{itemize}
+		\item Let $ \cdot $ denote the the vertex renaming operation of $ \Sym(V(G)) $ on the set of all graphs with vertices $ V(G) $
+		\item jj
+	\end{itemize}
+	\begin{align*}
+		\{G_1 \mid G_1 \cong G_0\} &= S_n \cdot G_0 \\
+		&= S_n \cdot (\Stab(G_0) \cdot G_0) \\
+		&= (S_n \circ \Stab(G_0)) \cdot G_0 \\
+		&= (S_n \circ \Aut(G_0)) \cdot G_0
+	\end{align*}
+\end{frame}
+
 \begin{frame}{High-level overview}
-	We will show how to solve $ \GI $ via an intermediate problem:
+	We will show how to solve (a fragment of) $ \GI $ via an intermediate problem:
 	\begin{center}
 		\begin{tikzpicture}[thick]
 			% problems
