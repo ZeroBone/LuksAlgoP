@@ -200,15 +200,15 @@
 	\end{center}
 \end{frame}
 
-\begin{frame}{Solutions to $ \GI $ are unions of cosets}
+\begin{frame}{Solutions to $ \GI $ are cosets}
 	\begin{itemize}
 		\item Let $ \cdot $ denote the the vertex renaming operation of $ \Sym(V(G)) $ on the set of all graphs with vertices $ V(G) $
-		\item jj
+		\item TODO
 	\end{itemize}
 	\begin{align*}
 		\{G_1 \mid G_1 \cong G_0\} &= S_n \cdot G_0 \\
 		&= S_n \cdot (\Stab(G_0) \cdot G_0) \\
-		&= (S_n \circ \Stab(G_0)) \cdot G_0 \\
+		&= S_n \cdot (\Aut(G_0) \cdot G_0) \\
 		&= (S_n \circ \Aut(G_0)) \cdot G_0
 	\end{align*}
 \end{frame}
@@ -534,7 +534,7 @@
 		\begin{column}{0.35\textwidth}
 			\input{uks_autgammad_thm_proof_im1toi}
 		\end{column}
-		\begin{column}{0.65\textwidth}  %%<--- here
+		\begin{column}{0.65\textwidth}
 			\textbf{To show}: $ \KernelOf(\varphi_i) \in \Gamma_d $
 			\begin{itemize}
 				\item $ \KernelOf(\varphi_i) $ consists of exactly those $ \sigma \in \Aut(R_i, v) $ such that $ \sigma(u) = u\ \forall u \in V(R_{i-1}) $.
@@ -545,23 +545,32 @@
 				\pause
 				\item Since every node has degree $ \le d $, every $ w \in W $ can agree with $ \le d $ other $ w' \in W $ on the neighborhood
 				\item $ \rightsquigarrow \KernelOf(\varphi_i) $ is isomorphic to a subgroup of $ S_d^m $
-				\item Since $ \Gamma_d $ is closed under taking subgroups and $ S_d^m \in \Gamma_d $, the result follows.
+				\item Since $ S_d^m \in \Gamma_d $ and $ \Gamma_d $ is closed under taking subgroups, the result follows.
 			\end{itemize}
 		\end{column}
 	\end{columns}
 \end{frame}
 
-\begin{frame}{Making Luks's theorem even stronger}
+\begin{frame}{Effectivizing Luks's theorem}
 	
-	Using a similar level-driven approach we can get a better reduction for the bounded-degree case:
+	The level-driven construction in the proof of Luks's theorem can be turned into an algorithm for $ \GI $:
 	
 	\begin{theorem}[Babai, Luks]
-		There is a polynomial-time Turing reduction from $ \GI $ for graphs of maximum degree $ d $ to $ \SI $ for a group $ \Gamma \in \Gamma_d $.
+		There is a polynomial-time Turing reduction from $ \GI $ for graphs of maximum degree $ d $ to $ \SI $ for $ \Gamma_d $-groups.
 	\end{theorem}
 \end{frame}
 
 \begin{frame}{Proof of Babai-Luks theorem}
-	content...
+	\begin{columns}
+		\begin{column}{0.35\textwidth}
+			\input{babai_luks_reduction_proof}
+		\end{column}
+		\begin{column}{0.65\textwidth}
+			\begin{itemize}
+				\item W.l.o.g. assume that $ G_0 $ and $ G_1 $ are both connected
+			\end{itemize}
+		\end{column}
+	\end{columns}
 \end{frame}
 
 \begin{frame}{Solving $ \GI$ for bounded-degree graphs}
