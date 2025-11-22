@@ -200,7 +200,7 @@
 		\begin{columns}
 			\begin{column}{0.4\textwidth}
 				\begin{tabular}{>{\centering\arraybackslash}m{2cm} >{\centering\arraybackslash}m{2.5cm}}
-					Orbit&Stabilizer\\
+					Orbit&Stabilizer of \textcolor{yellow!90!black}{$ G $}\\
 					\hline\vspace{1pt}\orbitOne&$ S_4 $\\
 					\hline\vspace{1pt}\orbitTwo&$ S_4 $\\
 					\hline\vspace{1pt}\orbitThree&$ \gen{(1\,3)} $\\
@@ -211,7 +211,7 @@
 			\end{column}
 			\begin{column}{0.4\textwidth}
 				\begin{tabular}{>{\centering\arraybackslash}m{2cm} >{\centering\arraybackslash}m{2.5cm}}
-					Orbit&Stabilizer\\
+					Orbit&Stabilizer of \textcolor{yellow!90!black}{$ G $}\\
 					\hline\vspace{1pt}\orbitSeven&$ \gen{(1\,4)(2\,3)} $\\
 					\hline\vspace{1pt}\orbitEight&$ S_3 $\\
 					\hline\vspace{1pt}\orbitNine&$ S_3 $\\
@@ -489,7 +489,7 @@
 		Every finite group can be decomposed uniquely into its composition factors.
 	\end{theorem}
 	\vspace{-5pt}\begin{example}
-		The composition series of $ S_n $ is $ \{\id\} \trianglelefteq A_n \trianglelefteq S_n $. Thus, $ S_n $ can be decomposed as $ S_n \cong \Z_2 \rtimes A_n $.
+		The composition series of $ S_n $ is $ \{\id\} \trianglelefteq A_n \trianglelefteq S_n $. It corresponds to the decomposition $ S_n \cong \Z_2 \rtimes A_n $.
 	\end{example}
 \end{frame}
 
@@ -651,7 +651,7 @@
 	\end{center}
 \end{frame}
 
-\begin{frame}{Some subsets of $ \Omega $ behave nicely}
+\begin{frame}{Some subsets of $ \Omega $ only permute or translate}
 	\textbf{Observation}: for any $ \gamma \in \Gamma $ we have
 	\begin{center}
 		\begin{tikzpicture}[scale=1, thick]
@@ -920,6 +920,7 @@
 \begin{frame}{Primitive actions and groups}
 	\begin{itemize}
 		\item A block $ \Delta $ (and $ \Delta $'s block system) is called \textit{minimal} if there is no non-trivial block $ \Delta' \supseteq \Delta $
+		\item Running example: $ \{\textcolor{red!80}{\{1,4\}},\textcolor{OliveGreenZB!80}{\{2,5\}},\textcolor{blue!80}{\{3,6\}}\} $ and $ \{\textcolor{red!80}{\{2,4,6\}},\textcolor{blue!80}{\{1,3,5\}}\} $ are minimal but $ \{\{1\}, \{2\}, \{3\}, \{4\}, \{5\}, \{6\}\} $ is not
 		\item An action $ \cdot : \Gamma \times \Omega \rightarrow \Omega $ of $ \Gamma $ on $ \Omega $ is called \textit{primitive} if it is transitive and has no non-trivial blocks
 		\item A group $ \Gamma \le \Sym(\Omega) $ is called \textit{primitive} if the natural action of $ \Gamma $ on $ \Omega $ (namely $ \gamma \cdot \omega := \gamma(\omega) $) is primitive
 	\end{itemize}
