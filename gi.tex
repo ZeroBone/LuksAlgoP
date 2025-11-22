@@ -978,13 +978,12 @@
 					\item Let $ \cdot : \Gamma \times \Omega \rightarrow \Omega $ be an action of group $ \Gamma $ on a set $ \Omega $
 					\item Let $ \{\gamma \cdot \Delta \mid \gamma \in \Gamma\} $ be a block system of some block $ \Delta \subseteq \Omega $
 					\item Then $ \cdot $ induces an action \begin{align*}
-						\diamond : \Gamma \times \{\gamma \cdot \Delta \mid \gamma \in \Gamma\} &\rightarrow \{\gamma \cdot \Delta \mid \gamma \in \Gamma\}\\
-						\gamma' \diamond (\gamma \cdot \Delta) &:= (\gamma'\gamma) \cdot \Delta
-					\end{align*} on the set of blocks!
-					\item $ \diamond $ can also be seen as the \begin{align*}
 						\psi_\Delta : \Gamma &\rightarrow \Sym(\{\gamma \cdot \Delta \mid \gamma \in \Gamma\})\\
 						\gamma' &\mapsto (\gamma \cdot \Delta) \mapsto (\gamma'\gamma) \cdot \Delta
-					\end{align*} homomorphism
+					\end{align*} on the set of blocks!
+					\item We also denote this action using $ \diamond $: \[
+						\gamma' \diamond (\gamma \cdot \Delta) := (\gamma'\gamma) \cdot \Delta
+					\]
 				\end{itemize}
 			\end{column}
 			\begin{column}{0.4\textwidth}
@@ -1044,7 +1043,7 @@
 	\begin{itemize}
 		\item Let $ \psi_\Delta : \Gamma \rightarrow \Sym(\{\gamma \cdot \Delta \mid \gamma \in \Gamma\}) $ be the homomorphism induced by the block $ \Delta \subseteq \Omega $
 		\item Clearly, \[
-			\KernelOf(\psi_\Delta) = \bigcap_{\gamma \in \Gamma} \Stab_\diamond(\gamma \cdot \Delta)
+			\KernelOf(\psi_\Delta) = \bigcap_{\gamma \in \Gamma} \Stab_{\psi_\Delta}(\gamma \cdot \Delta)
 		\]
 	\end{itemize}
 	\begin{center}
@@ -1106,9 +1105,9 @@
 				\node (blocksystem) at ($ (l1) + (5.5, -.5) $) {$ \{\textcolor{red!80}{\underbrace{\{1,4\}}_{\Delta}},\textcolor{OliveGreenZB!80}{\underbrace{\{2,5\}}_{r\cdot\Delta}},\textcolor{blue!80}{\underbrace{\{3,6\}}_{r^2\cdot\Delta}}\} $};
 				
 				% stabilizers
-				\node[below=0 of blocksystem] (ex1) {$ \Stab_\diamond(\textcolor{red!80}{\{1,4\}}) = \gen{\textcolor{red!80}{f}, \textcolor{DarkOrangeZB}{fr^3}} $};
-				\node[below=0 of ex1] (ex2) {$ \Stab_\diamond(\textcolor{OliveGreenZB!80}{\{2,5\}}) = \gen{\textcolor{OliveGreenZB!80}{fr^4}, \textcolor{MagentaZB}{fr}} $};
-				\node[below=0 of ex2] (ex3) {$ \Stab_\diamond(\textcolor{blue!80}{\{3,6\}}) = \gen{\textcolor{blue!80}{fr^2}, \textcolor{TurquoiseZB}{fr^5}} $};
+				\node[below=0 of blocksystem] (ex1) {$ \Stab_{\psi_\Delta}(\textcolor{red!80}{\{1,4\}}) = \gen{\textcolor{red!80}{f}, \textcolor{DarkOrangeZB}{fr^3}} $};
+				\node[below=0 of ex1] (ex2) {$ \Stab_{\psi_\Delta}(\textcolor{OliveGreenZB!80}{\{2,5\}}) = \gen{\textcolor{OliveGreenZB!80}{fr^4}, \textcolor{MagentaZB}{fr}} $};
+				\node[below=0 of ex2] (ex3) {$ \Stab_{\psi_\Delta}(\textcolor{blue!80}{\{3,6\}}) = \gen{\textcolor{blue!80}{fr^2}, \textcolor{TurquoiseZB}{fr^5}} $};
 				\node[below=0 of ex3] (hencearr) {\rotatebox[origin=c]{-90}{$ \rightsquigarrow $}};
 				\node[below=0 of hencearr] {$ \KernelOf(\psi_\Delta) = \{\id\} $};
 		\end{tikzpicture}
@@ -1161,8 +1160,8 @@
 			\node (blocksystem) at ($ (l1) + (5.5, -.8) $) {$ \{\textcolor{red!80}{\underbrace{\{2,4,6\}}_{\Delta}},\textcolor{blue!80}{\underbrace{\{1,3,5\}}_{r\cdot\Delta}}\} $};
 			
 			% stabilizers
-			\node[below=0 of blocksystem] (ex1) {$ \Stab_\diamond(\textcolor{red!80}{\{2,4,6\}}) = \gen{\textcolor{gray}{r^2}, \textcolor{MagentaZB}{f}} $};
-			\node[below=0 of ex1] (ex2) {$ \Stab_\diamond(\textcolor{blue!80}{\{1,3,5\}}) = \gen{\textcolor{gray}{r^2}, \textcolor{MagentaZB}{f}} $};
+			\node[below=0 of blocksystem] (ex1) {$ \Stab_{\psi_\Delta}(\textcolor{red!80}{\{2,4,6\}}) = \gen{\textcolor{gray}{r^2}, \textcolor{MagentaZB}{f}} $};
+			\node[below=0 of ex1] (ex2) {$ \Stab_{\psi_\Delta}(\textcolor{blue!80}{\{1,3,5\}}) = \gen{\textcolor{gray}{r^2}, \textcolor{MagentaZB}{f}} $};
 			\node[below=0 of ex2] (hencearr) {\rotatebox[origin=c]{-90}{$ \rightsquigarrow $}};
 			\node[below=0 of hencearr] {$ \KernelOf(\psi_\Delta) = \gen{\textcolor{gray}{r^2}, \textcolor{MagentaZB}{f}} \cong S_3 $};
 		\end{tikzpicture}
