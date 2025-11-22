@@ -223,20 +223,20 @@
 	\end{center}
 \end{frame}
 
-\begin{frame}{Solutions to $ \GI $ are cosets}
+\begin{frame}{Solutions to $ \GI $ are sets of cosets}
 	\begin{itemize}
-		\item Let $ \cdot $ denote the vertex renaming operation of $ \Sym(V(G)) $ on the set of all graphs with vertices $ V(G) $
+		\item Let $ \cdot $ denote the vertex renaming action of $ \Sym(V(G)) $ on the set of all graphs with vertices $ V(G) $
 		\item Fix one of the input graphs $ G_0 $
 		\item $ \rightsquigarrow $ Space of solutions to $ \GI $ is \[
 			\{G_1 \mid G_1 \cong G_0\} = S_n \cdot G_0
 		\] the orbit of $ G_0 $
 		\item Since $ \Aut(G_0) = \Stab(G_0) $ and \begin{align*}
 			\varphi : S_n/\Stab(G_0) &\rightarrow S_n \cdot G_0 \\
-			\sigma \circ \Stab(G_0) &\mapsto \sigma \cdot G_0
+			\sigma\Stab(G_0) &\mapsto \sigma \cdot G_0
 		\end{align*} is a bijection, we get \[
 			\{G_1 \mid G_1 \cong G_0\} \overset{1:1}{\longleftrightarrow} S_n/\Aut(G_0)
 		\]
-		\item $ \rightsquigarrow $ Solutions to $ \GI $ are cosets!
+		\item $ \rightsquigarrow $ Solutions to $ \GI $ are sets of cosets!
 	\end{itemize}
 \end{frame}
 
