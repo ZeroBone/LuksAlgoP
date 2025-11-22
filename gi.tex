@@ -19,6 +19,7 @@
 % Algorithms
 \usepackage[ruled]{algorithm2e}
 \SetKw{Continue}{continue}
+\SetKwIF{If}{ElseIf}{Else}{if}{then}{else if}{else}{} % removes "end" at the end of if statements
 
 \usetheme{Madrid}
 \usecolortheme{default}
@@ -1168,39 +1169,40 @@
 	\end{center}
 	\begin{itemize}
 		\item $ \Gamma $ can be seen as a union of cosets of $ \KernelOf(\psi_\Delta) $
-		\item $ \rightsquigarrow $ If $ T $ is a transversal of $ \Gamma/\KernelOf(\psi_\Delta) $, then every $ \gamma \in \Gamma $ can be written as $ t\sigma $ for some (unique) $ t \in T $ and $ \sigma \in \KernelOf(\psi_\Delta) $
+		\item $ \rightsquigarrow $ If $ T $ is a transversal of $ \KernelOf(\psi_\Delta) $ in $ \Gamma $, then every $ \gamma \in \Gamma $ can be written as $ t\sigma $ for some (unique) $ t \in T $ and $ \sigma \in \KernelOf(\psi_\Delta) $
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Solving $ \GI$ for bounded-degree graphs}
-	By combining this result with the idea of the reduction $ \GI \le_m^p \SI $ that we proved earlier, alongside other insights, one can show: 
-
-	Building upon this result (and numerous other ones), Luks has proved: \begin{theorem}[Luks]
-		$ \GI $ for graphs of maximum degree $ d $ can be solved in time $ n^{O(d)} $.
-	\end{theorem}
+\begin{frame}{Primitivity and minimality}
+	TODO
 \end{frame}
 
-\begin{frame}{TODO}
-	\begin{theorem}[Babai, Cameron, P\'{a}lfy]
-		For every $ d \in \Npos $ there exists $ c $ such that every primitive $ \Gamma_d $-group $ \Gamma \le S_n $ has order at most $ n^c $.
-	\end{theorem}
-\end{frame}
-
-\begin{frame}{Luks's algorithm -- high level overview}
-	\textbf{General idea}: Recursively split the strings $ u $, $ v $ of the $ \SI $ instance according to the structure of $ \Aut(G) $.
-	
-	\begin{enumerate}
-		\item Compute the orbits of $ \Gamma $'s action on $ \Omega $
-		\item If the action is trivial, return $ u \cong_\Gamma v $ iff $ u = v $
-		% \item If $ u $ and $ v $ disagree on some orbit, then return $ u \not\cong_\Gamma v $
-		\item If the action is not transitive\footnote{Transitivity means that $ \Gamma $'s action is capable of moving any element of $ \Sym(\Omega) $ to any other element (formally: $ \alpha^\Gamma = \Omega\ \forall \alpha \in \Omega $)} on $ \Omega $:\begin{itemize}
-			\item Solve $ \SI $ recursively for all orbits
-			\item Return $ u \cong_\Gamma v $ iff all recursive calls give a solution
-		\end{itemize}
-		\item Find minimal block system $ B_1, \dots, B_k $ of the action of $ \Gamma $ on $ \Omega $ (\textbf{Crucial}: elements $ B_i $ correspond to composition factors of $ \Aut(G) $ which are bounded by $ S_d $ by Luks's Theorem above)
-		\item Recursively solve $ \SI $ for every $ B_1, \dots, B_k $
-		\item Recursively solve $ \SI $ for the above solutions over $ \Gamma/\KernelOf(\Gamma\rightarrow\{B_1, \dots, B_k\}) $ and forward what the recursive call returns
-	\end{enumerate}
+\begin{frame}{Luks's algorithm}
+	\begin{algorithm}[H]
+		%\caption{Luks's algorithm}
+		\SetAlgoLined
+		\KwIn{Strings $ u, v : D \rightarrow \Sigma $, a coset $ \Gamma\sigma $ where $ \Gamma \le \Sym(D) $ and $ \sigma \in \Sym(D) $, and a $ \Gamma $-invariant set $ \Omega \subseteq D $}
+		\KwOut{Coset representation of $ \{\delta \in \Gamma\sigma \mid u(\omega) = v(\omega)\ \forall \omega \in \Omega\} $}
+		\SetKwFunction{luks}{striso}
+		\SetKwProg{luksproc}{Function}{}{end}
+		\luksproc{\luks{$ u $, $ v $, $ \Gamma\sigma $, $ \Omega $}}{
+			\nl\If{$ \sigma \neq \id $}{
+				\nl \Return TODO\;
+			}
+			\nl\If{$ \abs{\Omega} = 1 $}{
+				\nl \Return TODO\;
+			}
+			\nl\If{the action of $ \Gamma $ on $ \Omega $ is not transitive}{
+				\nl Compute an orbit $ \Omega' \subsetneq \Omega $\;
+				\nl $ \Gamma'\sigma' := \luks(u, v, \Gamma\sigma, \Omega') $\;
+				\nl \Return $ \luks(u, v, \Gamma'\sigma', \Omega \setminus \Omega') $\;
+			}
+			\nl Compute a minimal block $ \Delta $ of the action of $ \Gamma $ on $ \Omega $ and the associated block system $ \{\gamma \cdot \Delta \mid \gamma \in \Gamma\} $\;
+			\nl Compute $ \KernelOf(\psi_\Delta) $\;
+			\nl Compute a transversal $ T $ of $ \KernelOf(\psi_\Delta) $ in $ \Gamma $\;
+			\nl \Return $ \luks(u, v, \Gamma'\sigma', \Omega \setminus \Omega') $\;
+		}
+	\end{algorithm}
 \end{frame}
 
 \begin{frame}{Visualization for the non-transitive case}
@@ -1268,6 +1270,29 @@
 			\draw[->, thick, LightBlueZB] (redarrm1start) -- (recm1);
 		\end{tikzpicture}
 	\end{center}
+\end{frame}
+
+\begin{frame}{Classification of primitive groups and application to $ \Gamma_d $}
+	
+	A classification of all finite primitive groups is known:
+	
+	\begin{theorem}[O'Nan-Scott]
+		Every finite primitive group $ \Gamma \le \Sym(\Omega) $ is of affine type, of diagonal type, almost simple, the product action of a wreath product or a twisted wreath product.
+	\end{theorem}
+
+	Relying on the O'Nan-Scott theorem, it is possible to show that every primitive $ \Gamma_d $-group is of polynomial size:
+	
+	\begin{theorem}[Babai, Cameron, P\'{a}lfy]
+		For every $ d \in \Npos $ there exists $ c $ such that every primitive $ \Gamma_d $-group $ \Gamma \le S_n $ has order at most $ n^c $.
+	\end{theorem}
+\end{frame}
+
+\begin{frame}{Conclusion}
+	We have shown: 
+	
+	\begin{theorem}[Luks]
+		$ \GI $ for graphs of maximum degree $ d $ can be solved in time $ n^{O(d)} $.
+	\end{theorem}
 \end{frame}
 
 \end{document}
