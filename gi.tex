@@ -298,8 +298,8 @@
 \begin{frame}{String Isomorphism Problem}
 	
 	Let $ u, v $ be strings and $ \Gamma \le \Sym(D) $. Define \[
-		\Iso_\Gamma(u, v) := \{\gamma \in \Gamma \mid u^\gamma = v\}
-	\] We say that $ u $ is $ \Gamma $-isomorphic to $ v $ and write $ u \cong_\Gamma v $ whenever $ \Iso_\Gamma(u, v) \neq \varnothing $.
+		\Iso_{\Gamma}(u, v) := \{\gamma \in \Gamma \mid u^\gamma = v\}
+	\] We say that $ u $ is $ \Gamma $-isomorphic to $ v $ and write $ u \cong_{\Gamma} v $ whenever $ \Iso_{\Gamma}(u, v) \neq \varnothing $.
 	
 	\begin{definition}[String Isomorphism Problem ($ \SI $)]
 		\textbf{Given}: \begin{itemize}
@@ -506,6 +506,8 @@
 	\begin{definition}[Luks]
 		A finite group $ \Gamma $ is a $ \Gamma_d $-group (notation: $ \Gamma \in \Gamma_d $) if every composition factor of $ \Gamma $ is isomorphic to some subgroup of $ S_d $.
 	\end{definition}
+
+	The class $ \Gamma_d $ has a lot of nice properties, for example:
 
 	\begin{lemma}
 		Let $ H $ be finite group and $ N \trianglelefteq H $. Then \[
@@ -1187,7 +1189,7 @@
 			\begin{algorithm}[H]
 				\SetAlgoLined
 				\KwIn{Strings $ u, v : D \rightarrow \Sigma $, a coset $ \Gamma\sigma $ (where $ \Gamma \le \Sym(D) $ and $ \sigma \in \Sym(D) $) and a $ \Gamma $-invariant set $ \Omega \subseteq D $}
-				\KwOut{$ \{\delta \in \Gamma\sigma \mid u(\omega) = v(\omega^\delta)\ \forall \omega \in \Omega\} $ represented as a coset}
+				\KwOut{$ \{\delta \in \Gamma\sigma \mid u^\delta(\omega) = v(\omega)\ \forall \omega \in \Omega\} $ represented as a coset}
 				\SetKwFunction{luks}{striso}
 				\SetKwProg{luksproc}{Function}{}{end}
 				\luksproc{\luks{$ u $, $ v $, $ \Gamma\sigma $, $ \Omega $}}{
@@ -1213,15 +1215,33 @@
 	}
 \end{frame}
 
-\begin{frame}{Visualization for the non-transitive case}
+\begin{frame}{From coset case to group case}
+	\begin{itemize}
+		\item More precisely, Luks's algorithm solves a more general variant of $ \SI $ where we are asked to compute \[
+		\Iso_{\Gamma\sigma}(u, v) := \{\delta \in \Gamma\sigma \mid u^\delta = v\}
+		\] for a coset $ \Gamma\sigma $ of $ \Gamma \le \Sym(D) $
+		\item Clearly, \begin{align*}
+			u^\delta = v\ \text{for some}\ \delta \in \Gamma\sigma &\iff u^{\gamma\sigma} = v\ \text{for some}\ \gamma \in \Gamma \\
+			&\iff u^\gamma = v^{\sigma^{-1}}\ \text{for some}\ \gamma \in \Gamma
+		\end{align*}
+		\item $ \rightsquigarrow $ Reduction from coset case to group case is correct
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Case when $ \Gamma $ acts nontransitively on $ \Omega $}
+	\begin{itemize}
+		\item Let $ \cdot : \Gamma \times \Omega \rightarrow \Omega $ denote the action
+		\item Let $ \omega_1, \dots, \omega_s $ be a transversal of $ \Gamma $ in $ \Omega $ (note: $ s \ge 2 $)
+	\end{itemize}
 	\begin{center}
-		\begin{tikzpicture}
-			\coordinate (blockwidth) at (9, 0);
+		\begin{tikzpicture}[thick]
+			\coordinate (blockwidth) at (10, 0);
 			\coordinate (blockheight) at (0, .75);
 			
 			\coordinate (omega1sep) at ($ (0, 0)!0.2!(blockwidth) $);
 			\coordinate (omega2sep) at ($ (0, 0)!0.4!(blockwidth) $);
-			\coordinate (omegam1sep) at ($ (0, 0)!0.8!(blockwidth) $);
+			\coordinate (omegam1sep) at ($ (0, 0)!0.6!(blockwidth) $);
+			\coordinate (omegam1endsep) at ($ (0, 0)!0.8!(blockwidth) $);
 			
 			\coordinate (utl) at (0, 0); % top left
 			\coordinate (utr) at (blockwidth); % top right
@@ -1234,6 +1254,8 @@
 			\coordinate (uomega2sepb) at ($ (ubl-|omega2sep) $);
 			\coordinate (uomegam1sept) at ($ (utl-|omegam1sep) $);
 			\coordinate (uomegam1sepb) at ($ (ubl-|omegam1sep) $);
+			\coordinate (uomegam1endsept) at ($ (utl-|omegam1endsep) $);
+			\coordinate (uomegam1endsepb) at ($ (ubl-|omegam1endsep) $);
 			
 			\coordinate (vtl) at ($ (ubl)-(blockheight) $); % top left
 			\coordinate (vtr) at ($ (vtl) + (blockwidth) $); % top right
@@ -1246,36 +1268,66 @@
 			\coordinate (vomega2sepb) at ($ (vbl-|omega2sep) $);
 			\coordinate (vomegam1sept) at ($ (vtl-|omegam1sep) $);
 			\coordinate (vomegam1sepb) at ($ (vbl-|omegam1sep) $);
+			\coordinate (vomegam1endsept) at ($ (vtl-|omegam1endsep) $);
+			\coordinate (vomegam1endsepb) at ($ (vbl-|omegam1endsep) $);
 			
-			\draw[thick] (uomega1sept)--(uomega1sepb) (uomega2sept)--(uomega2sepb) (uomegam1sept)--(uomegam1sepb);
-			\draw[thick] (vomega1sept)--(vomega1sepb) (vomega2sept)--(vomega2sepb) (vomegam1sept)--(vomegam1sepb);
-			\draw[thick] (utl) -- (utr) -- (ubr) -- (ubl) -- cycle;
-			\draw[thick] (vtl) -- (vtr) -- (vbr) -- (vbl) -- cycle;
+			\draw (uomega1sept)--(uomega1sepb) (uomega2sept)--(uomega2sepb) (uomegam1sept)--(uomegam1sepb);
+			\draw (vomega1sept)--(vomega1sepb) (vomega2sept)--(vomega2sepb) (vomegam1sept)--(vomegam1sepb);
+			\draw (utl) -- (utr) -- (ubr) -- (ubl) -- cycle;
+			\draw (vtl) -- (vtr) -- (vbr) -- (vbl) -- cycle;
 			
-			\draw[thick, dashed] (ubl)--(vtl) (uomega1sepb)--(vomega1sept) (uomega2sepb)--(vomega2sept) (uomegam1sepb)--(vomegam1sept) (ubr)--(vtr);
+			\draw[dashed] (ubl)--(vtl) (uomega1sepb)--(vomega1sept) (uomega2sepb)--(vomega2sept) (uomegam1sepb)--(vomegam1sept) (ubr)--(vtr);
 			
 			\draw [decorate, decoration = {brace, raise=5pt, amplitude=5pt, mirror}] (utl) -- (ubl) node[pos=0.5,left=10pt,black]{$ u $};
 			\draw [decorate, decoration = {brace, raise=5pt, amplitude=5pt, mirror}] (vtl) -- (vbl) node[pos=0.5,left=10pt,black]{$ v $};
 			
-			\draw [decorate, decoration = {brace, raise=5pt, amplitude=5pt}] (utl) -- (uomega1sept) node[pos=0.5,above=10pt,black]{Orbit 1};
-			\draw [decorate, decoration = {brace, raise=5pt, amplitude=5pt}] (uomega1sept) -- (uomega2sept) node[pos=0.5,above=10pt,black]{Orbit 2};
-			\draw [decorate, decoration = {brace, raise=5pt, amplitude=5pt}] (uomegam1sept) -- (utr) node[pos=0.5,above=10pt,black]{Orbit $ s $};
+			\draw [decorate, decoration = {brace, raise=5pt, amplitude=5pt}] (utl) -- (uomega1sept) node[pos=0.5,above=10pt,black]{$ \Gamma \cdot \omega_1 $};
+			\draw [decorate, decoration = {brace, raise=5pt, amplitude=5pt}] (uomega1sept) -- (uomega2sept) node[pos=0.5,above=10pt,black]{$ \Gamma \cdot \omega_2 $};
+			\draw [decorate, decoration = {brace, raise=5pt, amplitude=5pt}] (uomegam1sept) -- (uomegam1endsept) node[pos=0.5,above=10pt,black]{$ \Gamma \cdot \omega_s $};
+			\draw [decorate, decoration = {brace, raise=5pt, amplitude=5pt}] (uomegam1endsept) -- (utr) node[pos=0.5,above=10pt,black]{$ D \setminus \Omega $};
+			
+			\coordinate (omegaregsept) at ($ (uomegam1endsept) + (0,1) $);
+			\coordinate (omegaregsepb) at ($ (vomegam1endsepb) + (0,-.25) $);
+			\draw[dashed, red!80] (omegaregsept)--(omegaregsepb);
 			
 			\draw ($ (uomega2sepb)!0.5!(uomegam1sept) $) node {$ \dots $};
 			\draw ($ (vomega2sepb)!0.5!(vomegam1sept) $) node {$ \dots $};
 			
-			\coordinate (redarr1start) at ($ (vbl)!0.5!(vomega1sepb) $);
-			\coordinate (redarr2start) at ($ (vomega1sepb)!0.5!(vomega2sepb) $);
-			\coordinate (redarrm1start) at ($ (vomegam1sepb)!0.5!(vbr) $);
+			% dots for the D\Omega region
+			\draw ($ (uomegam1endsepb)!0.5!(utr) $) node {$ \dots $};
+			\draw ($ (vomegam1endsepb)!0.5!(vtr) $) node {$ \dots $};
 			
-			\node [below=1 of redarr1start] (rec1) {Recursive call 1};
-			\node [below=1.5 of redarr2start] (rec2) {Recursive call 2};
-			\node [below=1 of redarrm1start] (recm1) {Recursive call $ s $};
+			\coordinate (solchoffset) at (0, -0.6);
+			\coordinate (solch0) at ($ (vbl) + (solchoffset) $);
+			\coordinate (solch1) at ($ (vomega1sepb) + (solchoffset) $);
+			\coordinate (solch2) at ($ (vomega2sepb) + (solchoffset) $);
+			\coordinate (solchsm1) at ($ (vomegam1sepb) + (solchoffset) $);
+			\coordinate (solchs) at ($ (vomegam1endsepb) + (solchoffset) $);
 			
-			% reductions
-			\draw[->, thick, LightBlueZB] (redarr1start) -- (rec1);
-			\draw[->, thick, LightBlueZB] (redarr2start) -- (rec2);
-			\draw[->, thick, LightBlueZB] (redarrm1start) -- (recm1);
+			\node[opacity=0] (sol0) at (solch0) {$ \Gamma_0\sigma_0 $};
+			\node (sol1) at (solch1) {$ \Gamma_1\sigma_1 $};
+			\node (sol2) at (solch2) {$ \Gamma_2\sigma_2 $};
+			\node (solsm1) at (solchsm1) {$ \Gamma_{s-1}\sigma_{s-1} $};
+			\node (sols) at (solchs) {$ \Gamma_s\sigma_s $};
+			
+			\node[below=1 of sol0] (sol0gr) {$ \Gamma $};
+			\node[below=1 of sol1] (sol1gr) {$ \Gamma_1' $};
+			\node[below=1 of sol2] (sol2gr) {$ \Gamma_2' $};
+			\node[below=1 of solsm1] (solsm1gr) {$ \Gamma_{s-1}' $};
+			
+			\draw[->, LightBlueZB] (sol0gr) -- (sol1) node[midway, sloped, above, font=\small] {recursion} node[midway, sloped, below, font=\small] {$ \Omega = \Gamma \cdot \omega_1 $};
+			\draw[->, LightBlueZB] (sol1)--(sol1gr);
+			\draw[->, LightBlueZB] (sol1gr) -- (sol2) node[midway, sloped, above, font=\small] {recursion} node[midway, sloped, below, font=\small] {$ \Omega = \Gamma_1' \cdot \omega_2 $};
+			\draw[->, LightBlueZB] (sol2)--(sol2gr);
+			\coordinate (recdots) at ($ (sol2gr.north east)!0.5!(solsm1.south west) $);
+			\node[LightBlueZB] at (recdots) {\rotatebox[origin=c]{45}{$ \cdots $}};
+			\draw[->, LightBlueZB] (sol2gr)--($ (recdots) + (-.25,-.25) $);
+			\draw[->, LightBlueZB] ($ (recdots) + (.2,.2) $)--($ (solsm1.south west) + (.1,0) $);
+			\draw[->, LightBlueZB] (solsm1)--(solsm1gr);
+			\draw[->, LightBlueZB] (solsm1gr) -- (sols) node[midway, sloped, above, font=\small] {recursion} node[midway, sloped, below, font=\small] {$ \Omega = \Gamma_{s-1}' \cdot \omega_s $};
+			
+			\node[OliveGreenZB] (sollabel) at ($ (sols) + (1,-1) $) {Solution};
+			\draw[->, bend right=50, OliveGreenZB] (sollabel) to (sols.east);
 		\end{tikzpicture}
 	\end{center}
 \end{frame}
@@ -1479,8 +1531,8 @@
 	\end{theorem}
 \end{frame}
 
-\begin{frame}{Final result}
-	Combining Luks's algorithm with the Babai-Luks reduction from $ \GI $ to $ \SI $ for $ \Gamma_d $ groups yields:
+\begin{frame}{Luks's algorithm for graph isomorphism}
+	Combining Luks's algorithm for $ \SI $ with the Babai-Luks reduction from $ \GI $ to $ \SI $ for $ \Gamma_d $-groups yields:
 	
 	\begin{theorem}[Luks]
 		$ \GI $ for graphs of maximum degree $ d $ can be solved in time $ n^{O(d)} $.
