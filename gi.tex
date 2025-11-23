@@ -479,6 +479,7 @@
 \begin{frame}{$ \GI $ for bounded-degree graphs}
 	From this point we: \begin{itemize}
 		\item assume that the input graphs to $ \GI $ have maximum degree $ \le d $
+		\item assume that $ d \le O(1) $
 		\item study the complexity of $ \GI $ in this setting
 	\end{itemize}
 	
@@ -557,14 +558,16 @@
 	
 	\textbf{Base case} ($ i = 0 $): $ \Aut(R_0, v) = \{\id\} \in \Gamma_d $
 	
-	\textbf{Inductive step}:
-	
-	Since $ \sigma \in \Aut(R_i, v) $ must send vertices in $ V(R_{i-1}) $ to $ V(R_{i-1}) $, the map \begin{align*}
-		\varphi_i : \Aut(R_i, v) &\rightarrow \Aut(R_{i-1}, v)\\
-		\sigma &\mapsto \sigma\restrict{V(R_{i-1})}
-	\end{align*} is well-defined. By FHT and IH we have \[
+	\textbf{Inductive step}:\begin{itemize}
+		\item Since $ \sigma \in \Aut(R_i, v) $ must send vertices in $ V(R_{i-1}) $ to $ V(R_{i-1}) $, the map \begin{align*}
+			\varphi_i : \Aut(R_i, v) &\rightarrow \Aut(R_{i-1}, v)\\
+			\sigma &\mapsto \sigma\restrict{V(R_{i-1})}
+		\end{align*} is well-defined
+		\item By FHT and IH we have \[
 		\Aut(R_i, v)/\KernelOf(\varphi_i) \cong \ImageOf(\varphi_i) = \Aut(R_{i-1}, v) \overset{\text{IH}}{\in} \Gamma_d
-	\] By the above lemma, it is sufficient to prove $ \KernelOf(\varphi_i) \in \Gamma_d $.
+		\]
+		\item By the above lemma, it is sufficient to prove $ \KernelOf(\varphi_i) \in \Gamma_d $
+	\end{itemize}
 \end{frame}
 
 \begin{frame}{Proof of Luks's theorem (continued)}
@@ -605,6 +608,7 @@
 		\begin{column}{0.65\textwidth}
 			\begin{itemize}
 				\item W.l.o.g. assume that $ G_0 $ and $ G_1 $ are both connected
+				\item TODO
 			\end{itemize}
 		\end{column}
 	\end{columns}
@@ -1506,8 +1510,7 @@
 \end{frame}
 
 \begin{frame}{Primitivity and minimality}
-
-	These constructions hold in general and are the essence of the proof of:
+	These constructions hold in general and are the essence of the proof of the following connection between primitivity and minimality:
 	
 	\begin{theorem}
 		Let $ \Gamma $ be a group acting on $ \Omega $ with block $ \Delta \subseteq \Omega $. Then \[
@@ -1527,15 +1530,31 @@
 	Relying on the O'Nan-Scott theorem, it is possible to show that every primitive $ \Gamma_d $-group is of polynomial size:
 	
 	\begin{theorem}[Babai, Cameron, P\'{a}lfy]
-		For every $ d \in \Npos $ there exists $ c $ such that every primitive $ \Gamma_d $-group $ \Gamma \le S_n $ has order at most $ n^c $.
+		For every $ d \ge 1 $ there exists $ c $ such that every primitive $ \Gamma_d $-group $ \Gamma \le S_n $ has order at most $ n^c $.
 	\end{theorem}
+\end{frame}
+
+\begin{frame}{Analysis of transitive case of Luks's algorithm}
+	We apply the above results to analyze the transitive case of Luks's algorithm:
+	
+	\begin{itemize}
+		\item Since $ \Delta $ is minimal, by above theorem, $ \ImageOf(\psi_\Delta) $ is primitive
+		\item $ \Gamma \in \Gamma_d \implies \ImageOf(\psi_\Delta) \in \Gamma_d $
+		\item $ \rightsquigarrow $ By the Babai-Cameron-P\'{a}lfy theorem, \[
+			\abs{\ImageOf(\psi_\Delta)} \le \abs{D}^{O(1)}
+		\]
+		\item Since, by FHT, \[
+			\Gamma/\KernelOf(\psi_\Delta) \cong \ImageOf(\psi_\Delta)
+		\] it follows that the transversal size $ \abs{T} \le \abs{D}^{O(1)} $
+		\item $ \rightsquigarrow $ The transitive case of Luks's algorithm, excluding costs for recursive calls, runs in polynomial time
+	\end{itemize}
 \end{frame}
 
 \begin{frame}{Luks's algorithm for graph isomorphism}
 	Combining Luks's algorithm for $ \SI $ with the Babai-Luks reduction from $ \GI $ to $ \SI $ for $ \Gamma_d $-groups yields:
 	
 	\begin{theorem}[Luks]
-		$ \GI $ for graphs of maximum degree $ d $ can be solved in time $ n^{O(d)} $.
+		$ \GI $ for graphs of maximum degree $ O(1) $ can be solved in polynomial time.
 	\end{theorem}
 \end{frame}
 
