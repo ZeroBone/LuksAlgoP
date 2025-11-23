@@ -531,11 +531,11 @@
 		\begin{column}{0.35\textwidth}  %%<--- here
 			Let $ R_i $ be a graph with \textbf{vertices}:
 			
-			$ w \in G $ such that $ d_G(v, w) \le i $ 
+			$ w \in V(G) $ such that $ d_G(v, w) \le i $ 
 			
 			\textbf{edges}:
 			
-			$ \{w_1, w_2\} \in G $ such that $ d_G(v, w_1) \le i - 1 $ and $ d_G(v, w_2) \le i $
+			$ \{w_1, w_2\} \in E(G) $ such that $ d_G(v, w_1) \le i - 1 $ and $ d_G(v, w_2) \le i $
 			
 			\vspace{5pt}Note that $ \exists i\ R_i = G $
 		\end{column}
@@ -1250,26 +1250,26 @@
 				
 				% block system visualization
 				% first set
-				\draw[very thick, red!80] (v1)--(v5);
-				\filldraw[red!80] (v1) circle (3pt);
-				\filldraw[red!80] (v5) circle (3pt);
+				\draw[very thick, TurquoiseZB] (v1)--(v5);
+				\filldraw[TurquoiseZB] (v1) circle (3pt);
+				\filldraw[TurquoiseZB] (v5) circle (3pt);
 				% second set
-				\draw[very thick, OliveGreenZB!80] (v2)--(v6);
-				\filldraw[OliveGreenZB!80] (v2) circle (3pt);
-				\filldraw[OliveGreenZB!80] (v6) circle (3pt);
+				\draw[very thick, MagentaZB] (v2)--(v6);
+				\filldraw[MagentaZB] (v2) circle (3pt);
+				\filldraw[MagentaZB] (v6) circle (3pt);
 				% third set
-				\draw[very thick, red!80] (v3)--(v7);
-				\filldraw[red!80] (v3) circle (3pt);
-				\filldraw[red!80] (v7) circle (3pt);
+				\draw[very thick, TurquoiseZB] (v3)--(v7);
+				\filldraw[TurquoiseZB] (v3) circle (3pt);
+				\filldraw[TurquoiseZB] (v7) circle (3pt);
 				% fourth set
-				\draw[very thick, OliveGreenZB] (v4)--(v8);
-				\filldraw[OliveGreenZB] (v4) circle (3pt);
-				\filldraw[OliveGreenZB] (v8) circle (3pt);
+				\draw[very thick, MagentaZB] (v4)--(v8);
+				\filldraw[MagentaZB] (v4) circle (3pt);
+				\filldraw[MagentaZB] (v8) circle (3pt);
 				
 				% r symmetry
 				\draw[->, bend left=20, gray] (l1) to node[midway, above] {$ r $} (l2);
 				
-				\node[below=0 of l5] (blocksystemofdot2) {$ \underbrace{\{\textcolor{red!80}{\underbrace{\{1,3,5,7\}}_{\Delta'}},\textcolor{OliveGreenZB!80}{\underbrace{\{2,4,6,8\}}_{r\cdot\Delta'}}\}}_{\text{Block system of}\ \cdot} $};
+				\node[below=0 of l5] (blocksystemofdot2) {$ \underbrace{\{\textcolor{TurquoiseZB}{\underbrace{\{1,3,5,7\}}_{\Delta'}},\textcolor{MagentaZB}{\underbrace{\{2,4,6,8\}}_{r\cdot\Delta'}}\}}_{\text{Block system of}\ \cdot} $};
 			\end{scope}
 		
 			\coordinate (blocksystemofdotc) at ($ (blocksystemofdot1)!0.5!(blocksystemofdot2) $);
