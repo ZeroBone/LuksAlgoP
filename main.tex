@@ -1188,17 +1188,17 @@
 \end{frame}
 
 \begin{frame}{Luks's algorithm for string isomorphism}
-	\scalebox{0.85}{
+	\vspace{-2pt}\scalebox{0.8}{
 		\begin{minipage}{\linewidth}
 			\begin{algorithm}[H]
 				\SetAlgoLined
 				\KwIn{Strings $ u, v : D \rightarrow \Sigma $, a coset $ \Gamma\sigma $ (where $ \Gamma \le \Sym(D) $ and $ \sigma \in \Sym(D) $) and a $ \Gamma $-invariant set $ \Omega \subseteq D $}
 				\KwOut{$ \{\delta \in \Gamma\sigma \mid u^\delta(\omega) = v(\omega)\ \forall \omega \in \Omega\} $ represented as a coset}
-				\SetKwFunction{luks}{striso}
-				\SetKwProg{luksproc}{Function}{}{end}
-				\luksproc{\luks{$ u $, $ v $, $ \Gamma\sigma $, $ \Omega $}}{
+				\SetKwFunction{strisoluks}{striso}
+				\SetKwProg{strisoluksproc}{Function}{}{end}
+				\strisoluksproc{\strisoluks{$ u $, $ v $, $ \Gamma\sigma $, $ \Omega $}}{
 					\nl\If{$ \sigma \neq \id $}{
-						\nl \Return $ \luks(u, v^{\sigma^{-1}}, \Gamma, \Omega) \sigma $\;
+						\nl \Return $ \strisoluks(u, v^{\sigma^{-1}}, \Gamma, \Omega) \sigma $\;
 					}
 					\nl\If{$ \abs{\Omega} = 1 $}{
 						\nl Let $ \omega $ be such that $ \Omega = \{\omega\} $\;
@@ -1206,13 +1206,16 @@
 					}
 					\nl\If{the action of $ \Gamma $ on $ \Omega $ is not transitive}{
 						\nl Compute an orbit $ \Omega' \subsetneq \Omega $\;
-						\nl $ \Gamma'\sigma' := \luks(u, v, \Gamma, \Omega') $\;
-						\nl \Return $ \luks(u, v, \Gamma'\sigma', \Omega \setminus \Omega') $\;
+						\nl $ \Gamma'\sigma' := \strisoluks(u, v, \Gamma, \Omega') $\;
+						\nl \Return $ \strisoluks(u, v, \Gamma'\sigma', \Omega \setminus \Omega') $\;
 					}
 					\nl Compute a minimal block $ \Delta $ of the action of $ \Gamma $ on $ \Omega $ and the associated block system $ \{\gamma \cdot \Delta \mid \gamma \in \Gamma\} =: \{\Delta_1, \dots, \Delta_k\}$\;
 					\nl Compute $ \KernelOf(\psi_\Delta) = \bigcap_{i=1}^k \Stab_{\psi_\Delta}(\Delta_i) $\;
 					\nl Compute a transversal $ T $ of $ \KernelOf(\psi_\Delta) $ in $ \Gamma $\;
-					\nl \Return $ \bigcup_{t \in T} \luks(u, v, \KernelOf(\psi_\Delta)t, \Omega) $\;
+					\nl For each $ t \in T $ compute $ \Theta_t \sigma_t := \strisoluks(u, v, \KernelOf(\psi_\Delta)t, \Omega) $\;
+					\nl Compress $ \bigcup_{t \in T} \Theta_t\sigma_t $ into a single coset $ \Theta \theta $\;
+					\nl \Return $ \Theta \theta $\;
+					% \nl \Return $ \bigcup_{t \in T} \strisoluks(u, v, \KernelOf(\psi_\Delta)t, \Omega) $\;
 				}
 			\end{algorithm}
 		\end{minipage}
@@ -1289,6 +1292,7 @@
 			\draw [decorate, decoration = {brace, raise=5pt, amplitude=5pt}] (uomega1sept) -- (uomega2sept) node[pos=0.5,above=10pt,black]{$ \Gamma \cdot \omega_2 $};
 			\draw [decorate, decoration = {brace, raise=5pt, amplitude=5pt}] (uomegam1sept) -- (uomegam1endsept) node[pos=0.5,above=10pt,black]{$ \Gamma \cdot \omega_s $};
 			\draw [decorate, decoration = {brace, raise=5pt, amplitude=5pt}] (uomegam1endsept) -- (utr) node[pos=0.5,above=10pt,black]{$ D \setminus \Omega $};
+			\draw [decorate, decoration = {brace, raise=5pt, amplitude=5pt}] ($ (utl) + (0,1) $) -- ($ (uomegam1endsept) + (0,1) $) node[pos=0.5,above=10pt,black]{$ \Omega $};
 			
 			\coordinate (omegaregsept) at ($ (uomegam1endsept) + (0,1) $);
 			\coordinate (omegaregsepb) at ($ (vomegam1endsepb) + (0,-.25) $);
@@ -1539,7 +1543,7 @@
 	
 	\begin{itemize}
 		\item Since $ \Delta $ is minimal, by above theorem, $ \ImageOf(\psi_\Delta) $ is primitive
-		\item $ \Gamma \in \Gamma_d \implies \ImageOf(\psi_\Delta) \in \Gamma_d $
+		\item $ \Gamma \in \Gamma_d \implies \ImageOf(\psi_\Delta) \in \Gamma_d $ since $ \Gamma_d $ is closed under subgroups
 		\item $ \rightsquigarrow $ By the Babai-Cameron-P\'{a}lfy theorem, \[
 			\abs{\ImageOf(\psi_\Delta)} \le \abs{D}^{O(1)}
 		\]
