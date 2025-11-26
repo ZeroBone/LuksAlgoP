@@ -564,8 +564,8 @@
 	
 	\textbf{Inductive step}:\begin{itemize}
 		\item Note that $ G[V(R_{i-1})] $ is equal to $ R_{i-1} $ up to possibly additional edges between vertices at distance exactly $ i-1 $ from $ v $
-		\item $ \rightsquigarrow $ By IH, $ \Aut(G[V(R_{i-1})], v) \le \Aut(R_{i-1}, v) \in \Gamma_d $
-		\item Since $ \Gamma_d $ is closed under subgroups, $ \Aut(G[V(R_{i-1})], v) \in \Gamma_d $
+		\item $ \rightsquigarrow \Aut(G[V(R_{i-1})], v) \le \Aut(R_{i-1}, v) $
+		\item By IH, $ \Aut(R_{i-1}, v) \in \Gamma_d $. Hence, $ \Aut(G[V(R_{i-1})], v) \in \Gamma_d $
 		\item Since $ \sigma \in \Aut(R_i, v) $ must send vertices in $ V(R_{i-1}) $ to $ V(R_{i-1}) $, \begin{align*}
 			\varphi_i : \Aut(R_i, v) &\rightarrow \Aut(G[V(R_{i-1})], v)\\
 			\sigma &\mapsto \sigma\restrict{V(R_{i-1})}
@@ -607,7 +607,70 @@
 	\end{theorem}
 \end{frame}
 
-\begin{frame}{Proof of Babai-Luks theorem}
+\begin{frame}{Sketch of proof of Babai-Luks theorem}
+	\begin{itemize}
+		\item W.l.o.g. assume that $ G_0 $ and $ G_1 $ are both connected
+		\item For every $ (e_0, e_1) \in G_0 \times G_1 $, compute the following gadget
+	\end{itemize}
+	\textbf{Example}:
+	\begin{center}
+		\begin{tikzpicture}[every node/.style={circle, draw, fill=gray!10, inner sep=1pt, minimum size=18pt}, scale=0.8]
+			
+			\def\r{3.25}                % inner frontier base radius (around v)
+			\def\A{0.1}                 % inner wave amplitude (radial)
+			\def\n{32}                  % number of waves (integer) for inner frontier
+			
+			\begin{scope}[shift={(-3.3,0)}]
+				% nodes
+				\node (v01) at (0,0) {1};
+				\node[above=1 of v01] (v03) {3};
+				\node[left=.5 of v03] (v02) {2};
+				\node[right=.5 of v03] (v04) {4};
+				\node[above=1 of v03] (v05) {5};
+				\node[right=.5 of v05] (v06) {6};
+				\node[right=.5 of v06] (v07) {7};
+	
+				% edges
+				\draw (v01)--(v02) (v01)--(v03) (v01)--(v04);
+				\draw (v02)--(v05) (v04)--(v05) (v04)--(v06) (v04)--(v07);
+				
+				\coordinate (center012) at ($ (v01)!0.6!(v02) $);
+				\coordinate (center0) at ($ (center012)!0.45!(v07) $);
+				
+				\begin{scope}[shift={(center0)}]
+					\draw[blue!70, thick, fill=blue!10, fill opacity=0.15,
+					samples=360, domain=0:360, smooth, variable=\t]
+					plot ({(\r + \A*sin(\n*\t)) * cos(\t)}, {(\r + \A*sin(\n*\t)) * sin(\t)});
+				\end{scope}
+			\end{scope}
+			\begin{scope}[shift={(3.3,0)}]
+				% nodes
+				\node (v11) at (0,0) {a};
+				\node[above=1 of v11] (v13) {c};
+				\node[left=.5 of v13] (v12) {b};
+				\node[right=.5 of v13] (v14) {d};
+				\node[above=1 of v13] (v15) {e};
+				\node[right=.5 of v15] (v16) {f};
+				\node[right=.5 of v16] (v17) {g};
+				
+				% edges
+				\draw (v11)--(v12) (v11)--(v13) (v11)--(v14);
+				\draw (v12)--(v15) (v14)--(v15) (v14)--(v16) (v14)--(v17);
+				
+				\coordinate (center112) at ($ (v11)!0.6!(v12) $);
+				\coordinate (center1) at ($ (center112)!0.45!(v17) $);
+				
+				\begin{scope}[shift={(center1)}]
+					\draw[blue!70, thick, fill=blue!10, fill opacity=0.15,
+					samples=360, domain=0:360, smooth, variable=\t]
+					plot ({(\r + \A*sin(\n*\t)) * cos(\t)}, {(\r + \A*sin(\n*\t)) * sin(\t)});
+				\end{scope}
+			\end{scope}
+		\end{tikzpicture}
+	\end{center}
+\end{frame}
+
+\begin{frame}{Sketch of proof of Babai-Luks theorem (continued)}
 	\begin{columns}
 		\begin{column}{0.35\textwidth}
 			\input{babai_luks_reduction_proof}
@@ -1260,10 +1323,8 @@
 \end{frame}
 
 \begin{frame}{Case when $ \Gamma $ acts intransitively on $ \Omega $}
-	\begin{itemize}
-		\item Let $ \cdot : \Gamma \times \Omega \rightarrow \Omega $ denote the action of $ \Gamma $ on $ \Omega $
-		\item Let $ \omega_1, \dots, \omega_s $ be a transversal of $ \{\Gamma \cdot \omega \mid \omega \in \Omega\} $ (note: $ s \ge 2 $)
-	\end{itemize}
+	% \item Let $ \cdot : \Gamma \times \Omega \rightarrow \Omega $ denote the action of $ \Gamma $ on $ \Omega
+	Let $ \omega_1, \dots, \omega_s $ be a transversal of $ \{\Gamma \cdot \omega \mid \omega \in \Omega\} $ (note: $ s \ge 2 $)
 	\begin{center}
 		\begin{tikzpicture}[thick]
 			\coordinate (blockwidth) at (10, 0);
@@ -1320,7 +1381,9 @@
 			
 			\coordinate (omegaregsept) at ($ (uomegam1endsept) + (0,1) $);
 			\coordinate (omegaregsepb) at ($ (vomegam1endsepb) + (0,-.25) $);
+			\coordinate (omegaregseptl) at ($ (omegaregsept-|utl) $);
 			\draw[dashed, red!80] (omegaregsept)--(omegaregsepb);
+			\draw[dashed, red!80] (omegaregseptl)--(utl);
 			
 			\draw ($ (uomega2sepb)!0.5!(uomegam1sept) $) node {$ \dots $};
 			\draw ($ (vomega2sepb)!0.5!(vomegam1sept) $) node {$ \dots $};
@@ -1362,6 +1425,7 @@
 			\draw[->, bend right=50, OliveGreenZB] (sollabel) to (sols.east);
 		\end{tikzpicture}
 	\end{center}
+	\vspace{-5pt}\textbf{Note}: $ \Gamma \ge \Gamma_1' \ge \Gamma_2' \ge \dots \ge \Gamma_{s-1}' $
 \end{frame}
 
 \section{Analysis of Luks's algorithm}
