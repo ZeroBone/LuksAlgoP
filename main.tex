@@ -10,7 +10,6 @@
 \usepackage{oubraces}
 \usepackage{array}
 \usepackage{varwidth}
-\usepackage{array}
 
 \input{tikz_config}
 
@@ -24,7 +23,7 @@
 \usetheme{Madrid}
 \usecolortheme{default}
 
-\title[Luks's algorithm for Graph Isomorphism]{Luks's algorithm for the Graph Isomorphism problem}
+\title[Luks's algorithm for Graph Isomorphism]{Luks's algorithm for Graph Isomorphism}
 \author{Alexander Mayorov}
 \institute[MPI-INF]{Max-Planck Institute for Informatics}
 
@@ -610,29 +609,29 @@
 \begin{frame}{Sketch of proof of Babai-Luks theorem}
 	\begin{itemize}
 		\item W.l.o.g. assume that $ G_0 $ and $ G_1 $ are both connected
-		\item For every $ (e_0, e_1) \in G_0 \times G_1 $, compute the following gadget
+		\item For every $ (e_0, e_1) \in E(G_0) \times E(G_1) $, compute the following gadget
 	\end{itemize}
-	\textbf{Example}:
 	\begin{center}
-		\begin{tikzpicture}[every node/.style={circle, draw, fill=gray!10, inner sep=1pt, minimum size=18pt}, scale=0.8]
+		\begin{tikzpicture}[scale=0.8, thick]
 			
-			\def\r{3.25}                % inner frontier base radius (around v)
+			\def\r{3.25}                % base radius
 			\def\A{0.1}                 % inner wave amplitude (radial)
-			\def\n{32}                  % number of waves (integer) for inner frontier
+			\def\n{32}                  % number of waves (integer)
 			
-			\begin{scope}[shift={(-3.3,0)}]
+			\begin{scope}[shift={(-3.5,0)}]
 				% nodes
-				\node (v01) at (0,0) {1};
-				\node[above=1 of v01] (v03) {3};
-				\node[left=.5 of v03] (v02) {2};
-				\node[right=.5 of v03] (v04) {4};
-				\node[above=1 of v03] (v05) {5};
-				\node[right=.5 of v05] (v06) {6};
-				\node[right=.5 of v06] (v07) {7};
+				\node[grnode] (v01) at (0,0) {1};
+				\node[grnode, above=1 of v01] (v03) {3};
+				\node[grnode, left=.5 of v03] (v02) {2};
+				\node[grnode, right=.5 of v03] (v04) {4};
+				\node[grnode, above=1 of v03] (v05) {5};
+				\node[grnode, right=.5 of v05] (v06) {6};
+				\node[grnode, right=.5 of v06] (v07) {7};
 	
 				% edges
-				\draw (v01)--(v02) (v01)--(v03) (v01)--(v04);
+				\draw (v01)--(v02) (v01)--(v03);
 				\draw (v02)--(v05) (v04)--(v05) (v04)--(v06) (v04)--(v07);
+				\draw[DarkRedZB] (v01) -- node[midway, sloped, below] {$ e_0 $} (v04);
 				
 				\coordinate (center012) at ($ (v01)!0.6!(v02) $);
 				\coordinate (center0) at ($ (center012)!0.45!(v07) $);
@@ -641,21 +640,23 @@
 					\draw[blue!70, thick, fill=blue!10, fill opacity=0.15,
 					samples=360, domain=0:360, smooth, variable=\t]
 					plot ({(\r + \A*sin(\n*\t)) * cos(\t)}, {(\r + \A*sin(\n*\t)) * sin(\t)});
+					\node[blue!70] at (135:3.75) {$ G_0 $};
 				\end{scope}
 			\end{scope}
-			\begin{scope}[shift={(3.3,0)}]
+			\begin{scope}[shift={(3.5,0)}]
 				% nodes
-				\node (v11) at (0,0) {a};
-				\node[above=1 of v11] (v13) {c};
-				\node[left=.5 of v13] (v12) {b};
-				\node[right=.5 of v13] (v14) {d};
-				\node[above=1 of v13] (v15) {e};
-				\node[right=.5 of v15] (v16) {f};
-				\node[right=.5 of v16] (v17) {g};
+				\node[grnode] (v11) at (0,0) {a};
+				\node[grnode, above=1 of v11] (v13) {c};
+				\node[grnode, left=.5 of v13] (v12) {b};
+				\node[grnode, right=.5 of v13] (v14) {d};
+				\node[grnode, above=1 of v13] (v15) {e};
+				\node[grnode, right=.5 of v15] (v16) {f};
+				\node[grnode, right=.5 of v16] (v17) {g};
 				
 				% edges
-				\draw (v11)--(v12) (v11)--(v13) (v11)--(v14);
+				\draw (v11)--(v12) (v11)--(v13);
 				\draw (v12)--(v15) (v14)--(v15) (v14)--(v16) (v14)--(v17);
+				\draw[DarkRedZB] (v11) -- node[midway, sloped, below] {$ e_1 $} (v14);
 				
 				\coordinate (center112) at ($ (v11)!0.6!(v12) $);
 				\coordinate (center1) at ($ (center112)!0.45!(v17) $);
@@ -664,8 +665,34 @@
 					\draw[blue!70, thick, fill=blue!10, fill opacity=0.15,
 					samples=360, domain=0:360, smooth, variable=\t]
 					plot ({(\r + \A*sin(\n*\t)) * cos(\t)}, {(\r + \A*sin(\n*\t)) * sin(\t)});
+					\node[blue!70] at (45:3.75) {$ G_1 $};
 				\end{scope}
 			\end{scope}
+			\coordinate (center) at ($ (center0)!0.5!(center1) $);
+			\coordinate (vsypos) at ($ (center) + (0,-3.5) $);
+			\coordinate (v0coord) at ($ (vsypos) + (-1.5,0) $);
+			\coordinate (v1coord) at ($ (vsypos) + (5.5,0) $);
+			
+			% v_0 and v_1 additional nodes
+			\node[grnode, fill=OliveGreenZB!30] (v0) at (v0coord) {$ v_0 $};
+			\node[grnode, fill=OliveGreenZB!30] (v1) at (v1coord) {$ v_1 $};
+			
+			% edges between v_0 and G_0
+			\draw[OliveGreenZB, very thick] (v0) to[bend left=20] (v01);
+			\draw[OliveGreenZB, very thick] (v0) to[bend right=20] (v04);
+			
+			% edges between v_1 and G_1
+			\draw[OliveGreenZB, very thick] (v1) to[bend left=20] (v11);
+			\draw[OliveGreenZB, very thick] (v1) to[bend right=20] (v14);
+			
+			% v node
+			\coordinate (v0v1mid) at ($ (v0)!0.5!(v1) $);
+			\node[grnode, fill=OliveGreenZB!30] (v) at ($ (v0v1mid) + (0,-1) $) {$ v $};
+			
+			% edges to v node
+			\draw[OliveGreenZB, very thick] (v0)--(v);
+			\draw[OliveGreenZB, very thick] (v1)--(v);
+			
 		\end{tikzpicture}
 	\end{center}
 \end{frame}

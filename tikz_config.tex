@@ -13,13 +13,13 @@
 \usetikzlibrary{fit}
 \usetikzlibrary{snakes}
 \usetikzlibrary{through}
-% \usetikzlibrary{automata}
 
 \tikzset{%
 	decision/.style = {diamond,draw, fill=blue!50},
 	line/.style = {draw, -stealth, thick},
 	block/.style = {rectangle, draw, minimum height=10mm,
-		align=center}
+		align=center},
+	grnode/.style = {circle, draw, fill=gray!10, inner sep=1pt, minimum size=18pt}
 }
 
 \tikzset{suspend join/.code={\def\tikz@after@path{}}}
