@@ -1,0 +1,47 @@
+\begin{tikzpicture}[scale=1, thick]
+	% hexagon vertices
+	\coordinate (v1) at ({90 - (0)*60}:2);
+	\coordinate (v2) at ({90 - (1)*60}:2);
+	\coordinate (v3) at ({90 - (2)*60}:2);
+	\coordinate (v4) at ({90 - (3)*60}:2);
+	\coordinate (v5) at ({90 - (4)*60}:2);
+	\coordinate (v6) at ({90 - (5)*60}:2);
+	
+	% fr symmetry
+	\coordinate (frp1) at ({90 + (1)*30}:2.5);
+	\coordinate (frp2) at ({90 - (5)*30}:2.5);
+	\draw[dashed, MagentaZB] (frp1)--(frp2);
+	\node[right=.1 of frp1] {$ \textcolor{MagentaZB}{fr} $};
+	
+	% hexagon
+	\draw[very thick] (v1)--(v2)--(v3)--(v4)--(v5)--(v6)--cycle;
+	
+	% labels
+	\node[font=\small] (l1) at ({90 - (0)*60}:2.3) {1};
+	\node[font=\small] (l2) at ({90 - (1)*60}:2.3) {2};
+	\node[font=\small] (l3) at ({90 - (2)*60}:2.3) {3};
+	\node[font=\small] (l4) at ({90 - (3)*60}:2.3) {4};
+	\node[font=\small] (l5) at ({90 - (4)*60}:2.3) {5};
+	\node[font=\small] (l6) at ({90 - (5)*60}:2.3) {6};
+	
+	% r symmetry
+	\draw[->, bend left=20, gray] (l1) to node[midway, above] {$ r $} (l2);
+	
+	% block system visualization
+	% first set
+	\draw[very thick, red!80] (v1)--(v4);
+	\filldraw[red!80] (v1) circle (3pt);
+	\filldraw[red!80] (v4) circle (3pt);
+	% second set
+	\draw[very thick, OliveGreenZB!80] (v2)--(v5);
+	\filldraw[OliveGreenZB!80] (v2) circle (3pt);
+	\filldraw[OliveGreenZB!80] (v5) circle (3pt);
+	% third set
+	\draw[very thick, blue!80] (v3)--(v6);
+	\filldraw[blue!80] (v3) circle (3pt);
+	\filldraw[blue!80] (v6) circle (3pt);
+	
+	\node[below=-.1 of l4] (blocksystem) {$ \{\textcolor{red!80}{\underbrace{\{1,4\}}_{\Delta}},\textcolor{OliveGreenZB!80}{\underbrace{\{2,5\}}_{r\cdot\Delta}},\textcolor{blue!80}{\underbrace{\{3,6\}}_{r^2\cdot\Delta}}\} $};
+	\node[below=0 of blocksystem] (ex1) {$ \psi_\Delta(\textcolor{gray}{r})(\textcolor{red!80}{\{1,4\}}) = \textcolor{OliveGreenZB!80}{\{2,5\}} $};
+	\node[below=0 of ex1] {$ \psi_\Delta(\textcolor{MagentaZB}{fr})(\textcolor{red!80}{\{1,4\}}) = \textcolor{blue!80}{\{3,6\}} $};
+\end{tikzpicture}

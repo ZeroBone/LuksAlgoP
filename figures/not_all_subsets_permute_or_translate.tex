@@ -1,0 +1,60 @@
+\begin{tikzpicture}[scale=1, thick]
+	\begin{scope}[shift={(-2.75,0)}]
+		% hexagon vertices
+		\coordinate (v1) at ({90 - (0)*60}:2);
+		\coordinate (v2) at ({90 - (1)*60}:2);
+		\coordinate (v3) at ({90 - (2)*60}:2);
+		\coordinate (v4) at ({90 - (3)*60}:2);
+		\coordinate (v5) at ({90 - (4)*60}:2);
+		\coordinate (v6) at ({90 - (5)*60}:2);
+		
+		% hexagon
+		\draw[very thick] (v1)--(v2)--(v3)--(v4)--(v5)--(v6)--cycle;
+		
+		% labels
+		\node[font=\small] (l1) at ({90 - (0)*60}:2.3) {1};
+		\node[font=\small] (l2) at ({90 - (1)*60}:2.3) {2};
+		\node[font=\small] (l3) at ({90 - (2)*60}:2.3) {3};
+		\node[font=\small] (l4) at ({90 - (3)*60}:2.3) {4};
+		\node[font=\small] (l5) at ({90 - (4)*60}:2.3) {5};
+		\node[font=\small] (l6) at ({90 - (5)*60}:2.3) {6};
+		
+		% flip around 1--4 axis
+		\draw[dashed, LightBlueZB] (v1) -- (v4);
+		
+		% block failure visualization
+		\draw[very thick, red!80] (v1)--(v3);
+		\filldraw[red!80] (v1) circle (3pt);
+		\filldraw[red!80] (v3) circle (3pt);
+	\end{scope}
+	\begin{scope}[shift={(2.75,0)}]
+		% hexagon vertices
+		\coordinate (v1) at ({90 - (0)*60}:2);
+		\coordinate (v2) at ({90 - (1)*60}:2);
+		\coordinate (v3) at ({90 - (2)*60}:2);
+		\coordinate (v4) at ({90 - (3)*60}:2);
+		\coordinate (v5) at ({90 - (4)*60}:2);
+		\coordinate (v6) at ({90 - (5)*60}:2);
+		
+		% hexagon
+		\draw[very thick] (v1)--(v2)--(v3)--(v4)--(v5)--(v6)--cycle;
+		
+		% labels
+		\node[font=\small] (l1) at ({90 - (0)*60}:2.3) {1};
+		\node[font=\small] (l2) at ({90 - (1)*60}:2.3) {2};
+		\node[font=\small] (l3) at ({90 - (2)*60}:2.3) {3};
+		\node[font=\small] (l4) at ({90 - (3)*60}:2.3) {4};
+		\node[font=\small] (l5) at ({90 - (4)*60}:2.3) {5};
+		\node[font=\small] (l6) at ({90 - (5)*60}:2.3) {6};
+		
+		% flip around 1--4 axis
+		\draw[dashed, LightBlueZB] (v1) -- (v4);
+		
+		% block failure visualization
+		\draw[very thick, red!80] (v1)--(v5);
+		\filldraw[red!80] (v1) circle (3pt);
+		\filldraw[red!80] (v5) circle (3pt);
+	\end{scope}
+	
+	\draw[->] (-.5,0) --node[midway, above]{$ \textcolor{LightBlueZB}{f} $} (.5,0);
+\end{tikzpicture}

@@ -1,0 +1,52 @@
+\begin{tikzpicture}[scale=1.0, every node/.style={font=\large}]
+	% Parameters
+	\def\semiMajorAxis{5.5}
+	\def\semiMinorAxis{3.5}
+	\def\npSubclassLabelOffset{-1.5}
+	\def\npSubclassExampleOffset{-1}
+	\def\pYCoord{-2.0}
+	\def\npiYCoord{0.0}
+	\def\npcYCoord{2.0}
+	
+	\path[use as bounding box] (-6,-3.2) rectangle (6,3.2);
+	
+	% NP ellipse (main region)
+	\path[name path=ellipse] (0,0) ellipse ({\semiMajorAxis} and {\semiMinorAxis});
+	\draw[fill=blue!10, thick, name path global=NP] (0,0) ellipse ({\semiMajorAxis} and {\semiMinorAxis});
+	\node at (4.7,2.6) {\textbf{NP}};
+	
+	% Define y positions of boundaries
+	\def\yP{-1.0}
+	\def\yC{1.0}
+	
+	% Define horizontal lines for boundaries
+	\path[name path=Pline] (-\semiMajorAxis-1,\yP) -- (\semiMajorAxis+1,\yP);
+	\path[name path=Cline] (-\semiMajorAxis-1,\yC) -- (\semiMajorAxis+1,\yC);
+	
+	% Find intersection points
+	\path[name intersections={of=ellipse and Pline, by={PL, PR}}];
+	\path[name intersections={of=ellipse and Cline, by={CL, CR}}];
+	
+	% Draw boundary lines exactly clipped to ellipse
+	\draw[dashed, thick] (PL) -- (PR);
+	\draw[dashed, thick] (CL) -- (CR);
+	
+	% Region labels
+	\node[font=\bfseries, OliveGreenZB!80!black, anchor=east] at (\npSubclassLabelOffset,\pYCoord) {P};
+	\node[font=\bfseries, anchor=east] at (\npSubclassLabelOffset,\npiYCoord) {NP-intermediate};
+	\node[font=\bfseries, DarkRedZB, anchor=east] at (\npSubclassLabelOffset,\npcYCoord) {NP-complete};
+	
+	% Example problems (directly inside regions)
+	% NPC
+	\node[anchor=west] at (\npSubclassExampleOffset,\npcYCoord + 0.5) {SAT, Clique, Coloring,};
+	\node[anchor=west] at (\npSubclassExampleOffset,\npcYCoord) {Vertex-Cover, Set-Cover,};
+	\node[anchor=west] at (\npSubclassExampleOffset,\npcYCoord - 0.5) {Hitting-Set, Subset-Sum, $ \dots $};
+	% NPI
+	\node[MagentaZB, anchor=west] (ginode) at (\npSubclassExampleOffset,\npiYCoord) {Graph Isomorphism ($ \GI $)};
+	\node[anchor=west] at ($ (ginode.east |- 0,\npiYCoord) + (-0.25,-0.1) $) {, $\dots$};
+	% P
+	\node[anchor=west] at (\npSubclassExampleOffset,\pYCoord + 0.5) {2-SAT, Edge-Cover, 2-Coloring,};
+	\node[anchor=west] at (\npSubclassExampleOffset,\pYCoord) {Primes, Maximal-Matching,};
+	\node[anchor=west] at (\npSubclassExampleOffset,\pYCoord - 0.5) {Shortest-Path, $ \dots $};
+	
+\end{tikzpicture}

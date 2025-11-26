@@ -111,58 +111,7 @@
 
 \begin{frame}{$ \GI $ has a very special status (for all we know)}
 	\begin{center}
-		\begin{tikzpicture}[scale=1.0, every node/.style={font=\large}]
-			% Parameters
-			\def\semiMajorAxis{5.5}
-			\def\semiMinorAxis{3.5}
-			\def\npSubclassLabelOffset{-1.5}
-			\def\npSubclassExampleOffset{-1}
-			\def\pYCoord{-2.0}
-			\def\npiYCoord{0.0}
-			\def\npcYCoord{2.0}
-			
-			\path[use as bounding box] (-6,-3.2) rectangle (6,3.2);
-			
-			% NP ellipse (main region)
-			\path[name path=ellipse] (0,0) ellipse ({\semiMajorAxis} and {\semiMinorAxis});
-			\draw[fill=blue!10, thick, name path global=NP] (0,0) ellipse ({\semiMajorAxis} and {\semiMinorAxis});
-			\node at (4.7,2.6) {\textbf{NP}};
-			
-			% Define y positions of boundaries
-			\def\yP{-1.0}
-			\def\yC{1.0}
-			
-			% Define horizontal lines for boundaries
-			\path[name path=Pline] (-\semiMajorAxis-1,\yP) -- (\semiMajorAxis+1,\yP);
-			\path[name path=Cline] (-\semiMajorAxis-1,\yC) -- (\semiMajorAxis+1,\yC);
-			
-			% Find intersection points
-			\path[name intersections={of=ellipse and Pline, by={PL, PR}}];
-			\path[name intersections={of=ellipse and Cline, by={CL, CR}}];
-			
-			% Draw boundary lines exactly clipped to ellipse
-			\draw[dashed, thick] (PL) -- (PR);
-			\draw[dashed, thick] (CL) -- (CR);
-			
-			% Region labels
-			\node[font=\bfseries, OliveGreenZB!80!black, anchor=east] at (\npSubclassLabelOffset,\pYCoord) {P};
-			\node[font=\bfseries, anchor=east] at (\npSubclassLabelOffset,\npiYCoord) {NP-intermediate};
-			\node[font=\bfseries, DarkRedZB, anchor=east] at (\npSubclassLabelOffset,\npcYCoord) {NP-complete};
-			
-			% Example problems (directly inside regions)
-			% NPC
-			\node[anchor=west] at (\npSubclassExampleOffset,\npcYCoord + 0.5) {SAT, Clique, Coloring,};
-			\node[anchor=west] at (\npSubclassExampleOffset,\npcYCoord) {Vertex-Cover, Set-Cover,};
-			\node[anchor=west] at (\npSubclassExampleOffset,\npcYCoord - 0.5) {Hitting-Set, Subset-Sum, $ \dots $};
-			% NPI
-			\node[MagentaZB, anchor=west] (ginode) at (\npSubclassExampleOffset,\npiYCoord) {Graph Isomorphism ($ \GI $)};
-			\node[anchor=west] at ($ (ginode.east |- 0,\npiYCoord) + (-0.25,-0.1) $) {, $\dots$};
-			% P
-			\node[anchor=west] at (\npSubclassExampleOffset,\pYCoord + 0.5) {2-SAT, Edge-Cover, 2-Coloring,};
-			\node[anchor=west] at (\npSubclassExampleOffset,\pYCoord) {Primes, Maximal-Matching,};
-			\node[anchor=west] at (\npSubclassExampleOffset,\pYCoord - 0.5) {Shortest-Path, $ \dots $};
-			
-		\end{tikzpicture}
+		\input{figures/gi_in_p_np}
 	\end{center}
 	\textbf{Warning}: this diagram assumes $ \PH $ does not collapse (long-standing open question) and $ \GI \notin \P $ (open).
 \end{frame}
@@ -175,17 +124,17 @@
 	\end{itemize}
 	\textbf{Example}: The automorphism group of
 	\begin{center}
-		\begin{tikzpicture}[every node/.style={circle, draw, fill=gray!10, inner sep=1pt, minimum size=18pt}, scale=0.8]
+		\begin{tikzpicture}[thick, scale=0.8]
 			% nodes
-			\node (v1) at (0,0) {1};
-			\node[left=1.5 of v1] (v2) {2};
-			\node[right=1.5 of v1] (v3) {3};
-			\node[above=1 of v2] (v4) {4};
-			\node[above=1 of v3] (v5) {5};
-			\node (v6) at ($ (v4)!0.5!(v2) - (2,0) $) {6};
-			\node (v7) at ($ (v3)!0.5!(v5) + (2,0) $) {7};
-			\node[above=1 of v6] (v8) {8};
-			\node[above=1 of v7] (v9) {9};
+			\node[grnode] (v1) at (0,0) {1};
+			\node[grnode, left=1.5 of v1] (v2) {2};
+			\node[grnode, right=1.5 of v1] (v3) {3};
+			\node[grnode, above=1 of v2] (v4) {4};
+			\node[grnode, above=1 of v3] (v5) {5};
+			\node[grnode] (v6) at ($ (v4)!0.5!(v2) - (2,0) $) {6};
+			\node[grnode] (v7) at ($ (v3)!0.5!(v5) + (2,0) $) {7};
+			\node[grnode, above=1 of v6] (v8) {8};
+			\node[grnode, above=1 of v7] (v9) {9};
 			
 			% edges
 			\draw (v1)--(v2) (v1)--(v4);
@@ -195,7 +144,7 @@
 			\draw (v5)--(v7) (v5)--(v9);
 		\end{tikzpicture}
 	\end{center}
-	is\[
+	\vspace{-5pt}is\[
 		\Aut(G) = \gen{(6\,8), (7\,9), (2\,3)(4\,5)(6\,7)(8\,9)} \le S_9
 	\]
 \end{frame}
@@ -768,167 +717,14 @@
 \begin{frame}{Some subsets of $ \Omega $ only permute or translate}
 	\textbf{Observation}: for any $ \gamma \in \Gamma $ we have
 	\begin{center}
-		\begin{tikzpicture}[scale=1, thick]
-			\begin{scope}[shift={(-2.75,0)}]
-				% hexagon vertices
-				\coordinate (v1) at ({90 - (0)*60}:2);
-				\coordinate (v2) at ({90 - (1)*60}:2);
-				\coordinate (v3) at ({90 - (2)*60}:2);
-				\coordinate (v4) at ({90 - (3)*60}:2);
-				\coordinate (v5) at ({90 - (4)*60}:2);
-				\coordinate (v6) at ({90 - (5)*60}:2);
-				
-				% hexagon
-				\draw[very thick] (v1)--(v2)--(v3)--(v4)--(v5)--(v6)--cycle;
-				
-				% labels
-				\node[font=\small] (l1) at ({90 - (0)*60}:2.3) {1};
-				\node[font=\small] (l2) at ({90 - (1)*60}:2.3) {2};
-				\node[font=\small] (l3) at ({90 - (2)*60}:2.3) {3};
-				\node[font=\small] (l4) at ({90 - (3)*60}:2.3) {4};
-				\node[font=\small] (l5) at ({90 - (4)*60}:2.3) {5};
-				\node[font=\small] (l6) at ({90 - (5)*60}:2.3) {6};
-				
-				% 60 degree rotation arrows
-				\draw[->, bend left=20, OliveGreenZB] (l1) to (l2);
-				\draw[->, bend left=20, OliveGreenZB] (l2) to (l3);
-				\draw[->, bend left=20, OliveGreenZB] (l3) to (l4);
-				\draw[->, bend left=20, OliveGreenZB] (l4) to (l5);
-				\draw[->, bend left=20, OliveGreenZB] (l5) to (l6);
-				\draw[->, bend left=20, OliveGreenZB] (l6) to (l1);
-				
-				% flip around 1--4 axis
-				\draw[dashed, LightBlueZB] (v1) -- (v4);
-				\draw[dashed, LightBlueZB] ($ (v1)!0.5!(v2) $) -- ($ (v4)!0.5!(v5) $);
-				\draw[dashed, LightBlueZB] (v2) -- (v5);
-				\draw[dashed, LightBlueZB] ($ (v2)!0.5!(v3) $) -- ($ (v5)!0.5!(v6) $);
-				\draw[dashed, LightBlueZB] (v3) -- (v6);
-				\draw[dashed, LightBlueZB] ($ (v3)!0.5!(v4) $) -- ($ (v6)!0.5!(v1) $);
-				
-				% block visualization
-				\draw[very thick, red!80] (v4)--(v6)--(v2)--cycle;
-				\filldraw[red!80] (v4) circle (3pt);
-				\filldraw[red!80] (v6) circle (3pt);
-				\filldraw[red!80] (v2) circle (3pt);
-				
-				\node[below=-.1 of l4] (lg1) {$ \gamma \cdot \{2,4,6\} = \{2,4,6\} $};
-				\node[below=-.15 of lg1] (lg2) {\textbf{or}};
-				\node[below=-.15 of lg2] {$ \gamma \cdot \{2,4,6\} = \{1,3,5\} $};
-			\end{scope}
-			\begin{scope}[shift={(2.75,0)}]
-				% hexagon vertices
-				\coordinate (v1) at ({90 - (0)*60}:2);
-				\coordinate (v2) at ({90 - (1)*60}:2);
-				\coordinate (v3) at ({90 - (2)*60}:2);
-				\coordinate (v4) at ({90 - (3)*60}:2);
-				\coordinate (v5) at ({90 - (4)*60}:2);
-				\coordinate (v6) at ({90 - (5)*60}:2);
-				
-				% hexagon
-				\draw[very thick] (v1)--(v2)--(v3)--(v4)--(v5)--(v6)--cycle;
-				
-				% labels
-				\node[font=\small] (l1) at ({90 - (0)*60}:2.3) {1};
-				\node[font=\small] (l2) at ({90 - (1)*60}:2.3) {2};
-				\node[font=\small] (l3) at ({90 - (2)*60}:2.3) {3};
-				\node[font=\small] (l4) at ({90 - (3)*60}:2.3) {4};
-				\node[font=\small] (l5) at ({90 - (4)*60}:2.3) {5};
-				\node[font=\small] (l6) at ({90 - (5)*60}:2.3) {6};
-				
-				% 60 degree rotation arrows
-				\draw[->, bend left=20, OliveGreenZB] (l1) to (l2);
-				\draw[->, bend left=20, OliveGreenZB] (l2) to (l3);
-				\draw[->, bend left=20, OliveGreenZB] (l3) to (l4);
-				\draw[->, bend left=20, OliveGreenZB] (l4) to (l5);
-				\draw[->, bend left=20, OliveGreenZB] (l5) to (l6);
-				\draw[->, bend left=20, OliveGreenZB] (l6) to (l1);
-				
-				% flip symmetries
-				\draw[dashed, LightBlueZB] (v1) -- (v4);
-				\draw[dashed, LightBlueZB] ($ (v1)!0.5!(v2) $) -- ($ (v4)!0.5!(v5) $);
-				\draw[dashed, LightBlueZB] (v2) -- (v5);
-				\draw[dashed, LightBlueZB] ($ (v2)!0.5!(v3) $) -- ($ (v5)!0.5!(v6) $);
-				\draw[dashed, LightBlueZB] (v3) -- (v6);
-				\draw[dashed, LightBlueZB] ($ (v3)!0.5!(v4) $) -- ($ (v6)!0.5!(v1) $);
-				
-				% block visualization
-				\draw[very thick, red!80] (v1)--(v4);
-				\filldraw[red!80] (v1) circle (3pt);
-				\filldraw[red!80] (v4) circle (3pt);
-				
-				\node[below=-.1 of l4] (rg1) {$ \gamma \cdot \{1,4\} = \{1,4\} $};
-				\node[below=-.15 of rg1] (rg2) {\textbf{or}};
-				\node[below=-.15 of rg2] (rg3) {$ \gamma \cdot \{1,4\} = \{2,5\} $};
-				\node[below=-.15 of rg3] (rg4) {\textbf{or}};
-				\node[below=-.15 of rg4] {$ \gamma \cdot \{1,4\} = \{3,6\} $};
-			\end{scope}
-		\end{tikzpicture}
+		\input{figures/some_subsets_only_permute_or_translate}
 	\end{center}
 \end{frame}
 
 \begin{frame}{Not all subsets have this nice behavior}
 	Consider $ \{1, 3\} \subseteq \Omega $.
 	\begin{center}
-		\begin{tikzpicture}[scale=1, thick]
-			\begin{scope}[shift={(-2.75,0)}]
-				% hexagon vertices
-				\coordinate (v1) at ({90 - (0)*60}:2);
-				\coordinate (v2) at ({90 - (1)*60}:2);
-				\coordinate (v3) at ({90 - (2)*60}:2);
-				\coordinate (v4) at ({90 - (3)*60}:2);
-				\coordinate (v5) at ({90 - (4)*60}:2);
-				\coordinate (v6) at ({90 - (5)*60}:2);
-				
-				% hexagon
-				\draw[very thick] (v1)--(v2)--(v3)--(v4)--(v5)--(v6)--cycle;
-				
-				% labels
-				\node[font=\small] (l1) at ({90 - (0)*60}:2.3) {1};
-				\node[font=\small] (l2) at ({90 - (1)*60}:2.3) {2};
-				\node[font=\small] (l3) at ({90 - (2)*60}:2.3) {3};
-				\node[font=\small] (l4) at ({90 - (3)*60}:2.3) {4};
-				\node[font=\small] (l5) at ({90 - (4)*60}:2.3) {5};
-				\node[font=\small] (l6) at ({90 - (5)*60}:2.3) {6};
-				
-				% flip around 1--4 axis
-				\draw[dashed, LightBlueZB] (v1) -- (v4);
-				
-				% block failure visualization
-				\draw[very thick, red!80] (v1)--(v3);
-				\filldraw[red!80] (v1) circle (3pt);
-				\filldraw[red!80] (v3) circle (3pt);
-			\end{scope}
-			\begin{scope}[shift={(2.75,0)}]
-				% hexagon vertices
-				\coordinate (v1) at ({90 - (0)*60}:2);
-				\coordinate (v2) at ({90 - (1)*60}:2);
-				\coordinate (v3) at ({90 - (2)*60}:2);
-				\coordinate (v4) at ({90 - (3)*60}:2);
-				\coordinate (v5) at ({90 - (4)*60}:2);
-				\coordinate (v6) at ({90 - (5)*60}:2);
-				
-				% hexagon
-				\draw[very thick] (v1)--(v2)--(v3)--(v4)--(v5)--(v6)--cycle;
-				
-				% labels
-				\node[font=\small] (l1) at ({90 - (0)*60}:2.3) {1};
-				\node[font=\small] (l2) at ({90 - (1)*60}:2.3) {2};
-				\node[font=\small] (l3) at ({90 - (2)*60}:2.3) {3};
-				\node[font=\small] (l4) at ({90 - (3)*60}:2.3) {4};
-				\node[font=\small] (l5) at ({90 - (4)*60}:2.3) {5};
-				\node[font=\small] (l6) at ({90 - (5)*60}:2.3) {6};
-				
-				% flip around 1--4 axis
-				\draw[dashed, LightBlueZB] (v1) -- (v4);
-				
-				% block failure visualization
-				\draw[very thick, red!80] (v1)--(v5);
-				\filldraw[red!80] (v1) circle (3pt);
-				\filldraw[red!80] (v5) circle (3pt);
-			\end{scope}
-		
-			\draw[->] (-.5,0) --node[midway, above]{$ \textcolor{LightBlueZB}{f} $} (.5,0);
-		\end{tikzpicture}
+		\input{figures/not_all_subsets_permute_or_translate}
 	\end{center}
 	Then $ \textcolor{LightBlueZB}{f} \cdot \{1, 3\} = \{1, 5\} $ neither permutes nor translates $ \{1, 3\} $
 \end{frame}
@@ -956,78 +752,7 @@
 	\end{center}
 	Block systems of non-trivial blocks in above example:
 	\vspace{-5pt}\begin{center}
-		\begin{tikzpicture}[scale=.8, thick]
-			\begin{scope}[shift={(-3,0)}]
-				% hexagon vertices
-				\coordinate (v1) at ({90 - (0)*60}:2);
-				\coordinate (v2) at ({90 - (1)*60}:2);
-				\coordinate (v3) at ({90 - (2)*60}:2);
-				\coordinate (v4) at ({90 - (3)*60}:2);
-				\coordinate (v5) at ({90 - (4)*60}:2);
-				\coordinate (v6) at ({90 - (5)*60}:2);
-				
-				% hexagon
-				\draw[very thick] (v1)--(v2)--(v3)--(v4)--(v5)--(v6)--cycle;
-				
-				% labels
-				\node[font=\small] (l1) at ({90 - (0)*60}:2.3) {1};
-				\node[font=\small] (l2) at ({90 - (1)*60}:2.3) {2};
-				\node[font=\small] (l3) at ({90 - (2)*60}:2.3) {3};
-				\node[font=\small] (l4) at ({90 - (3)*60}:2.3) {4};
-				\node[font=\small] (l5) at ({90 - (4)*60}:2.3) {5};
-				\node[font=\small] (l6) at ({90 - (5)*60}:2.3) {6};
-				
-				% block system visualization
-				% first set
-				\draw[very thick, red!80] (v1)--(v4);
-				\filldraw[red!80] (v1) circle (3pt);
-				\filldraw[red!80] (v4) circle (3pt);
-				% second set
-				\draw[very thick, OliveGreenZB!80] (v2)--(v5);
-				\filldraw[OliveGreenZB!80] (v2) circle (3pt);
-				\filldraw[OliveGreenZB!80] (v5) circle (3pt);
-				% third set
-				\draw[very thick, blue!80] (v3)--(v6);
-				\filldraw[blue!80] (v3) circle (3pt);
-				\filldraw[blue!80] (v6) circle (3pt);
-				
-				\node[below=-.1 of l4] {$ \{\textcolor{red!80}{\{1,4\}},\textcolor{OliveGreenZB!80}{\{2,5\}},\textcolor{blue!80}{\{3,6\}}\} $};
-			\end{scope}
-			\begin{scope}[shift={(3,0)}]
-				% hexagon vertices
-				\coordinate (v1) at ({90 - (0)*60}:2);
-				\coordinate (v2) at ({90 - (1)*60}:2);
-				\coordinate (v3) at ({90 - (2)*60}:2);
-				\coordinate (v4) at ({90 - (3)*60}:2);
-				\coordinate (v5) at ({90 - (4)*60}:2);
-				\coordinate (v6) at ({90 - (5)*60}:2);
-				
-				% hexagon
-				\draw[very thick] (v1)--(v2)--(v3)--(v4)--(v5)--(v6)--cycle;
-				
-				% labels
-				\node[font=\small] (l1) at ({90 - (0)*60}:2.3) {1};
-				\node[font=\small] (l2) at ({90 - (1)*60}:2.3) {2};
-				\node[font=\small] (l3) at ({90 - (2)*60}:2.3) {3};
-				\node[font=\small] (l4) at ({90 - (3)*60}:2.3) {4};
-				\node[font=\small] (l5) at ({90 - (4)*60}:2.3) {5};
-				\node[font=\small] (l6) at ({90 - (5)*60}:2.3) {6};
-				
-				% block system visualization
-				% first set
-				\draw[very thick, blue!80] (v1)--(v3)--(v5)--cycle;
-				\filldraw[blue!80] (v1) circle (3pt);
-				\filldraw[blue!80] (v3) circle (3pt);
-				\filldraw[blue!80] (v5) circle (3pt);
-				% second set
-				\draw[very thick, red!80] (v4)--(v6)--(v2)--cycle;
-				\filldraw[red!80] (v4) circle (3pt);
-				\filldraw[red!80] (v6) circle (3pt);
-				\filldraw[red!80] (v2) circle (3pt);
-				
-				\node[below=-.1 of l4] {$ \{\textcolor{red!80}{\{2,4,6\}},\textcolor{blue!80}{\{1,3,5\}}\} $};
-			\end{scope}
-		\end{tikzpicture}
+		\input{figures/block_systems_intro_example}
 	\end{center}
 \end{frame}
 
@@ -1047,38 +772,7 @@
 				\end{itemize}
 			\end{column}
 			\begin{column}{0.4\textwidth}
-				\begin{tikzpicture}[scale=.8, thick]
-					% pentagon vertices
-					\coordinate (v1) at ({90 - (0)*72}:2);
-					\coordinate (v2) at ({90 - (1)*72}:2);
-					\coordinate (v3) at ({90 - (2)*72}:2);
-					\coordinate (v4) at ({90 - (3)*72}:2);
-					\coordinate (v5) at ({90 - (4)*72}:2);
-					
-					% labels
-					\node[font=\small] (l1) at ({90 - (0)*72}:2.3) {1};
-					\node[font=\small] (l2) at ({90 - (1)*72}:2.3) {2};
-					\node[font=\small] (l3) at ({90 - (2)*72}:2.3) {3};
-					\node[font=\small] (l4) at ({90 - (3)*72}:2.3) {4};
-					\node[font=\small] (l5) at ({90 - (4)*72}:2.3) {5};
-					
-					% 60 degree rotation arrows
-					\draw[->, bend left=20, OliveGreenZB] (l1) to (l2);
-					\draw[->, bend left=20, OliveGreenZB] (l2) to (l3);
-					\draw[->, bend left=20, OliveGreenZB] (l3) to (l4);
-					\draw[->, bend left=20, OliveGreenZB] (l4) to (l5);
-					\draw[->, bend left=20, OliveGreenZB] (l5) to (l1);
-					
-					% flip symmetries
-					\draw[dashed, LightBlueZB] (v1)--($ (v3)!0.5!(v4) $);
-					\draw[dashed, LightBlueZB] (v2)--($ (v4)!0.5!(v5) $);
-					\draw[dashed, LightBlueZB] (v3)--($ (v5)!0.5!(v1) $);
-					\draw[dashed, LightBlueZB] (v4)--($ (v1)!0.5!(v2) $);
-					\draw[dashed, LightBlueZB] (v5)--($ (v2)!0.5!(v3) $);
-					
-					% pentagon
-					\draw[very thick] (v1)--(v2)--(v3)--(v4)--(v5)--cycle;
-				\end{tikzpicture}
+				\input{figures/pentagon_sym}
 			\end{column}
 		\end{columns}
 	\end{center}
@@ -1101,53 +795,7 @@
 				\end{itemize}
 			\end{column}
 			\begin{column}{0.4\textwidth}
-				\begin{tikzpicture}[scale=1, thick]
-					% hexagon vertices
-					\coordinate (v1) at ({90 - (0)*60}:2);
-					\coordinate (v2) at ({90 - (1)*60}:2);
-					\coordinate (v3) at ({90 - (2)*60}:2);
-					\coordinate (v4) at ({90 - (3)*60}:2);
-					\coordinate (v5) at ({90 - (4)*60}:2);
-					\coordinate (v6) at ({90 - (5)*60}:2);
-					
-					% fr symmetry
-					\coordinate (frp1) at ({90 + (1)*30}:2.5);
-					\coordinate (frp2) at ({90 - (5)*30}:2.5);
-					\draw[dashed, MagentaZB] (frp1)--(frp2);
-					\node[right=.1 of frp1] {$ \textcolor{MagentaZB}{fr} $};
-					
-					% hexagon
-					\draw[very thick] (v1)--(v2)--(v3)--(v4)--(v5)--(v6)--cycle;
-					
-					% labels
-					\node[font=\small] (l1) at ({90 - (0)*60}:2.3) {1};
-					\node[font=\small] (l2) at ({90 - (1)*60}:2.3) {2};
-					\node[font=\small] (l3) at ({90 - (2)*60}:2.3) {3};
-					\node[font=\small] (l4) at ({90 - (3)*60}:2.3) {4};
-					\node[font=\small] (l5) at ({90 - (4)*60}:2.3) {5};
-					\node[font=\small] (l6) at ({90 - (5)*60}:2.3) {6};
-					
-					% r symmetry
-					\draw[->, bend left=20, gray] (l1) to node[midway, above] {$ r $} (l2);
-					
-					% block system visualization
-					% first set
-					\draw[very thick, red!80] (v1)--(v4);
-					\filldraw[red!80] (v1) circle (3pt);
-					\filldraw[red!80] (v4) circle (3pt);
-					% second set
-					\draw[very thick, OliveGreenZB!80] (v2)--(v5);
-					\filldraw[OliveGreenZB!80] (v2) circle (3pt);
-					\filldraw[OliveGreenZB!80] (v5) circle (3pt);
-					% third set
-					\draw[very thick, blue!80] (v3)--(v6);
-					\filldraw[blue!80] (v3) circle (3pt);
-					\filldraw[blue!80] (v6) circle (3pt);
-					
-					\node[below=-.1 of l4] (blocksystem) {$ \{\textcolor{red!80}{\underbrace{\{1,4\}}_{\Delta}},\textcolor{OliveGreenZB!80}{\underbrace{\{2,5\}}_{r\cdot\Delta}},\textcolor{blue!80}{\underbrace{\{3,6\}}_{r^2\cdot\Delta}}\} $};
-					\node[below=0 of blocksystem] (ex1) {$ \psi_\Delta(\textcolor{gray}{r})(\textcolor{red!80}{\{1,4\}}) = \textcolor{OliveGreenZB!80}{\{2,5\}} $};
-					\node[below=0 of ex1] {$ \psi_\Delta(\textcolor{MagentaZB}{fr})(\textcolor{red!80}{\{1,4\}}) = \textcolor{blue!80}{\{3,6\}} $};
-				\end{tikzpicture}
+				\input{figures/lifting_actions_to_blocks}
 			\end{column}
 		\end{columns}
 	\end{center}
@@ -1161,124 +809,14 @@
 		\]
 	\end{itemize}
 	\begin{center}
-		\begin{tikzpicture}[scale=1, thick]
-				% hexagon vertices
-				\coordinate (v1) at ({90 - (0)*60}:2);
-				\coordinate (v2) at ({90 - (1)*60}:2);
-				\coordinate (v3) at ({90 - (2)*60}:2);
-				\coordinate (v4) at ({90 - (3)*60}:2);
-				\coordinate (v5) at ({90 - (4)*60}:2);
-				\coordinate (v6) at ({90 - (5)*60}:2);
-				
-				% fr symmetry
-				\coordinate (frp1) at ({90 + (1)*30}:2.5);
-				\coordinate (frp2) at ({90 - (5)*30}:2.5);
-				\draw[dashed, MagentaZB] (frp1)--(frp2);
-				\node[right=.1 of frp1] {$ \textcolor{MagentaZB}{fr} $};
-				
-				% fr^3 symmetry
-				\coordinate (fr3p1) at ({90 + (3)*30}:2.5);
-				\coordinate (fr3p2) at ({90 - (3)*30}:2.5);
-				\draw[dashed, DarkOrangeZB] (fr3p1)--(fr3p2);
-				\node at ($ (fr3p1) + (-.1, .3) $) {$ \textcolor{DarkOrangeZB}{fr^3} $};
-				
-				% fr^5 symmetry
-				\coordinate (fr5p1) at ({90 + (5)*30}:2.5);
-				\coordinate (fr5p2) at ({90 - (1)*30}:2);
-				\draw[dashed, TurquoiseZB] (fr5p1)--(fr5p2);
-				\node at ($ (fr5p1) + (-.25, .1) $) {$ \textcolor{TurquoiseZB}{fr^5} $};
-				
-				% hexagon
-				\draw[very thick] (v1)--(v2)--(v3)--(v4)--(v5)--(v6)--cycle;
-				
-				% labels
-				\node[font=\small] (l1) at ({90 - (0)*60}:2.3) {1};
-				\node[font=\small] (l2) at ({90 - (1)*60}:2.3) {2};
-				\node[font=\small] (l3) at ({90 - (2)*60}:2.3) {3};
-				\node[font=\small] (l4) at ({90 - (3)*60}:2.3) {4};
-				\node[font=\small] (l5) at ({90 - (4)*60}:2.3) {5};
-				\node[font=\small] (l6) at ({90 - (5)*60}:2.3) {6};
-				
-				% r symmetry
-				\draw[->, bend left=20, gray] (l1) to node[midway, above] {$ r $} (l2);
-				
-				% block system visualization
-				% first set
-				\draw[very thick, red!80] (v1)--(v4);
-				\filldraw[red!80] (v1) circle (3pt);
-				\filldraw[red!80] (v4) circle (3pt);
-				% second set
-				\draw[very thick, OliveGreenZB!80] (v2)--(v5);
-				\filldraw[OliveGreenZB!80] (v2) circle (3pt);
-				\filldraw[OliveGreenZB!80] (v5) circle (3pt);
-				% third set
-				\draw[very thick, blue!80] (v3)--(v6);
-				\filldraw[blue!80] (v3) circle (3pt);
-				\filldraw[blue!80] (v6) circle (3pt);
-				
-				\node (blocksystem) at ($ (l1) + (5.5, -.5) $) {$ \{\textcolor{red!80}{\underbrace{\{1,4\}}_{\Delta}},\textcolor{OliveGreenZB!80}{\underbrace{\{2,5\}}_{r\cdot\Delta}},\textcolor{blue!80}{\underbrace{\{3,6\}}_{r^2\cdot\Delta}}\} $};
-				
-				% stabilizers
-				\node[below=0 of blocksystem] (ex1) {$ \Stab_{\psi_\Delta}(\textcolor{red!80}{\{1,4\}}) = \gen{\textcolor{red!80}{f}, \textcolor{DarkOrangeZB}{fr^3}} $};
-				\node[below=0 of ex1] (ex2) {$ \Stab_{\psi_\Delta}(\textcolor{OliveGreenZB!80}{\{2,5\}}) = \gen{\textcolor{OliveGreenZB!80}{fr^4}, \textcolor{MagentaZB}{fr}} $};
-				\node[below=0 of ex2] (ex3) {$ \Stab_{\psi_\Delta}(\textcolor{blue!80}{\{3,6\}}) = \gen{\textcolor{blue!80}{fr^2}, \textcolor{TurquoiseZB}{fr^5}} $};
-				\node[below=0 of ex3] (hencearr) {\rotatebox[origin=c]{-90}{$ \rightsquigarrow $}};
-				\node[below=0 of hencearr] {$ \KernelOf(\psi_\Delta) = \{\id\} $};
-		\end{tikzpicture}
+		\input{figures/ker_of_block_induced_hom_extriv}
 	\end{center}
 \end{frame}
 
 \begin{frame}{Decomposing groups using block-induced homomorphisms}
 	The interesting case is when $ \KernelOf(\psi_\Delta) $ is non-trivial, for example:
 	\begin{center}
-		\begin{tikzpicture}[scale=1, thick]
-			% hexagon vertices
-			\coordinate (v1) at ({90 - (0)*60}:2);
-			\coordinate (v2) at ({90 - (1)*60}:2);
-			\coordinate (v3) at ({90 - (2)*60}:2);
-			\coordinate (v4) at ({90 - (3)*60}:2);
-			\coordinate (v5) at ({90 - (4)*60}:2);
-			\coordinate (v6) at ({90 - (5)*60}:2);
-			
-			% labels
-			\node[font=\small] (l1) at ({90 - (0)*60}:2.3) {1};
-			\node[font=\small] (l2) at ({90 - (1)*60}:2.3) {2};
-			\node[font=\small] (l3) at ({90 - (2)*60}:2.3) {3};
-			\node[font=\small] (l4) at ({90 - (3)*60}:2.3) {4};
-			\node[font=\small] (l5) at ({90 - (4)*60}:2.3) {5};
-			\node[font=\small] (l6) at ({90 - (5)*60}:2.3) {6};
-			
-			% f symmetry
-			\coordinate (origin) at (0,0);
-			\draw[dashed, MagentaZB] (v1)--(v4);
-			\node[right=.1 of origin] {$ \textcolor{MagentaZB}{f} $};
-			
-			% hexagon
-			\draw[very thick] (v1)--(v2)--(v3)--(v4)--(v5)--(v6)--cycle;
-			
-			% block system visualization
-			% first set
-			\draw[very thick, blue!80] (v1)--(v3)--(v5)--cycle;
-			\filldraw[blue!80] (v1) circle (3pt);
-			\filldraw[blue!80] (v3) circle (3pt);
-			\filldraw[blue!80] (v5) circle (3pt);
-			% second set
-			\draw[very thick, red!80] (v4)--(v6)--(v2)--cycle;
-			\filldraw[red!80] (v4) circle (3pt);
-			\filldraw[red!80] (v6) circle (3pt);
-			\filldraw[red!80] (v2) circle (3pt);
-			
-			% r symmetry
-			\draw[->, bend left=20, gray] (l1) to node[midway, above] {$ r $} (l2);
-			
-			\node (blocksystem) at ($ (l1) + (5.5, -.8) $) {$ \{\textcolor{red!80}{\underbrace{\{2,4,6\}}_{\Delta}},\textcolor{blue!80}{\underbrace{\{1,3,5\}}_{r\cdot\Delta}}\} $};
-			
-			% stabilizers
-			\node[below=0 of blocksystem] (ex1) {$ \Stab_{\psi_\Delta}(\textcolor{red!80}{\{2,4,6\}}) = \gen{\textcolor{gray}{r^2}, \textcolor{MagentaZB}{f}} $};
-			\node[below=0 of ex1] (ex2) {$ \Stab_{\psi_\Delta}(\textcolor{blue!80}{\{1,3,5\}}) = \gen{\textcolor{gray}{r^2}, \textcolor{MagentaZB}{f}} $};
-			\node[below=0 of ex2] (hencearr) {\rotatebox[origin=c]{-90}{$ \rightsquigarrow $}};
-			\node[below=0 of hencearr] {$ \KernelOf(\psi_\Delta) = \gen{\textcolor{gray}{r^2}, \textcolor{MagentaZB}{f}} \cong S_3 $};
-		\end{tikzpicture}
+		\input{figures/ker_of_block_induced_hom_exnontriv}
 	\end{center}
 	\begin{itemize}
 		\item $ \Gamma $ can be seen as a union of cosets of $ \KernelOf(\psi_\Delta) $
@@ -1355,104 +893,7 @@
 	% \item Let $ \cdot : \Gamma \times \Omega \rightarrow \Omega $ denote the action of $ \Gamma $ on $ \Omega
 	Let $ \omega_1, \dots, \omega_s $ be a transversal of $ \{\Gamma \cdot \omega \mid \omega \in \Omega\} $ (note: $ s \ge 2 $)
 	\begin{center}
-		\begin{tikzpicture}[thick]
-			\coordinate (blockwidth) at (10, 0);
-			\coordinate (blockheight) at (0, .75);
-			
-			\coordinate (omega1sep) at ($ (0, 0)!0.2!(blockwidth) $);
-			\coordinate (omega2sep) at ($ (0, 0)!0.4!(blockwidth) $);
-			\coordinate (omegam1sep) at ($ (0, 0)!0.6!(blockwidth) $);
-			\coordinate (omegam1endsep) at ($ (0, 0)!0.8!(blockwidth) $);
-			
-			\coordinate (utl) at (0, 0); % top left
-			\coordinate (utr) at (blockwidth); % top right
-			\coordinate (ubl) at ($ (0,0)-(blockheight) $); % bottom left
-			\coordinate (ubr) at ($ (ubl)+(blockwidth) $);
-			
-			\coordinate (uomega1sept) at ($ (utl-|omega1sep) $);
-			\coordinate (uomega1sepb) at ($ (ubl-|omega1sep) $);
-			\coordinate (uomega2sept) at ($ (utl-|omega2sep) $);
-			\coordinate (uomega2sepb) at ($ (ubl-|omega2sep) $);
-			\coordinate (uomegam1sept) at ($ (utl-|omegam1sep) $);
-			\coordinate (uomegam1sepb) at ($ (ubl-|omegam1sep) $);
-			\coordinate (uomegam1endsept) at ($ (utl-|omegam1endsep) $);
-			\coordinate (uomegam1endsepb) at ($ (ubl-|omegam1endsep) $);
-			
-			\coordinate (vtl) at ($ (ubl)-(blockheight) $); % top left
-			\coordinate (vtr) at ($ (vtl) + (blockwidth) $); % top right
-			\coordinate (vbl) at ($ (vtl)-(blockheight) $); % bottom left
-			\coordinate (vbr) at ($ (vbl)+(blockwidth) $);
-			
-			\coordinate (vomega1sept) at ($ (vtl-|omega1sep) $);
-			\coordinate (vomega1sepb) at ($ (vbl-|omega1sep) $);
-			\coordinate (vomega2sept) at ($ (vtl-|omega2sep) $);
-			\coordinate (vomega2sepb) at ($ (vbl-|omega2sep) $);
-			\coordinate (vomegam1sept) at ($ (vtl-|omegam1sep) $);
-			\coordinate (vomegam1sepb) at ($ (vbl-|omegam1sep) $);
-			\coordinate (vomegam1endsept) at ($ (vtl-|omegam1endsep) $);
-			\coordinate (vomegam1endsepb) at ($ (vbl-|omegam1endsep) $);
-			
-			\draw (uomega1sept)--(uomega1sepb) (uomega2sept)--(uomega2sepb) (uomegam1sept)--(uomegam1sepb);
-			\draw (vomega1sept)--(vomega1sepb) (vomega2sept)--(vomega2sepb) (vomegam1sept)--(vomegam1sepb);
-			\draw (utl) -- (utr) -- (ubr) -- (ubl) -- cycle;
-			\draw (vtl) -- (vtr) -- (vbr) -- (vbl) -- cycle;
-			
-			\draw[dashed] (ubl)--(vtl) (uomega1sepb)--(vomega1sept) (uomega2sepb)--(vomega2sept) (uomegam1sepb)--(vomegam1sept) (ubr)--(vtr);
-			
-			\draw [decorate, decoration = {brace, raise=5pt, amplitude=5pt, mirror}] (utl) -- (ubl) node[pos=0.5,left=10pt,black]{$ u $};
-			\draw [decorate, decoration = {brace, raise=5pt, amplitude=5pt, mirror}] (vtl) -- (vbl) node[pos=0.5,left=10pt,black]{$ v $};
-			
-			\draw [decorate, decoration = {brace, raise=5pt, amplitude=5pt}] (utl) -- (uomega1sept) node[pos=0.5,above=10pt,black]{$ \Gamma \cdot \omega_1 $};
-			\draw [decorate, decoration = {brace, raise=5pt, amplitude=5pt}] (uomega1sept) -- (uomega2sept) node[pos=0.5,above=10pt,black]{$ \Gamma \cdot \omega_2 $};
-			\draw [decorate, decoration = {brace, raise=5pt, amplitude=5pt}] (uomegam1sept) -- (uomegam1endsept) node[pos=0.5,above=10pt,black]{$ \Gamma \cdot \omega_s $};
-			\draw [decorate, decoration = {brace, raise=5pt, amplitude=5pt}] (uomegam1endsept) -- (utr) node[pos=0.5,above=10pt,black]{$ D \setminus \Omega $};
-			\draw [red!80, decorate, decoration = {brace, raise=5pt, amplitude=5pt}] ($ (utl) + (0,1) $) -- ($ (uomegam1endsept) + (0,1) $) node[pos=0.5,above=10pt,black]{$ \Omega $};
-			
-			\coordinate (omegaregsept) at ($ (uomegam1endsept) + (0,1) $);
-			\coordinate (omegaregsepb) at ($ (vomegam1endsepb) + (0,-.25) $);
-			\coordinate (omegaregseptl) at ($ (omegaregsept-|utl) $);
-			\draw[dashed, red!80] (omegaregsept)--(omegaregsepb);
-			\draw[dashed, red!80] (omegaregseptl)--(utl);
-			
-			\draw ($ (uomega2sepb)!0.5!(uomegam1sept) $) node {$ \dots $};
-			\draw ($ (vomega2sepb)!0.5!(vomegam1sept) $) node {$ \dots $};
-			
-			% dots for the D\Omega region
-			\draw ($ (uomegam1endsepb)!0.5!(utr) $) node {$ \dots $};
-			\draw ($ (vomegam1endsepb)!0.5!(vtr) $) node {$ \dots $};
-			
-			\coordinate (solchoffset) at (0, -0.6);
-			\coordinate (solch0) at ($ (vbl) + (solchoffset) $);
-			\coordinate (solch1) at ($ (vomega1sepb) + (solchoffset) $);
-			\coordinate (solch2) at ($ (vomega2sepb) + (solchoffset) $);
-			\coordinate (solchsm1) at ($ (vomegam1sepb) + (solchoffset) $);
-			\coordinate (solchs) at ($ (vomegam1endsepb) + (solchoffset) $);
-			
-			\node[opacity=0] (sol0) at (solch0) {$ \Gamma_0\sigma_0 $};
-			\node (sol1) at (solch1) {$ \Gamma_1\sigma_1 $};
-			\node (sol2) at (solch2) {$ \Gamma_2\sigma_2 $};
-			\node (solsm1) at (solchsm1) {$ \Gamma_{s-1}\sigma_{s-1} $};
-			\node (sols) at (solchs) {$ \Gamma_s\sigma_s $};
-			
-			\node[below=1 of sol0] (sol0gr) {$ \Gamma $};
-			\node[below=1 of sol1] (sol1gr) {$ \Gamma_1' $};
-			\node[below=1 of sol2] (sol2gr) {$ \Gamma_2' $};
-			\node[below=1 of solsm1] (solsm1gr) {$ \Gamma_{s-1}' $};
-			
-			\draw[->, LightBlueZB] (sol0gr) -- (sol1) node[midway, sloped, above, font=\small] {recursion} node[midway, sloped, below, font=\small] {$ \Omega = \Gamma \cdot \omega_1 $};
-			\draw[->, LightBlueZB] (sol1)--(sol1gr);
-			\draw[->, LightBlueZB] (sol1gr) -- (sol2) node[midway, sloped, above, font=\small] {recursion} node[midway, sloped, below, font=\small] {$ \Omega = \Gamma_1' \cdot \omega_2 $};
-			\draw[->, LightBlueZB] (sol2)--(sol2gr);
-			\coordinate (recdots) at ($ (sol2gr.north east)!0.5!(solsm1.south west) $);
-			\node[LightBlueZB] at (recdots) {\rotatebox[origin=c]{45}{$ \cdots $}};
-			\draw[->, LightBlueZB] (sol2gr)--($ (recdots) + (-.25,-.25) $);
-			\draw[->, LightBlueZB] ($ (recdots) + (.2,.2) $)--($ (solsm1.south west) + (.1,0) $);
-			\draw[->, LightBlueZB] (solsm1)--(solsm1gr);
-			\draw[->, LightBlueZB] (solsm1gr) -- (sols) node[midway, sloped, above, font=\small] {recursion} node[midway, sloped, below, font=\small] {$ \Omega = \Gamma_{s-1}' \cdot \omega_s $};
-			
-			\node[OliveGreenZB] (sollabel) at ($ (sols) + (1,-1) $) {Solution};
-			\draw[->, bend right=50, OliveGreenZB] (sollabel) to (sols.east);
-		\end{tikzpicture}
+		\input{figures/luks_intransitive_case}
 	\end{center}
 	\vspace{-5pt}\textbf{Note}: $ \Gamma \ge \Gamma_1' \ge \Gamma_2' \ge \dots \ge \Gamma_{s-1}' $
 \end{frame}
@@ -1466,56 +907,7 @@
 	\end{itemize}
 	\textbf{Example}:
 	\vspace{-20pt}\begin{center}
-		\begin{tikzpicture}[scale=1, thick]
-			% octagon vertices
-			\coordinate (v1) at ({90 - (0)*45}:2);
-			\coordinate (v2) at ({90 - (1)*45}:2);
-			\coordinate (v3) at ({90 - (2)*45}:2);
-			\coordinate (v4) at ({90 - (3)*45}:2);
-			\coordinate (v5) at ({90 - (4)*45}:2);
-			\coordinate (v6) at ({90 - (5)*45}:2);
-			\coordinate (v7) at ({90 - (6)*45}:2);
-			\coordinate (v8) at ({90 - (7)*45}:2);
-			
-			% octagon
-			\draw[very thick] (v1)--(v2)--(v3)--(v4)--(v5)--(v6)--(v7)--(v8)--cycle;
-			
-			% labels
-			\node[font=\small] (l1) at ({90 - (0)*45}:2.3) {1};
-			\node[font=\small] (l2) at ({90 - (1)*45}:2.3) {2};
-			\node[font=\small] (l3) at ({90 - (2)*45}:2.3) {3};
-			\node[font=\small] (l4) at ({90 - (3)*45}:2.3) {4};
-			\node[font=\small] (l5) at ({90 - (4)*45}:2.3) {5};
-			\node[font=\small] (l6) at ({90 - (5)*45}:2.3) {6};
-			\node[font=\small] (l7) at ({90 - (6)*45}:2.3) {7};
-			\node[font=\small] (l8) at ({90 - (7)*45}:2.3) {8};
-			
-			% block system visualization
-			% first set
-			\draw[very thick, red!80] (v1)--(v5);
-			\filldraw[red!80] (v1) circle (3pt);
-			\filldraw[red!80] (v5) circle (3pt);
-			% second set
-			\draw[very thick, OliveGreenZB!80] (v2)--(v6);
-			\filldraw[OliveGreenZB!80] (v2) circle (3pt);
-			\filldraw[OliveGreenZB!80] (v6) circle (3pt);
-			% third set
-			\draw[very thick, blue!80] (v3)--(v7);
-			\filldraw[blue!80] (v3) circle (3pt);
-			\filldraw[blue!80] (v7) circle (3pt);
-			% fourth set
-			\draw[very thick, DarkOrangeZB] (v4)--(v8);
-			\filldraw[DarkOrangeZB] (v4) circle (3pt);
-			\filldraw[DarkOrangeZB] (v8) circle (3pt);
-			
-			% r symmetry
-			\draw[->, bend left=20, gray] (l1) to node[midway, above] {$ r $} (l2);
-			
-			\node (blocksystemofdot1) at ($ (l1) + (5.5, -.45) $) {$ \underbrace{\{\textcolor{red!80}{\underbrace{\{1,5\}}_{\Delta}},\textcolor{OliveGreenZB!80}{\underbrace{\{2,6\}}_{r\cdot\Delta}},\textcolor{blue!80}{\underbrace{\{3,7\}}_{r^2 \cdot\Delta}}, \textcolor{DarkOrangeZB}{\underbrace{\{4,8\}}_{r^3 \cdot \Delta}}\}}_{\text{Block system of}\ \cdot} $};
-			\node[below=0 of blocksystemofdot1] (blocksystemofdot2) {$ \underbrace{\{\underbrace{\{\textcolor{red!80}{1},\textcolor{blue!80}{3},\textcolor{red!80}{5},\textcolor{blue!80}{7}\}}_{\Delta'},\underbrace{\{\textcolor{OliveGreenZB!80}{2},\textcolor{DarkOrangeZB}{4},\textcolor{OliveGreenZB!80}{6},\textcolor{DarkOrangeZB}{8}\}}_{r\cdot\Delta'}\}}_{\text{Block system of}\ \cdot} $};
-			\node[below=0 of blocksystemofdot2] (hencearr) {\rotatebox[origin=c]{-90}{$ \rightsquigarrow $}};
-			\node[below=0 of hencearr] (blocksystemofpsi) {$ \underbrace{\{\{\textcolor{red!80}{\{1,5\}},\textcolor{blue!80}{\{3,7\}}\},\{\textcolor{OliveGreenZB!80}{\{2,6\}}, \textcolor{DarkOrangeZB}{\{4,8\}}\}\}}_{\text{Block system of}\ \psi_\Delta} $};
-		\end{tikzpicture}
+		\input{figures/lifting_blocks}
 	\end{center}
 	\vspace{-15pt}$ \rightsquigarrow $ Non-minimality of $ \Delta \implies $ Non-primitivity of $ \psi_\Delta $
 \end{frame}
@@ -1523,109 +915,7 @@
 \begin{frame}{Flattening blocks of block-induced actions}
 	\vspace{-5pt}Any block of $ \psi_\Delta $ induces a block of $ \cdot $ via union, for example:
 	\vspace{-5pt}\begin{center}
-		\begin{tikzpicture}[scale=.8, thick]
-			\begin{scope}[shift={(-4,0)}]
-				% octagon vertices
-				\coordinate (v1) at ({90 - (0)*45}:2);
-				\coordinate (v2) at ({90 - (1)*45}:2);
-				\coordinate (v3) at ({90 - (2)*45}:2);
-				\coordinate (v4) at ({90 - (3)*45}:2);
-				\coordinate (v5) at ({90 - (4)*45}:2);
-				\coordinate (v6) at ({90 - (5)*45}:2);
-				\coordinate (v7) at ({90 - (6)*45}:2);
-				\coordinate (v8) at ({90 - (7)*45}:2);
-				
-				% octagon
-				\draw[very thick] (v1)--(v2)--(v3)--(v4)--(v5)--(v6)--(v7)--(v8)--cycle;
-				
-				% labels
-				\node[font=\small] (l1) at ({90 - (0)*45}:2.3) {1};
-				\node[font=\small] (l2) at ({90 - (1)*45}:2.3) {2};
-				\node[font=\small] (l3) at ({90 - (2)*45}:2.3) {3};
-				\node[font=\small] (l4) at ({90 - (3)*45}:2.3) {4};
-				\node[font=\small] (l5) at ({90 - (4)*45}:2.3) {5};
-				\node[font=\small] (l6) at ({90 - (5)*45}:2.3) {6};
-				\node[font=\small] (l7) at ({90 - (6)*45}:2.3) {7};
-				\node[font=\small] (l8) at ({90 - (7)*45}:2.3) {8};
-				
-				% block system visualization
-				% first set
-				\draw[very thick, red!80] (v1)--(v5);
-				\filldraw[red!80] (v1) circle (3pt);
-				\filldraw[red!80] (v5) circle (3pt);
-				% second set
-				\draw[very thick, OliveGreenZB!80] (v2)--(v6);
-				\filldraw[OliveGreenZB!80] (v2) circle (3pt);
-				\filldraw[OliveGreenZB!80] (v6) circle (3pt);
-				% third set
-				\draw[very thick, blue!80] (v3)--(v7);
-				\filldraw[blue!80] (v3) circle (3pt);
-				\filldraw[blue!80] (v7) circle (3pt);
-				% fourth set
-				\draw[very thick, DarkOrangeZB] (v4)--(v8);
-				\filldraw[DarkOrangeZB] (v4) circle (3pt);
-				\filldraw[DarkOrangeZB] (v8) circle (3pt);
-				
-				% r symmetry
-				\draw[->, bend left=20, gray] (l1) to node[midway, above] {$ r $} (l2);
-				
-				\node[below=-.1 of l5] (blocksystemofdot1) {$ \underbrace{\{\textcolor{red!80}{\underbrace{\{1,5\}}_{\Delta}},\textcolor{OliveGreenZB!80}{\underbrace{\{2,6\}}_{r\cdot\Delta}},\textcolor{blue!80}{\underbrace{\{3,7\}}_{r^2 \cdot\Delta}}, \textcolor{DarkOrangeZB}{\underbrace{\{4,8\}}_{r^3 \cdot \Delta}}\}}_{\text{Block system of}\ \cdot} $};
-			\end{scope}
-			\begin{scope}[shift={(4,0)}]
-				% octagon vertices
-				\coordinate (v1) at ({90 - (0)*45}:2);
-				\coordinate (v2) at ({90 - (1)*45}:2);
-				\coordinate (v3) at ({90 - (2)*45}:2);
-				\coordinate (v4) at ({90 - (3)*45}:2);
-				\coordinate (v5) at ({90 - (4)*45}:2);
-				\coordinate (v6) at ({90 - (5)*45}:2);
-				\coordinate (v7) at ({90 - (6)*45}:2);
-				\coordinate (v8) at ({90 - (7)*45}:2);
-				
-				% octagon
-				\draw[very thick] (v1)--(v2)--(v3)--(v4)--(v5)--(v6)--(v7)--(v8)--cycle;
-				
-				% labels
-				\node[font=\small] (l1) at ({90 - (0)*45}:2.3) {1};
-				\node[font=\small] (l2) at ({90 - (1)*45}:2.3) {2};
-				\node[font=\small] (l3) at ({90 - (2)*45}:2.3) {3};
-				\node[font=\small] (l4) at ({90 - (3)*45}:2.3) {4};
-				\node[font=\small] (l5) at ({90 - (4)*45}:2.3) {5};
-				\node[font=\small] (l6) at ({90 - (5)*45}:2.3) {6};
-				\node[font=\small] (l7) at ({90 - (6)*45}:2.3) {7};
-				\node[font=\small] (l8) at ({90 - (7)*45}:2.3) {8};
-				
-				% block system visualization
-				% first set
-				\draw[very thick, TurquoiseZB] (v1)--(v5);
-				\filldraw[TurquoiseZB] (v1) circle (3pt);
-				\filldraw[TurquoiseZB] (v5) circle (3pt);
-				% second set
-				\draw[very thick, MagentaZB] (v2)--(v6);
-				\filldraw[MagentaZB] (v2) circle (3pt);
-				\filldraw[MagentaZB] (v6) circle (3pt);
-				% third set
-				\draw[very thick, TurquoiseZB] (v3)--(v7);
-				\filldraw[TurquoiseZB] (v3) circle (3pt);
-				\filldraw[TurquoiseZB] (v7) circle (3pt);
-				% fourth set
-				\draw[very thick, MagentaZB] (v4)--(v8);
-				\filldraw[MagentaZB] (v4) circle (3pt);
-				\filldraw[MagentaZB] (v8) circle (3pt);
-				
-				% r symmetry
-				\draw[->, bend left=20, gray] (l1) to node[midway, above] {$ r $} (l2);
-				
-				\node[below=-.1 of l5] (blocksystemofdot2) {$ \underbrace{\{\textcolor{TurquoiseZB}{\underbrace{\{1,3,5,7\}}_{\Delta'}},\textcolor{MagentaZB}{\underbrace{\{2,4,6,8\}}_{r\cdot\Delta'}}\}}_{\text{Block system of}\ \cdot} $};
-			\end{scope}
-		
-			\coordinate (blocksystemofdotc) at ($ (blocksystemofdot1)!0.5!(blocksystemofdot2) $);
-		
-			\node at ($ (blocksystemofdotc) + (0,-2) $) (blocksystemofpsi) {$ \underbrace{\{\{\textcolor{red!80}{\{1,5\}},\textcolor{blue!80}{\{3,7\}}\},\{\textcolor{OliveGreenZB!80}{\{2,6\}}, \textcolor{DarkOrangeZB}{\{4,8\}}\}\}}_{\text{Block system of}\ \psi_\Delta} $};
-			
-			\draw[->, bend right=50] (blocksystemofdot1.south) to node[midway, left, font=\footnotesize] {has block system} (blocksystemofpsi.west);
-			\draw[->, bend right=50] (blocksystemofpsi.east) to node[midway, right, font=\footnotesize] {flattening} (blocksystemofdot2.south);
-		\end{tikzpicture}
+		\input{figures/flattening_blocks}
 	\end{center}
 	\vspace{-10pt}$ \rightsquigarrow $ Non-primitivity of $ \psi_\Delta \implies $ Non-minimality of $ \Delta $
 \end{frame}

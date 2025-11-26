@@ -1,0 +1,32 @@
+\begin{tikzpicture}[scale=.8, thick]
+	% pentagon vertices
+	\coordinate (v1) at ({90 - (0)*72}:2);
+	\coordinate (v2) at ({90 - (1)*72}:2);
+	\coordinate (v3) at ({90 - (2)*72}:2);
+	\coordinate (v4) at ({90 - (3)*72}:2);
+	\coordinate (v5) at ({90 - (4)*72}:2);
+	
+	% labels
+	\node[font=\small] (l1) at ({90 - (0)*72}:2.3) {1};
+	\node[font=\small] (l2) at ({90 - (1)*72}:2.3) {2};
+	\node[font=\small] (l3) at ({90 - (2)*72}:2.3) {3};
+	\node[font=\small] (l4) at ({90 - (3)*72}:2.3) {4};
+	\node[font=\small] (l5) at ({90 - (4)*72}:2.3) {5};
+	
+	% 60 degree rotation arrows
+	\draw[->, bend left=20, OliveGreenZB] (l1) to (l2);
+	\draw[->, bend left=20, OliveGreenZB] (l2) to (l3);
+	\draw[->, bend left=20, OliveGreenZB] (l3) to (l4);
+	\draw[->, bend left=20, OliveGreenZB] (l4) to (l5);
+	\draw[->, bend left=20, OliveGreenZB] (l5) to (l1);
+	
+	% flip symmetries
+	\draw[dashed, LightBlueZB] (v1)--($ (v3)!0.5!(v4) $);
+	\draw[dashed, LightBlueZB] (v2)--($ (v4)!0.5!(v5) $);
+	\draw[dashed, LightBlueZB] (v3)--($ (v5)!0.5!(v1) $);
+	\draw[dashed, LightBlueZB] (v4)--($ (v1)!0.5!(v2) $);
+	\draw[dashed, LightBlueZB] (v5)--($ (v2)!0.5!(v3) $);
+	
+	% pentagon
+	\draw[very thick] (v1)--(v2)--(v3)--(v4)--(v5)--cycle;
+\end{tikzpicture}

@@ -1,0 +1,50 @@
+\begin{tikzpicture}[scale=1, thick]
+	% octagon vertices
+	\coordinate (v1) at ({90 - (0)*45}:2);
+	\coordinate (v2) at ({90 - (1)*45}:2);
+	\coordinate (v3) at ({90 - (2)*45}:2);
+	\coordinate (v4) at ({90 - (3)*45}:2);
+	\coordinate (v5) at ({90 - (4)*45}:2);
+	\coordinate (v6) at ({90 - (5)*45}:2);
+	\coordinate (v7) at ({90 - (6)*45}:2);
+	\coordinate (v8) at ({90 - (7)*45}:2);
+	
+	% octagon
+	\draw[very thick] (v1)--(v2)--(v3)--(v4)--(v5)--(v6)--(v7)--(v8)--cycle;
+	
+	% labels
+	\node[font=\small] (l1) at ({90 - (0)*45}:2.3) {1};
+	\node[font=\small] (l2) at ({90 - (1)*45}:2.3) {2};
+	\node[font=\small] (l3) at ({90 - (2)*45}:2.3) {3};
+	\node[font=\small] (l4) at ({90 - (3)*45}:2.3) {4};
+	\node[font=\small] (l5) at ({90 - (4)*45}:2.3) {5};
+	\node[font=\small] (l6) at ({90 - (5)*45}:2.3) {6};
+	\node[font=\small] (l7) at ({90 - (6)*45}:2.3) {7};
+	\node[font=\small] (l8) at ({90 - (7)*45}:2.3) {8};
+	
+	% block system visualization
+	% first set
+	\draw[very thick, red!80] (v1)--(v5);
+	\filldraw[red!80] (v1) circle (3pt);
+	\filldraw[red!80] (v5) circle (3pt);
+	% second set
+	\draw[very thick, OliveGreenZB!80] (v2)--(v6);
+	\filldraw[OliveGreenZB!80] (v2) circle (3pt);
+	\filldraw[OliveGreenZB!80] (v6) circle (3pt);
+	% third set
+	\draw[very thick, blue!80] (v3)--(v7);
+	\filldraw[blue!80] (v3) circle (3pt);
+	\filldraw[blue!80] (v7) circle (3pt);
+	% fourth set
+	\draw[very thick, DarkOrangeZB] (v4)--(v8);
+	\filldraw[DarkOrangeZB] (v4) circle (3pt);
+	\filldraw[DarkOrangeZB] (v8) circle (3pt);
+	
+	% r symmetry
+	\draw[->, bend left=20, gray] (l1) to node[midway, above] {$ r $} (l2);
+	
+	\node (blocksystemofdot1) at ($ (l1) + (5.5, -.45) $) {$ \underbrace{\{\textcolor{red!80}{\underbrace{\{1,5\}}_{\Delta}},\textcolor{OliveGreenZB!80}{\underbrace{\{2,6\}}_{r\cdot\Delta}},\textcolor{blue!80}{\underbrace{\{3,7\}}_{r^2 \cdot\Delta}}, \textcolor{DarkOrangeZB}{\underbrace{\{4,8\}}_{r^3 \cdot \Delta}}\}}_{\text{Block system of}\ \cdot} $};
+	\node[below=0 of blocksystemofdot1] (blocksystemofdot2) {$ \underbrace{\{\underbrace{\{\textcolor{red!80}{1},\textcolor{blue!80}{3},\textcolor{red!80}{5},\textcolor{blue!80}{7}\}}_{\Delta'},\underbrace{\{\textcolor{OliveGreenZB!80}{2},\textcolor{DarkOrangeZB}{4},\textcolor{OliveGreenZB!80}{6},\textcolor{DarkOrangeZB}{8}\}}_{r\cdot\Delta'}\}}_{\text{Block system of}\ \cdot} $};
+	\node[below=0 of blocksystemofdot2] (hencearr) {\rotatebox[origin=c]{-90}{$ \rightsquigarrow $}};
+	\node[below=0 of hencearr] (blocksystemofpsi) {$ \underbrace{\{\{\textcolor{red!80}{\{1,5\}},\textcolor{blue!80}{\{3,7\}}\},\{\textcolor{OliveGreenZB!80}{\{2,6\}}, \textcolor{DarkOrangeZB}{\{4,8\}}\}\}}_{\text{Block system of}\ \psi_\Delta} $};
+\end{tikzpicture}
