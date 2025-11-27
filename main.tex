@@ -451,20 +451,20 @@
 	\end{example}
 \end{frame}
 
-\begin{frame}{$ \Gamma_d $-groups}
+\begin{frame}{$ \GammaD $-groups}
 	\begin{definition}[Luks]
-		A finite group $ \Gamma $ is a $ \Gamma_d $-group (notation: $ \Gamma \in \Gamma_d $) if every composition factor of $ \Gamma $ is isomorphic to some subgroup of $ S_d $.
+		A finite group $ \Gamma $ is a $ \GammaD $-group (notation: $ \Gamma \in \GammaD $) if every composition factor of $ \Gamma $ is isomorphic to some subgroup of $ S_d $.
 	\end{definition}
 
-	The class $ \Gamma_d $ has a lot of nice properties, for example:
+	The class $ \GammaD $ has a lot of nice properties, for example:
 	
-	\begin{lemma}[$ \Gamma_d $ closed under subgroups]
-		Let $ H $ be a finite $ \Gamma_d $-group and let $ H' \le H $. Then $ H' \in \Gamma_d $.
+	\begin{lemma}[$ \GammaD $ closed under subgroups]
+		Let $ H $ be a finite $ \GammaD $-group and let $ H' \le H $. Then $ H' \in \GammaD $.
 	\end{lemma}
 
 	\begin{lemma}
 		Let $ H $ be finite group and $ N \trianglelefteq H $. Then \[
-			H \in \Gamma_d \iff N \in \Gamma_d \text{ and } H/N \in \Gamma_d
+			H \in \GammaD \iff N \in \GammaD \text{ and } H/N \in \GammaD
 		\]
 	\end{lemma}
 \end{frame}
@@ -472,7 +472,7 @@
 \begin{frame}{Automorphism groups of bounded-degree graphs}
 	
 	\begin{itemize}
-		\item It would be nice if $ \Aut(G) \in \Gamma_d $ was true for graphs $ G $ of maximum degree $ \le d $
+		\item It would be nice if $ \Aut(G) \in \GammaD $ was true for graphs $ G $ of maximum degree $ \le d $
 		\item However, this is not the case:
 	\end{itemize}
 	\begin{theorem}[Frucht]
@@ -482,7 +482,7 @@
 		\item Fortunately, we can circumvent the problem by fixing a vertex $ v $ and considering $ \Aut(G, v) := \{\sigma \in \Aut(G) \mid \sigma(v) = v\} \le \Aut(G) $.
 	\end{itemize}
 	\begin{theorem}[Luks]
-		Let $ d \ge 2 $. For any connected graph $ G $ of maximum degree at most $ d $ and $ v \in V(G) $ it holds that $ \Aut(G, v) \in \Gamma_d $.
+		Let $ d \ge 2 $. For any connected graph $ G $ of maximum degree at most $ d $ and $ v \in V(G) $ it holds that $ \Aut(G, v) \in \GammaD $.
 	\end{theorem}
 \end{frame}
 
@@ -506,22 +506,22 @@
 \end{frame}
 
 \begin{frame}{Proof of Luks's theorem (continued)}
-	We prove $ \Aut(R_i, v) \in \Gamma_d $ by induction on $ i $.
+	We prove $ \Aut(R_i, v) \in \GammaD $ by induction on $ i $.
 	
-	\textbf{Base case} ($ i = 0 $): $ \Aut(R_0, v) = \{\id\} \in \Gamma_d $
+	\textbf{Base case} ($ i = 0 $): $ \Aut(R_0, v) = \{\id\} \in \GammaD $
 	
 	\textbf{Inductive step}:\begin{itemize}
 		\item Note that $ G[V(R_{i-1})] $ is equal to $ R_{i-1} $ up to possibly additional edges between vertices at distance exactly $ i-1 $ from $ v $
 		\item $ \rightsquigarrow \Aut(G[V(R_{i-1})], v) \le \Aut(R_{i-1}, v) $
-		\item By IH, $ \Aut(R_{i-1}, v) \in \Gamma_d $. Hence, $ \Aut(G[V(R_{i-1})], v) \in \Gamma_d $
+		\item By IH, $ \Aut(R_{i-1}, v) \in \GammaD $. Hence, $ \Aut(G[V(R_{i-1})], v) \in \GammaD $
 		\item Since $ \sigma \in \Aut(R_i, v) $ must send vertices in $ V(R_{i-1}) $ to $ V(R_{i-1}) $, \begin{align*}
 			\varphi_i : \Aut(R_i, v) &\rightarrow \Aut(G[V(R_{i-1})], v)\\
 			\sigma &\mapsto \sigma\restrict{V(R_{i-1})}
 		\end{align*} is well-defined
 		\item By FHT, \[
-		\Aut(R_i, v)/\KernelOf(\varphi_i) \cong \ImageOf(\varphi_i) = \Aut(G[V(R_{i-1})], v) \in \Gamma_d
+		\Aut(R_i, v)/\KernelOf(\varphi_i) \cong \ImageOf(\varphi_i) = \Aut(G[V(R_{i-1})], v) \in \GammaD
 		\]
-		\item By above lemma, it suffices to prove $ \KernelOf(\varphi_i) \in \Gamma_d $
+		\item By above lemma, it suffices to prove $ \KernelOf(\varphi_i) \in \GammaD $
 	\end{itemize}
 \end{frame}
 
@@ -531,7 +531,7 @@
 			\input{figures/luks_autgammad_thm_proof_im1toi}
 		\end{column}
 		\begin{column}{0.65\textwidth}
-			\textbf{To show}: $ \KernelOf(\varphi_i) \in \Gamma_d $
+			\textbf{To show}: $ \KernelOf(\varphi_i) \in \GammaD $
 			\begin{itemize}
 				\item $ \KernelOf(\varphi_i) $ consists of exactly those $ \sigma \in \Aut(G[V(R_{i-1})], v) $ such that $ \sigma(u) = u\ \forall u \in V(R_{i-1}) $.
 				\item Let $ W $ be nodes of $ R_i $ that are not in $ R_{i-1} $
@@ -541,7 +541,7 @@
 				%\pause
 				\item Since every node has degree $ \le d $, every $ w \in W $ can agree with $ \le d $ other $ w' \in W $ on the neighborhood
 				\item $ \rightsquigarrow \KernelOf(\varphi_i) $ isomorphic to a subgroup of $ S_d^m $
-				\item Since $ S_d^m \in \Gamma_d $ and $ \Gamma_d $ is closed under subgroups, the result follows.
+				\item Since $ S_d^m \in \GammaD $ and $ \GammaD $ is closed under subgroups, the result follows.
 			\end{itemize}
 		\end{column}
 	\end{columns}
@@ -551,7 +551,7 @@
 	The level-driven construction in the proof of Luks's theorem can be turned into an algorithm for $ \GI $:
 	
 	\begin{theorem}[Babai, Luks]
-		There is a polynomial-time Turing reduction from $ \GI $ for graphs of maximum degree $ d $ to $ \SI $ for $ \Gamma_d $-groups.
+		There is a polynomial-time Turing reduction from $ \GI $ for graphs of maximum degree $ d $ to $ \SI $ for $ \GammaD $-groups.
 	\end{theorem}
 
 	\textbf{Note}: W.l.o.g. we can assume that $ G_0 $ and $ G_1 $ are both connected
@@ -916,7 +916,7 @@
 	\end{theorem}
 \end{frame}
 
-\begin{frame}{Classification of primitive groups and application to $ \Gamma_d $}
+\begin{frame}{Classification of primitive groups and application to $ \GammaD $}
 	
 	A classification of all finite primitive groups is known:
 	
@@ -924,10 +924,10 @@
 		Every finite primitive group $ \Gamma \le \Sym(\Omega) $ is of affine type, of diagonal type, almost simple, the product action of a wreath product or a twisted wreath product.
 	\end{theorem}
 
-	Relying on the O'Nan-Scott theorem, it is possible to show that every primitive $ \Gamma_d $-group is of polynomial size:
+	Relying on the O'Nan-Scott theorem, it is possible to show that every primitive $ \GammaD $-group is of polynomial size:
 	
 	\begin{theorem}[Babai, Cameron, P\'{a}lfy]
-		For every $ d \ge 1 $ there exists $ c $ such that every primitive $ \Gamma_d $-group $ \Gamma \le S_n $ has order at most $ n^c $.
+		For every $ d \ge 1 $ there exists $ c $ such that every primitive $ \GammaD $-group $ \Gamma \le S_n $ has order at most $ n^c $.
 	\end{theorem}
 \end{frame}
 
@@ -937,7 +937,7 @@
 	\begin{itemize}
 		\item Since $ \Delta $ is minimal, by above theorem, $ \ImageOf(\psi_\Delta) $ is primitive
 		\item By FHT, \[
-			\Gamma \in \Gamma_d \implies \Gamma/\KernelOf(\psi_\Delta) \in \Gamma_d \implies \ImageOf(\psi_\Delta) \in \Gamma_d
+			\Gamma \in \GammaD \implies \Gamma/\KernelOf(\psi_\Delta) \in \GammaD \implies \ImageOf(\psi_\Delta) \in \GammaD
 		\]
 		\item $ \rightsquigarrow $ By the Babai-Cameron-P\'{a}lfy theorem, \[
 			\abs{T} = \abs{\ImageOf(\psi_\Delta)} \le k^c
@@ -948,8 +948,6 @@
 		\end{itemize}
 	\end{itemize}
 \end{frame}
-
-\newcommand{\NumLeaves}{\mathrm{\#Leaves}}
 
 \begin{frame}{Time complexity analysis}
 	\vspace{-5pt}\begin{claim}
@@ -983,7 +981,6 @@
 		\item $ \rightsquigarrow $ it suffices to show \[
 			\NumLeaves(\Theta_t\sigma_t) \le k \cdot \Bigg(\frac{\abs{\Omega}}{k}\Bigg)^{c+1}
 		\]
-		%\item By IH, $ \NumLeaves(\underbrace{\strisoluks(u, v, \KernelOf(\psi_\Delta)t, \Omega)}_{\Theta_t\sigma_t}) \le \abs{\KernelOf(\psi_\Delta)}^{c+1} $
 	\end{itemize}
 \end{frame}
 
@@ -1045,10 +1042,10 @@
 	Above claim, together with the observation that the degree of every non-leaf recursion call tree node or its child is $ \ge 3 $, yields:
 	
 	\begin{lemma}
-		Luks's algorithm for string isomorphism for $ \Gamma_d $-groups, where $ d $ is a constant, runs in polynomial time.
+		Luks's algorithm for string isomorphism for $ \GammaD $-groups, where $ d $ is a constant, runs in polynomial time.
 	\end{lemma}
 	
-	By combining this result with the Babai-Luks reduction from $ \GI $ to $ \SI $ for $ \Gamma_d $-groups, we obtain:
+	By combining this result with the Babai-Luks reduction from $ \GI $ to $ \SI $ for $ \GammaD $-groups, we obtain:
 	
 	\begin{theorem}[Luks]
 		$ \GI $ for graphs of maximum degree $ O(1) $ can be solved in polynomial time.
