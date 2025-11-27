@@ -29,6 +29,8 @@
 
 \input{utils/defs}
 
+\def\fullversion{1}
+
 %\AtBeginSection[]
 %{
 %	\begin{frame}
@@ -487,15 +489,13 @@
 	\end{theorem}
 \end{frame}
 
-% TODO: compress proof
-
 \begin{frame}{Proof of Luks's theorem}
 	\begin{columns}
 		\begin{column}{0.65\textwidth}
 			\input{figures/luks_autgammad_thm_proof_rdef}
 		\end{column}
 		\begin{column}{0.35\textwidth}  %%<--- here
-			Let $ R_i $ be a subgraph of $ G $ induced by nodes reachable in $ \le i $ steps from $ v $
+			Let $ R_i $ be the subgraph of $ G $ induced by nodes reachable in $ \le i $ steps from $ v $
 			
 			\vspace{5pt}\textbf{Note}: $ \exists i\ R_i = G $
 		\end{column}
@@ -744,6 +744,7 @@
 	\end{center}
 \end{frame}
 
+\if\fullversion1
 \begin{frame}{Primitive actions and groups}
 	\begin{itemize}
 		\item A block $ \Delta $ (and $ \Delta $'s block system) is called \textit{minimal} if there is no non-trivial block $ \Delta' \supsetneq \Delta $
@@ -765,6 +766,16 @@
 		\end{columns}
 	\end{center}
 \end{frame}
+\else
+\begin{frame}{Minimal blocks and block systems}
+	A block $ \Delta $ (and $ \Delta $'s block system) is called \textit{minimal} if there is no non-trivial block $ \Delta' \supsetneq \Delta $
+	
+	\textbf{Above example} -- following blocks systems are minimal:\begin{center}
+		\input{figures/block_systems_intro_example}
+	\end{center}
+	However, $ \{\{1\}, \{2\}, \{3\}, \{4\}, \{5\}, \{6\}\} $ is not minimal
+\end{frame}
+\fi
 
 \begin{frame}{Lifting actions from elements to blocks}
 	\begin{center}
@@ -791,7 +802,7 @@
 
 % TODO: put BCP here in compressed version and reformulate it in terms of ker and im
 
-% TODO: remove in compressed version
+\if\fullversion1
 \begin{frame}{Kernels of block-induced homomorphisms}
 	\begin{itemize}
 		\item Let $ \psi_\Delta : \Gamma \rightarrow \Sym(\{\gamma \cdot \Delta \mid \gamma \in \Gamma\}) $ be the homomorphism induced by the block $ \Delta \subseteq \Omega $
@@ -803,6 +814,7 @@
 		\input{figures/ker_of_block_induced_hom_extriv}
 	\end{center}
 \end{frame}
+\fi
 
 \begin{frame}{Decomposing groups using block-induced homomorphisms}
 	The interesting case is when $ \KernelOf(\psi_\Delta) $ is non-trivial, for example:
@@ -815,7 +827,7 @@
 	\end{itemize}
 \end{frame}
 
-% TODO: remove in compressed version
+\if\fullversion1
 \begin{frame}{Computing $ \KernelOf(\psi_\Delta) $ efficiently}
 	\textbf{\textcolor{DarkRedZB}{Problem}}: Computing $ \KernelOf(\psi_\Delta) $ by intersecting $ \psi_\Delta $'s stabilizers is computationally hard!
 	
@@ -833,6 +845,7 @@
 	\end{itemize}
 	$ \rightsquigarrow $ we fully circumvent the need to intersect groups!
 \end{frame}
+\fi
 
 \begin{frame}{Luks's algorithm for string isomorphism}
 	\vspace{-3pt}\scalebox{0.84}{
@@ -857,7 +870,11 @@
 						\nl \Return $ \strisoluks(u, v, \Gamma'\sigma', \Omega \setminus \Omega') $\;
 					}
 					\nl Compute a minimal block $ \Delta $ of the action of $ \Gamma $ on $ \Omega $ and the associated block system $ \{\gamma \cdot \Delta \mid \gamma \in \Gamma\} =: \{\Delta_1, \dots, \Delta_k\}$\;
+					\if\fullversion1
 					\nl Compute $ \KernelOf(\psi_\Delta) = \Stab_{\psi_\Delta^{(k-1)}}(\Delta_k) $\;
+					\else
+					\nl Compute $ \KernelOf(\psi_\Delta) $\;
+					\fi
 					\nl Compute a transversal $ T $ of $ \KernelOf(\psi_\Delta) $ in $ \Gamma $\;
 					\nl For each $ t \in T $ compute $ \Theta_t \sigma_t := \strisoluks(u, v, \KernelOf(\psi_\Delta)t, \Omega) $\;
 					\nl \Return compression of $ \bigcup_{t \in T} \Theta_t\sigma_t $ into a single coset\;
@@ -868,6 +885,7 @@
 	}
 \end{frame}
 
+\if\fullversion1
 \begin{frame}{From coset case to group case}
 	\begin{itemize}
 		\item More precisely, Luks's algorithm solves a more general variant of $ \SI $ where we are asked to compute \[
@@ -880,6 +898,7 @@
 		\item $ \rightsquigarrow $ Reduction from coset case to group case is correct
 	\end{itemize}
 \end{frame}
+\fi
 
 \begin{frame}{Case when $ \Gamma $ acts intransitively on $ \Omega $}
 	% \item Let $ \cdot : \Gamma \times \Omega \rightarrow \Omega $ denote the action of $ \Gamma $ on $ \Omega
@@ -892,6 +911,7 @@
 
 \section{Analysis of Luks's algorithm}
 
+\if\fullversion1
 \begin{frame}{Lifting non-minimal blocks to block-induced blocks}
 	Any blocks $ \Delta \subsetneq \Delta' $ of $ \cdot $ can be lifted to blocks of $ \psi_\Delta $ by\begin{itemize}
 		\item Writing $ \Delta' $ as a union of blocks in $ \{\gamma \cdot \Delta \mid \gamma \in \Gamma\} $
@@ -943,10 +963,10 @@
 	\begin{itemize}
 		\item Since $ \Delta $ is minimal, by above theorem, $ \ImageOf(\psi_\Delta) $ is primitive
 		\item By FHT, \[
-			\Gamma \in \GammaD \implies \Gamma/\KernelOf(\psi_\Delta) \in \GammaD \implies \ImageOf(\psi_\Delta) \in \GammaD
+		\Gamma \in \GammaD \implies \Gamma/\KernelOf(\psi_\Delta) \in \GammaD \implies \ImageOf(\psi_\Delta) \in \GammaD
 		\]
 		\item $ \rightsquigarrow $ By the Babai-Cameron-P\'{a}lfy theorem, \[
-			\abs{T} = \abs{\ImageOf(\psi_\Delta)} \le k^c
+		\abs{T} = \abs{\ImageOf(\psi_\Delta)} \le k^c
 		\] for some constant $ c $
 		\item $ \rightsquigarrow $ The transitive case of Luks's algorithm, excluding costs for recursive calls,\begin{itemize}
 			\item runs in polynomial time
@@ -954,9 +974,24 @@
 		\end{itemize}
 	\end{itemize}
 \end{frame}
+\else
+\begin{frame}{Analysis of case when $ \Gamma $ acts transitively on $ \Omega $}
+	\begin{theorem}[Babai, Cameron, P\'{a}lfy (special case, reformulated)]
+		For every $ d \ge 1 $ there exists $ c $ such that for every $ \Gamma \in \GammaD $ and action $ \cdot $ of $ \Gamma $ on $ \Omega $ having minimal block $ \Delta $ it holds that $ \abs{\Gamma/\KernelOf(\psi_\Delta)} \le n^c $, where $ n := \abs{\{\gamma \cdot \Delta \mid \gamma \in \Gamma\}} $ is the number of blocks.
+	\end{theorem}
+	\begin{itemize}
+		\item $ \rightsquigarrow $ The transversal size is bounded by \[
+		\abs{T} = \abs{\Gamma/\KernelOf(\psi_\Delta)} \le k^c
+		\] for some constant $ c $
+		\item $ \rightsquigarrow $ The transitive case of Luks's algorithm, excluding costs for recursive calls,\begin{itemize}
+			\item runs in polynomial time
+			\item makes polynomially many recursive calls
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+\fi
 
-% TODO: compress into one slide in compressed version
-
+\if\fullversion1
 \begin{frame}{Time complexity analysis}
 	\vspace{-5pt}\begin{claim}
 		Let $ \NumLeaves $ be the number of leaves in the tree of recursive calls. Then \[
@@ -980,21 +1015,21 @@
 	\textbf{Assume}: $ \Gamma $ acts transitively on $ \Omega $
 	
 	\textbf{To show}: \[
-		\NumLeaves(\strisoluks{$ u $, $ v $, $ \Gamma\sigma $, $ \Omega $}) \le \abs{\Omega}^{c+1}
+	\NumLeaves(\strisoluks{$ u $, $ v $, $ \Gamma\sigma $, $ \Omega $}) \le \abs{\Omega}^{c+1}
 	\] \textbf{Proof}:\begin{itemize}
 		\item We have already shown: $ \abs{T} \le k^c $
 		\item Clearly, \[
-			\NumLeaves(\strisoluks{$ u $, $ v $, $ \Gamma\sigma $, $ \Omega $}) \le k^c \cdot \NumLeaves(\Theta_t\sigma_t)
+		\NumLeaves(\strisoluks{$ u $, $ v $, $ \Gamma\sigma $, $ \Omega $}) \le k^c \cdot \NumLeaves(\Theta_t\sigma_t)
 		\] where $ \Theta_t\sigma_t = \strisoluks(u, v, \KernelOf(\psi_\Delta)t, \Omega) $ as defined in the algorithm
 		\item $ \rightsquigarrow $ it suffices to show \[
-			\NumLeaves(\Theta_t\sigma_t) \le k \cdot \Bigg(\frac{\abs{\Omega}}{k}\Bigg)^{c+1}
+		\NumLeaves(\Theta_t\sigma_t) \le k \cdot \Bigg(\frac{\abs{\Omega}}{k}\Bigg)^{c+1}
 		\]
 	\end{itemize}
 \end{frame}
 
 \begin{frame}{Time complexity analysis -- transitive case (continued)}
 	\vspace{-4pt}\textbf{To show}: \[
-		\NumLeaves(\Theta_t\sigma_t) \le k \cdot (\abs{\Omega}/k)^{c+1}
+	\NumLeaves(\Theta_t\sigma_t) \le k \cdot (\abs{\Omega}/k)^{c+1}
 	\] \textbf{Proof}: The tree of recursive calls starting at $ \Theta_t\sigma_t $ will be (in the worst case) of the form:\begin{center}
 		\begin{tikzpicture}[thick, scale=1]
 			% vertices
@@ -1044,6 +1079,25 @@
 		\item There are $ \le k $ such end nodes $ \rightsquigarrow $ the claim follows
 	\end{itemize}
 \end{frame}
+\else
+\begin{frame}{Time complexity analysis}
+	\begin{claim}
+		Let $ \NumLeaves $ be the number of leaves in the tree of recursive calls. Then \[
+		\NumLeaves \le \sum_{\Gamma\cdot\omega \in \Omega/\Gamma} \abs{\Gamma\cdot\omega}^{c+1}
+		\] where $ c $ is the constant of the Babai-Cameron-P\'{a}lfy theorem above.
+	\end{claim}
+	For reasons of time, we only prove this claim for the transitive case:
+	
+	\textbf{Sufficient to show}: \[
+		\NumLeaves(\Theta_t\sigma_t) \le k \cdot (\abs{\Omega}/k)^{c+1}
+	\]\vspace{-15pt}\begin{itemize}
+		\item The tree of recursive calls starting at $ \Theta_t\sigma_t $ will contain at most $ k $ recursive calls
+		\item Moreover, these calls are guaranteed to be in the intransitive case
+		\item The window size at every subcall is $ \le \abs{\Omega}/k $
+		\item $ \rightsquigarrow $ Claim follows by induction
+	\end{itemize}
+\end{frame}
+\fi
 
 \begin{frame}{Luks's algorithm for graph isomorphism}
 	
