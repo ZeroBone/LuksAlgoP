@@ -503,21 +503,27 @@
 \end{frame}
 
 \begin{frame}{Proof of Luks's theorem (continued)}
-	We prove $ \Aut(R_i, v) \in \GammaD $ by induction on $ i $.
-	
-	\textbf{Base case} ($ i = 0 $): $ \Aut(R_0, v) = \{\id\} \in \GammaD $
-	
-	\textbf{Inductive step}:\begin{itemize}
-		\item By IH, $ \Aut(R_{i-1}, v) \in \GammaD $
-		\item Since $ \Aut(R_i, v) $ must send vertices in $ V(R_{i-1}) $ to $ V(R_{i-1}) $, \begin{align*}
-			\varphi_i : \Aut(R_i, v) &\rightarrow \Aut(R_{i-1}, v)\\
-			\sigma &\mapsto \sigma\restrict{V(R_{i-1})}
-		\end{align*} is well-defined
-		\item By FHT, \[
-		\Aut(R_i, v)/\KernelOf(\varphi_i) \cong \ImageOf(\varphi_i) = \Aut(R_{i-1}, v) \in \GammaD
-		\]
-		\item By above lemma, it suffices to prove $ \KernelOf(\varphi_i) \in \GammaD $
-	\end{itemize}
+	\begin{columns}
+		\begin{column}{0.35\textwidth}
+			\input{figures/luks_autgammad_thm_proof_im1toi}
+		\end{column}
+		\begin{column}{0.65\textwidth}
+			We prove $ \Aut(R_i, v) \in \GammaD $ by induction on $ i $.
+			
+			\textbf{Base case} ($ i = 0 $): $ \Aut(R_0, v) = \{\id\} \in \GammaD $
+			
+			\textbf{Inductive step}:\begin{itemize}
+				\item Since $ \Aut(R_i, v) $ must send vertices in $ V(R_{i-1}) $ to $ V(R_{i-1}) $, \begin{align*}
+					\varphi_i : \Aut(R_i, v) &\rightarrow \Aut(R_{i-1}, v)\\
+					\sigma &\mapsto \sigma\restrict{V(R_{i-1})}
+				\end{align*} is a well-defined epimorphism
+				\item By FHT and IH, \[
+				\Aut(R_i, v)/\KernelOf(\varphi_i) \cong \Aut(R_{i-1}, v) \overset{\text{IH}}{\in} \GammaD
+				\]
+				\item By above lemma, it suffices to prove $ \KernelOf(\varphi_i) \in \GammaD $
+			\end{itemize}
+		\end{column}
+	\end{columns}
 \end{frame}
 
 \begin{frame}{Proof of Luks's theorem (continued)}
@@ -536,7 +542,7 @@
 				\item $ \rightsquigarrow $ If $ \sigma(w) = w' $ for some $ \sigma \in \KernelOf(\varphi_i) $ then $ w, w' \in W $ and $ N_{R_i}(w) = N_{R_i}(w') $
 				%\pause
 				\item Since every node has degree $ \le d $, every $ w \in W $ can agree with $ \le d $ other $ w' \in W $ on the neighborhood
-				\item $ \rightsquigarrow \KernelOf(\varphi_i) \le S_d^m $
+				\item $ \rightsquigarrow \KernelOf(\varphi_i) \cong H \le S_d^m $ for some $ H $
 				\item Since $ S_d^m \in \GammaD $ and $ \GammaD $ is closed under subgroups, the result follows
 			\end{itemize}
 		\end{column}
