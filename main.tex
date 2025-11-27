@@ -451,6 +451,7 @@
 	\end{example}
 \end{frame}
 
+% TODO: state lemma in terms of ker and im
 \begin{frame}{$ \GammaD $-groups}
 	\begin{definition}[Luks]
 		A finite group $ \Gamma $ is a $ \GammaD $-group (notation: $ \Gamma \in \GammaD $) if every composition factor of $ \Gamma $ is isomorphic to some subgroup of $ S_d $.
@@ -486,21 +487,17 @@
 	\end{theorem}
 \end{frame}
 
+% TODO: compress proof
+
 \begin{frame}{Proof of Luks's theorem}
 	\begin{columns}
 		\begin{column}{0.65\textwidth}
 			\input{figures/luks_autgammad_thm_proof_rdef}
 		\end{column}
 		\begin{column}{0.35\textwidth}  %%<--- here
-			Let $ R_i $ be a graph with \textbf{vertices}:
+			Let $ R_i $ be a subgraph of $ G $ induced by nodes reachable in $ \le i $ steps from $ v $
 			
-			$ w \in V(G) $ such that $ d_G(v, w) \le i $ 
-			
-			\textbf{edges}:
-			
-			$ \{w_1, w_2\} \in E(G) $ such that $ d_G(v, w_1) \le i - 1 $ and $ d_G(v, w_2) \le i $
-			
-			\vspace{5pt}Note that $ \exists i\ R_i = G $
+			\vspace{5pt}\textbf{Note}: $ \exists i\ R_i = G $
 		\end{column}
 	\end{columns}
 \end{frame}
@@ -511,15 +508,13 @@
 	\textbf{Base case} ($ i = 0 $): $ \Aut(R_0, v) = \{\id\} \in \GammaD $
 	
 	\textbf{Inductive step}:\begin{itemize}
-		\item Note that $ G[V(R_{i-1})] $ is equal to $ R_{i-1} $ up to possibly additional edges between vertices at distance exactly $ i-1 $ from $ v $
-		\item $ \rightsquigarrow \Aut(G[V(R_{i-1})], v) \le \Aut(R_{i-1}, v) $
-		\item By IH, $ \Aut(R_{i-1}, v) \in \GammaD $. Hence, $ \Aut(G[V(R_{i-1})], v) \in \GammaD $
-		\item Since $ \sigma \in \Aut(R_i, v) $ must send vertices in $ V(R_{i-1}) $ to $ V(R_{i-1}) $, \begin{align*}
-			\varphi_i : \Aut(R_i, v) &\rightarrow \Aut(G[V(R_{i-1})], v)\\
+		\item By IH, $ \Aut(R_{i-1}, v) \in \GammaD $
+		\item Since $ \Aut(R_i, v) $ must send vertices in $ V(R_{i-1}) $ to $ V(R_{i-1}) $, \begin{align*}
+			\varphi_i : \Aut(R_i, v) &\rightarrow \Aut(R_{i-1}, v)\\
 			\sigma &\mapsto \sigma\restrict{V(R_{i-1})}
 		\end{align*} is well-defined
 		\item By FHT, \[
-		\Aut(R_i, v)/\KernelOf(\varphi_i) \cong \ImageOf(\varphi_i) = \Aut(G[V(R_{i-1})], v) \in \GammaD
+		\Aut(R_i, v)/\KernelOf(\varphi_i) \cong \ImageOf(\varphi_i) = \Aut(R_{i-1}, v) \in \GammaD
 		\]
 		\item By above lemma, it suffices to prove $ \KernelOf(\varphi_i) \in \GammaD $
 	\end{itemize}
@@ -533,15 +528,16 @@
 		\begin{column}{0.65\textwidth}
 			\textbf{To show}: $ \KernelOf(\varphi_i) \in \GammaD $
 			\begin{itemize}
-				\item $ \KernelOf(\varphi_i) $ consists of exactly those $ \sigma \in \Aut(G[V(R_{i-1})], v) $ such that $ \sigma(u) = u\ \forall u \in V(R_{i-1}) $.
+				%\item $ \KernelOf(\varphi_i) $ consists of exactly those $ \sigma \in \Aut(R_{i-1}, v) $ such that $ \sigma(u) = u\ \forall u \in V(R_{i-1}) $
+				\item $ \KernelOf(\varphi_i) $ consists of exactly those automorphisms that fix $ V(R_{i-1}) $
 				\item Let $ W $ be nodes of $ R_i $ that are not in $ R_{i-1} $
-				\item $ W $ is an independent set in $ R_i $
+				\item W.l.o.g. $ W $ is an independent set in $ R_i $
 				% \item $ \rightsquigarrow $ Agreeing on $ N(w) $ is an equivalence relation
 				\item $ \rightsquigarrow $ If $ \sigma(w) = w' $ for some $ \sigma \in \KernelOf(\varphi_i) $ then $ w, w' \in W $ and $ N_{R_i}(w) = N_{R_i}(w') $
 				%\pause
 				\item Since every node has degree $ \le d $, every $ w \in W $ can agree with $ \le d $ other $ w' \in W $ on the neighborhood
-				\item $ \rightsquigarrow \KernelOf(\varphi_i) $ isomorphic to a subgroup of $ S_d^m $
-				\item Since $ S_d^m \in \GammaD $ and $ \GammaD $ is closed under subgroups, the result follows.
+				\item $ \rightsquigarrow \KernelOf(\varphi_i) \le S_d^m $
+				\item Since $ S_d^m \in \GammaD $ and $ \GammaD $ is closed under subgroups, the result follows
 			\end{itemize}
 		\end{column}
 	\end{columns}
@@ -646,10 +642,6 @@
 	\vspace{-5pt}\begin{itemize}
 		\item $ \Aut(G, v) \neq \{\id\} \iff G_0 \cong G_1\ \text{via}\ \sigma\ \text{such that}\ \sigma(e_0)=e_1$
 	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	TODO: remove
 \end{frame}
 
 \begin{frame}{Introduction to blocks of group actions}
@@ -791,6 +783,9 @@
 	\end{center}
 \end{frame}
 
+% TODO: put BCP here in compressed version and reformulate it in terms of ker and im
+
+% TODO: remove in compressed version
 \begin{frame}{Kernels of block-induced homomorphisms}
 	\begin{itemize}
 		\item Let $ \psi_\Delta : \Gamma \rightarrow \Sym(\{\gamma \cdot \Delta \mid \gamma \in \Gamma\}) $ be the homomorphism induced by the block $ \Delta \subseteq \Omega $
@@ -814,6 +809,7 @@
 	\end{itemize}
 \end{frame}
 
+% TODO: remove in compressed version
 \begin{frame}{Computing $ \KernelOf(\psi_\Delta) $ efficiently}
 	\textbf{\textcolor{DarkRedZB}{Problem}}: Computing $ \KernelOf(\psi_\Delta) $ by intersecting $ \psi_\Delta $'s stabilizers is computationally hard!
 	
@@ -952,6 +948,8 @@
 		\end{itemize}
 	\end{itemize}
 \end{frame}
+
+% TODO: compress into one slide in compressed version
 
 \begin{frame}{Time complexity analysis}
 	\vspace{-5pt}\begin{claim}
