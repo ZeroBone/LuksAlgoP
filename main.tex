@@ -202,6 +202,32 @@
 	\end{itemize}
 \end{frame}
 
+\begin{frame}{Solutions to $ \GI $, in a different sense, are cosets}
+	\begin{itemize}
+		\item Fix graphs $ G_0 $ and $ G_1 $ and let $ \sigma : V(G_0) \rightarrow V(G_1) $ be an isomorphism
+		\item $ \rightsquigarrow $ For any $ \tau \in \Aut(G_0) $, $ \sigma\tau $ is also an isomorphism:\begin{center}
+			\begin{tikzpicture}[thick]
+				\node (g0) {$ G_0 $};
+				\node[right=4 of g0] (g1) {$ G_1 $};
+				
+				\draw[->, bend left=20, LightBlueZB] (g0) to node[midway, above] {$ \sigma $} (g1);
+				\draw[->, LightBlueZB] (g0) to[out=120,in=60,looseness=8] node[midway, above] {$ \Aut(G_0) $} (g0);
+			\end{tikzpicture}
+		\end{center}
+		\item There are no further solutions because for any isomorphisms $ \sigma_1, \sigma_2 $\begin{center}
+			\begin{tikzpicture}[thick]
+				\node (g0) {$ G_0 $};
+				\node[right=4 of g0] (g1) {$ G_1 $};
+				
+				\draw[->, bend left=20, LightBlueZB] (g0) to node[midway, above] {$ \sigma_1 $} (g1);
+				\draw[->, bend right=20, LightBlueZB] (g0) to node[midway, above] {$ \sigma_2 $} (g1);
+				\draw[->, LightBlueZB] (g0) to[out=120,in=60,looseness=8] node[midway, above] {$ \Aut(G_0) $} (g0);
+			\end{tikzpicture}
+		\end{center} we have $ \sigma_2^{-1} \sigma_1 \in \Aut(G_0) $ which holds iff $ \sigma_1 \Aut(G_0) = \sigma_2 \Aut(G_0) $
+		\item $ \rightsquigarrow $ In this sense, solutions to $ \GI $ are cosets of the form $ \sigma \Aut(G_0) $
+	\end{itemize}
+\end{frame}
+
 \begin{frame}{High-level overview}
 	We will show how to solve (a fragment of) $ \GI $ via an intermediate problem:
 	\begin{center}
@@ -262,7 +288,7 @@
 	\end{definition}
 
 	\begin{example}
-		Consider $ \Gamma := \gen{(1,\dots,n)} \le S_n = \Sym(D) $ for $ D := \{1, \dots, n\} $.
+		Consider $ \Gamma := \gen{(1\,2\,\dots\,n)} \le S_n = \Sym(D) $ for $ D := \{1, \dots, n\} $.
 		
 		Then $ u \cong_\Gamma v $ if and only if $ u $ and $ v $ are conjugate words.
 	\end{example}
