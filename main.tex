@@ -2,7 +2,6 @@
 
 \def\fullversion{1}
 
-% \documentclass{beamer}
 \usepackage{lmodern}
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
@@ -186,11 +185,11 @@
 \end{frame}
 
 \if\fullversion1
-\begin{frame}{Solutions to $ \GI $ are sets of cosets}
+\begin{frame}{In one sense, solutions to $ \GI $ are sets of cosets}
 	\begin{itemize}
 		\item Let $ \cdot $ denote the vertex renaming action of $ \Sym(V(G)) $ on the set of all graphs with vertices $ V(G) $
 		\item Fix one of the input graphs $ G_0 $
-		\item $ \rightsquigarrow $ Space of solutions to $ \GI $ is \[
+		\item In a sense, space of solutions to $ \GI $ is \[
 			\{G_1 \mid G_1 \cong G_0\} = S_n \cdot G_0
 		\] the orbit of $ G_0 $
 		\item Since $ \Aut(G_0) = \Stab(G_0) $ and \begin{align*}
@@ -203,7 +202,7 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Solutions to $ \GI $, in a different sense, are cosets}
+\begin{frame}{In a different sense, solutions to $ \GI $ are cosets}
 	\begin{itemize}
 		\item Fix graphs $ G_0 $ and $ G_1 $ and let $ \sigma : V(G_0) \rightarrow V(G_1) $ be an isomorphism
 		\item $ \rightsquigarrow $ For any $ \tau \in \Aut(G_0) $, $ \sigma\tau $ is also an isomorphism:\begin{center}
@@ -940,7 +939,7 @@
 \section{Analysis of Luks's algorithm}
 
 \if\fullversion1
-\begin{frame}{Lifting non-minimal blocks to block-induced blocks}
+\begin{frame}{Lifting non-minimal blocks to blocks of blocks}
 	Any blocks $ \Delta \subsetneq \Delta' $ of $ \cdot $ can be lifted to blocks of $ \psi_\Delta $ by\begin{itemize}
 		\item Writing $ \Delta' $ as a union of blocks in $ \{\gamma \cdot \Delta \mid \gamma \in \Gamma\} $
 		\item Treating the sets in that union as elements
@@ -1129,10 +1128,10 @@
 
 \begin{frame}{Luks's algorithm for graph isomorphism}
 	
-	Above claim, together with the observation that the degree of every non-leaf recursion call tree node or its child is $ \ge 3 $, yields:
+	Above claim, together with the observation that the degree of every non-leaf recursion call tree node or its (non-leaf) child is $ \ge 3 $, yields:
 	
 	\begin{lemma}
-		Luks's algorithm for string isomorphism for $ \GammaD $-groups, where $ d $ is a constant, runs in polynomial time.
+		Luks's algorithm for $ \SI $ for $ \GammaD $-groups runs in polynomial time if $ d \le O(1) $.
 	\end{lemma}
 	
 	By combining this result with the Babai-Luks reduction from $ \GI $ to $ \SI $ for $ \GammaD $-groups, we obtain:
