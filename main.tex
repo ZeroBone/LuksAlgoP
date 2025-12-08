@@ -1,6 +1,6 @@
 \documentclass[handout]{beamer}
 
-\def\fullversion{0}
+\def\fullversion{1}
 
 \usepackage{lmodern}
 \usepackage[utf8]{inputenc}
@@ -42,7 +42,8 @@
 	{\insertinstitute\par}
 	\if\fullversion0
 	\vskip2em
-	{Full version of the presentation available at \textcolor{LightBlueZB}{\href{https://github.com/ZeroBone/LuksAlgoP/releases/latest}{github.com/ZeroBone/LuksAlgoP/releases/latest}}\par}
+	{Full version of the presentation:\par}
+	{\textcolor{LightBlueZB}{\href{https://github.com/ZeroBone/LuksAlgoP/releases/latest}{github.com/ZeroBone/LuksAlgoP/releases/latest}}\par}
 	\fi
 }
 
@@ -118,7 +119,7 @@
 \end{definition}
 \end{frame}
 
-\begin{frame}{$ \GI $ has a very special status (for all we know)}
+\begin{frame}{$ \GI $ has a very special complexity status (for all we know)}
 	\begin{center}
 		\input{figures/gi_in_p_np}
 	\end{center}
@@ -191,6 +192,8 @@
 	\end{center}
 \end{frame}
 
+\if\fullversion1
+
 \begin{frame}{In one sense, solutions to $ \GI $ are sets of cosets}
 	\begin{itemize}
 		\item Let $ \cdot $ denote the vertex renaming action of $ S_n $ on the set of all graphs with vertices $ \{1, \dots, n\} $
@@ -233,6 +236,7 @@
 		\item $ \rightsquigarrow $ In this sense, solutions to $ \GI $ are cosets of the form $ \sigma \Aut(G_0) $
 	\end{itemize}
 \end{frame}
+\fi
 
 \begin{frame}{High-level overview}
 	We will show how to solve (a fragment of) $ \GI $ via an intermediate problem:
@@ -261,7 +265,7 @@
 	
 	A string is a mapping $ u : D \rightarrow \Sigma $ where $ D, \Sigma $ are fixed finite sets.
 	
-	\textbf{Intuition}: Elements of $ D $ are markers of positions, and values of $ u $ are characters at the corresponding positions.
+	\textbf{Intuition}: $ d \in D $ is a position, $ u(d) $ is the character at that position.
 	
 	\begin{definition}[Permutation applied to a string]
 		For $ \sigma \in \Sym(D) $, define string $ u^\sigma $ to be \begin{align*}
@@ -588,8 +592,12 @@
 		There is a polynomial-time Turing reduction from $ \GI $ for graphs of maximum degree $ d $ to $ \SI $ for $ \GammaD $-groups.
 	\end{theorem}
 
-	\textbf{Note}: W.l.o.g. we can assume that $ G_0 $ and $ G_1 $ are both connected
+	\textbf{Crux of proof}: Combine the level-driven construction of Luks's theorem with the reduction $ \GI \le_m^p \SI $ above
+
+	% \textbf{Note}: W.l.o.g. we can assume that $ G_0 $ and $ G_1 $ are both connected
 \end{frame}
+
+\if\fullversion1
 
 \begin{frame}{Sketch of proof of Babai-Luks theorem}
 	For every $ (e_0, e_1) \in E(G_0) \times E(G_1) $, compute the following gadget $ G $:
@@ -681,6 +689,8 @@
 		\item $ \Aut(G, v) \neq \{\id\} \iff G_0 \cong G_1\ \text{via}\ \sigma\ \text{such that}\ \sigma(e_0)=e_1$
 	\end{itemize}
 \end{frame}
+
+\fi
 
 \begin{frame}{Introduction to blocks of group actions}
 	We start with an example:
@@ -887,7 +897,7 @@
 			\begin{algorithm}[H]
 				\SetAlgoLined
 				\KwIn{Strings $ u, v : D \rightarrow \Sigma $, a coset $ \Gamma\sigma $ (where $ \Gamma \le \Sym(D) $ and $ \sigma \in \Sym(D) $) and a $ \Gamma $-invariant set $ \Omega \subseteq D $}
-				\KwOut{$ \{\delta \in \Gamma\sigma \mid u^\delta(\omega) = v(\omega)\ \forall \omega \in \Omega\} $ represented as a coset}
+				\KwOut{Coset $ \{\delta \in \Gamma\sigma \mid u^\delta(\omega) = v(\omega)\ \forall \omega \in \Omega\} $ or $ \varnothing $}
 				\SetKwFunction{strisoluks}{striso}
 				\SetKwProg{strisoluksproc}{Function}{}{end}
 				\strisoluksproc{\strisoluks{$ u $, $ v $, $ \Gamma\sigma $, $ \Omega $}}{
@@ -1146,6 +1156,17 @@
 	\begin{theorem}[Luks]
 		$ \GI $ for graphs of maximum degree $ O(1) $ can be solved in polynomial time.
 	\end{theorem}
+\end{frame}
+
+\begin{frame}
+	\begin{center}
+		{\Huge \textbf{Thank You!}}
+		\if\fullversion0
+		\vskip2em
+		{Full version of the presentation:\par}
+		{\textcolor{LightBlueZB}{\href{https://github.com/ZeroBone/LuksAlgoP/releases/latest}{github.com/ZeroBone/LuksAlgoP/releases/latest}}\par}
+		\fi
+	\end{center}
 \end{frame}
 
 \end{document}
